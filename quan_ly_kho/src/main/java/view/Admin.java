@@ -105,6 +105,8 @@ public class Admin extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         LoggerTacVu = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
+        LoggerTacVu1 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         MainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -292,7 +294,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 700, 240, -1));
+        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 780, 240, -1));
 
         NhaCungCap.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -332,7 +334,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(NhaCungCapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Farm)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         NavbarMenu.add(NhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 240, 40));
@@ -521,7 +523,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 240, -1));
+        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 740, 240, -1));
 
         NhapHang1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -612,7 +614,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(LoggerTacVuLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel16)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         LoggerTacVuLayout.setVerticalGroup(
             LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,7 +626,42 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(LoggerTacVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 240, -1));
 
-        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 750));
+        LoggerTacVu1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        LoggerTacVu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LoggerTacVu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoggerTacVu1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LoggerTacVu1MousePressed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
+        jLabel17.setText("SP chất thải");
+
+        javax.swing.GroupLayout LoggerTacVu1Layout = new javax.swing.GroupLayout(LoggerTacVu1);
+        LoggerTacVu1.setLayout(LoggerTacVu1Layout);
+        LoggerTacVu1Layout.setHorizontalGroup(
+            LoggerTacVu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoggerTacVu1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel17)
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        LoggerTacVu1Layout.setVerticalGroup(
+            LoggerTacVu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoggerTacVu1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        NavbarMenu.add(LoggerTacVu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 240, -1));
+
+        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 820));
 
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -636,10 +673,10 @@ public class Admin extends javax.swing.JFrame {
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 820, Short.MAX_VALUE)
         );
 
-        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 750));
+        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 820));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1006,6 +1043,36 @@ public class Admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_LoggerTacVuMousePressed
 
+    private void LoggerTacVu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoggerTacVu1MouseClicked
+        // TODO add your handling code here:
+        // Khởi tạo form quản lý ProductionFacility
+        ProductionFacilityForm productionFacilityForm = new ProductionFacilityForm();
+
+        // Thay thế nội dung chính bằng form ProductionFacility
+        MainContent.removeAll();
+        MainContent.add(productionFacilityForm).setVisible(true);
+    }//GEN-LAST:event_LoggerTacVu1MouseClicked
+
+    private void LoggerTacVu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoggerTacVu1MousePressed
+        // TODO add your handling code here:
+        ThucAn.setBackground(DefaultColor);
+        PhieuNhap.setBackground(DefaultColor);
+        NhapHang.setBackground(DefaultColor);
+        XuatHang.setBackground(DefaultColor);
+        PhieuXuat.setBackground(DefaultColor);
+        NhaCungCap.setBackground(DefaultColor);
+        TonKho.setBackground(DefaultColor);
+        TaiKhoan1.setBackground(DefaultColor);
+        Farm.setBackground(DefaultColor);
+        NCC.setBackground(DefaultColor);
+        NhapHang1.setBackground(DefaultColor);
+        TruyCapHeThong.setBackground(DefaultColor);
+        LoggerTacVu.setBackground(DefaultColor);
+
+        // Đặt màu nhấn (clicked) cho LoggerTacVu1
+        LoggerTacVu1.setBackground(ClickedColor);
+    }//GEN-LAST:event_LoggerTacVu1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1028,6 +1095,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel DangXuat;
     private javax.swing.JLabel Farm;
     private javax.swing.JPanel LoggerTacVu;
+    private javax.swing.JPanel LoggerTacVu1;
     private javax.swing.JPanel MainContent;
     private javax.swing.JPanel NCC;
     private javax.swing.JLabel NameUser;
@@ -1049,6 +1117,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
