@@ -91,6 +91,4 @@ public class SearchSystemActionHistory {
         }
         return result;
     }
-    
-
 }

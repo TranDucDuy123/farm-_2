@@ -105,6 +105,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         LoggerTacVu = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
+        CSSX = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        CSKT = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
         MainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -292,7 +296,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 700, 240, -1));
+        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 780, 240, -1));
 
         NhaCungCap.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -332,7 +336,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(NhaCungCapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Farm)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         NavbarMenu.add(NhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 240, 40));
@@ -521,7 +525,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 240, -1));
+        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 740, 240, -1));
 
         NhapHang1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -612,7 +616,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(LoggerTacVuLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel16)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         LoggerTacVuLayout.setVerticalGroup(
             LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,7 +628,77 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(LoggerTacVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 240, -1));
 
-        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 750));
+        CSSX.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        CSSX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CSSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CSSXMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CSSXMousePressed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
+        jLabel17.setText("CSSX SPCT");
+
+        javax.swing.GroupLayout CSSXLayout = new javax.swing.GroupLayout(CSSX);
+        CSSX.setLayout(CSSXLayout);
+        CSSXLayout.setHorizontalGroup(
+            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CSSXLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel17)
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+        CSSXLayout.setVerticalGroup(
+            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CSSXLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        NavbarMenu.add(CSSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 240, -1));
+
+        CSKT.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        CSKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CSKT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CSKTMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CSKTMousePressed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
+        jLabel18.setText("CSKT SPCT");
+
+        javax.swing.GroupLayout CSKTLayout = new javax.swing.GroupLayout(CSKT);
+        CSKT.setLayout(CSKTLayout);
+        CSKTLayout.setHorizontalGroup(
+            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CSKTLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel18)
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+        CSKTLayout.setVerticalGroup(
+            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CSKTLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        NavbarMenu.add(CSKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 240, -1));
+
+        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 820));
 
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -636,10 +710,10 @@ public class Admin extends javax.swing.JFrame {
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 820, Short.MAX_VALUE)
         );
 
-        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 750));
+        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 820));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1006,6 +1080,67 @@ public class Admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_LoggerTacVuMousePressed
 
+    private void CSSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSSXMouseClicked
+        // TODO add your handling code here:
+        // Khởi tạo form quản lý ProductionFacility
+        ProductionFacilityForm productionFacilityForm = new ProductionFacilityForm();
+
+        // Thay thế nội dung chính bằng form ProductionFacility
+        MainContent.removeAll();
+        MainContent.add(productionFacilityForm).setVisible(true);
+    }//GEN-LAST:event_CSSXMouseClicked
+
+    private void CSSXMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSSXMousePressed
+        // TODO add your handling code here:
+        ThucAn.setBackground(DefaultColor);
+        PhieuNhap.setBackground(DefaultColor);
+        NhapHang.setBackground(DefaultColor);
+        XuatHang.setBackground(DefaultColor);
+        PhieuXuat.setBackground(DefaultColor);
+        NhaCungCap.setBackground(DefaultColor);
+        TonKho.setBackground(DefaultColor);
+        TaiKhoan1.setBackground(DefaultColor);
+        Farm.setBackground(DefaultColor);
+        NCC.setBackground(DefaultColor);
+        NhapHang1.setBackground(DefaultColor);
+        TruyCapHeThong.setBackground(DefaultColor);
+        LoggerTacVu.setBackground(DefaultColor);
+
+        // Đặt màu nhấn (clicked) cho LoggerTacVu1
+        CSSX.setBackground(ClickedColor);
+    }//GEN-LAST:event_CSSXMousePressed
+
+    private void CSKTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSKTMouseClicked
+         // Khởi tạo form quản lý TestingFacility
+    TestingFacilityForm testingFacilityForm = new TestingFacilityForm();
+
+    // Thay thế nội dung chính bằng form TestingFacility
+    MainContent.removeAll();
+    MainContent.add(testingFacilityForm).setVisible(true);
+    }//GEN-LAST:event_CSKTMouseClicked
+
+    private void CSKTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSKTMousePressed
+        // TODO add your handling code here:
+         // Đặt lại màu nền mặc định cho tất cả các menu khác
+        ThucAn.setBackground(DefaultColor);
+        PhieuNhap.setBackground(DefaultColor);
+        NhapHang.setBackground(DefaultColor);
+        XuatHang.setBackground(DefaultColor);
+        PhieuXuat.setBackground(DefaultColor);
+        NhaCungCap.setBackground(DefaultColor);
+        TonKho.setBackground(DefaultColor);
+        TaiKhoan1.setBackground(DefaultColor);
+        Farm.setBackground(DefaultColor);
+        NCC.setBackground(DefaultColor);
+        NhapHang1.setBackground(DefaultColor);
+        TruyCapHeThong.setBackground(DefaultColor);
+        LoggerTacVu.setBackground(DefaultColor);
+        CSSX.setBackground(DefaultColor);
+
+        // Đặt màu nhấn (clicked) cho CSKT
+        CSKT.setBackground(ClickedColor);
+    }//GEN-LAST:event_CSKTMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1025,6 +1160,8 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Account;
+    private javax.swing.JPanel CSKT;
+    private javax.swing.JPanel CSSX;
     private javax.swing.JPanel DangXuat;
     private javax.swing.JLabel Farm;
     private javax.swing.JPanel LoggerTacVu;
@@ -1049,6 +1186,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
