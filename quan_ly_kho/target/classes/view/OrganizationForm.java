@@ -71,7 +71,7 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
     // Phương thức khởi tạo bảng
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"ID", "Tên tổ chức", "Người liên hệ", "Số điện thoại", "Email", "Loại tổ chức", "Trạng thái"};
+        String[] headerTbl = new String[]{"ID", "Tên tổ chức", "Người liên hệ", "Số điện thoại", "Email", "Địa chỉ", "Loại tổ chức", "Trạng thái"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblOrganization.setModel(tblModel);
     }
@@ -87,6 +87,7 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
                     org.getContactPerson(),
                     org.getPhone(),
                     org.getEmail(),
+                    org.getAddress(),
                     org.getOrganizationType(),
                     org.getStatus()
                 });
