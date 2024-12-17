@@ -6,15 +6,19 @@ package view;
 
 import dao.CommuneDAO;
 import dao.DistrictDAO;
+import dao.FarmCertificateDAO;
 import dao.FarmDAO;
 import dao.ProductionFacilityDAO;
 import dao.SanPhamDAO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Commune;
 import model.District;
 import model.Farm;
+import model.FarmCertificate;
 import model.ProductionFacility;
 import model.SanPham;
 
@@ -24,9 +28,26 @@ import model.SanPham;
  * @author Admin
  */
 public class AddCertification extends javax.swing.JDialog {
+    private CertificateForm owner;  // Form cha để reload dữ liệu sau khi thêm
 
-    AddCertification(CertificateForm aThis, JFrame jFrame, boolean rootPaneCheckingEnabled) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public AddCertification(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
+        super(owner, modal);
+        this.owner = (CertificateForm) parent;
+        initComponents();
+        setLocationRelativeTo(null);
+        loadFarmData(); // Tải dữ liệu các Farm vào ComboBox
+        rbtnActive.setSelected(true); // Set trạng thái mặc định là "Hiệu lực"
+    }
+
+    private void loadFarmData() {
+        // Load danh sách Farm từ database vào ComboBox
+        FarmDAO farmDAO = new FarmDAO();
+        ArrayList<Farm> farms = (ArrayList<Farm>) farmDAO.selectAll();
+        cbxFarm.removeAllItems();
+        cbxFarm.addItem("Chọn cơ sở");
+        for (Farm farm : farms) {
+            cbxFarm.addItem(farm.getFarmId() + " - " + farm.getFarmName());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -38,17 +59,17 @@ public class AddCertification extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         btnAddProduct = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        txtFacilityName = new javax.swing.JTextField();
+        txtCertificateType = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtExpiryDate = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtIssueDate = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxFarm = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        txtFacilityName1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        txtIssuer = new javax.swing.JTextField();
+        rbtnActive = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -91,15 +112,15 @@ public class AddCertification extends javax.swing.JDialog {
 
         jLabel2.setText("Cơ sở");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFarm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("Cơ quan cấp ");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Hiệu lực");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbtnActive);
+        rbtnActive.setText("Hiệu lực");
+        rbtnActive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbtnActiveActionPerformed(evt);
             }
         });
 
@@ -120,22 +141,22 @@ public class AddCertification extends javax.swing.JDialog {
                 .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rbtnActive, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFacilityName1)
+                        .addComponent(txtIssuer)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtFacilityName, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                .addComponent(txtCertificateType, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtExpiryDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtIssueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbxFarm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel4))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -145,28 +166,28 @@ public class AddCertification extends javax.swing.JDialog {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFacilityName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCertificateType, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxFarm, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(3, 3, 3)
-                .addComponent(txtFacilityName1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIssuer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
+                    .addComponent(rbtnActive)
                     .addComponent(jRadioButton2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -190,7 +211,7 @@ public class AddCertification extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jLabel1)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,57 +232,54 @@ public class AddCertification extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-//        // Lấy thông tin từ các trường đầu vào
-//        String facilityName = txtFacilityName.getText().trim();
-//        String address = txtAddress.getText().trim();
-//        String contactPerson = txtContactPerson.getText().trim();
-//        String contactPhone = txtContactPhone.getText().trim();
-//
-//        // Kiểm tra các trường thông tin
-//        if (facilityName.isEmpty() || address.isEmpty() || contactPerson.isEmpty() || contactPhone.isEmpty()
-//            || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-//            return;
-//        }
-//
-//        // Lấy ID huyện và xã từ ComboBox (dùng phương thức để lấy ID từ tên)
-//        String districtName = cbxDistrict.getSelectedItem().toString();
-//        String communeName = cbxCommune.getSelectedItem().toString();
-//
-//        int districtId = getDistrictIdByName(districtName);
-//        int communeId = getCommuneIdByName(communeName);
-//
-//        // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
-//        if (districtId == -1 || communeId == -1) {
-//            JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
-//            return;
-//        }
-//
-//        // Tạo đối tượng ProductionFacility với thông tin đã nhập
-//        ProductionFacility facility = new ProductionFacility(0, facilityName, address, districtId, communeId, contactPerson, contactPhone);
-//
-//        try {
-//            // Thêm cơ sở sản xuất vào cơ sở dữ liệu
-//            int result = ProductionFacilityDAO.getInstance().insert(facility);
-//
-//            if (result > 0) {
-//                JOptionPane.showMessageDialog(this, "Thêm cơ sở sản xuất thành công!");
-//                this.dispose();
-//                // Tải lại bảng sau khi thêm
-//                ArrayList<ProductionFacility> productionFacilities = (ArrayList<ProductionFacility>) ProductionFacilityDAO.getInstance().selectAll();
-//                owner.loadDataToTable(productionFacilities);
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Thêm cơ sở sản xuất thất bại!");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi thêm cơ sở sản xuất!");
-//        }
+         // Lấy thông tin từ các trường đầu vào
+        String certificateType = txtCertificateType.getText().trim();
+        String issuer = txtIssuer.getText().trim();
+        String farmData = (String) cbxFarm.getSelectedItem(); // Lấy dữ liệu từ ComboBox
+        int status = rbtnActive.isSelected() ? 1 : 0; // Lấy trạng thái từ RadioButtons
+
+         // Lấy ngày từ JDateChooser
+        Date issueDateValue = txtIssueDate.getDate();
+        Date expiryDateValue = txtExpiryDate.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String issueDate = issueDateValue != null ? dateFormat.format(issueDateValue) : "";
+        
+        String expiryDate = expiryDateValue != null ? dateFormat.format(expiryDateValue) : "";
+        // Kiểm tra các trường thông tin
+        if (certificateType.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty() 
+            || issuer.isEmpty() || farmData == null || farmData.equals("Chọn cơ sở")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Lấy farm_id từ ComboBox (định dạng: "farm_id - farm_name")
+        int farmId = Integer.parseInt(farmData.split(" - ")[0]); 
+
+        // Tạo đối tượng FarmCertificate với thông tin đã nhập
+        FarmCertificate certificate = new FarmCertificate(farmId, certificateType, issueDate, expiryDate, issuer, status);
+
+        try {
+            // Thêm chứng chỉ vào cơ sở dữ liệu
+            int result = FarmCertificateDAO.getInstance().insert(certificate);
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm chứng chỉ thành công!");
+                this.dispose(); // Đóng form sau khi thêm thành công
+                // Tải lại bảng sau khi thêm
+                ArrayList<FarmCertificate> certificates = (ArrayList<FarmCertificate>) FarmCertificateDAO.getInstance().selectAll();
+                owner.loadDataToTable(certificates);
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm chứng chỉ thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi thêm chứng chỉ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbtnActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnActiveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbtnActiveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,9 +382,7 @@ public class AddCertification extends javax.swing.JDialog {
     private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnCancel;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JComboBox<String> cbxFarm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -376,9 +392,11 @@ public class AddCertification extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField txtFacilityName;
-    private javax.swing.JTextField txtFacilityName1;
+    private javax.swing.JRadioButton rbtnActive;
+    private javax.swing.JTextField txtCertificateType;
+    private com.toedter.calendar.JDateChooser txtExpiryDate;
+    private com.toedter.calendar.JDateChooser txtIssueDate;
+    private javax.swing.JTextField txtIssuer;
     // End of variables declaration//GEN-END:variables
 }

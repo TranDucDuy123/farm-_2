@@ -140,8 +140,8 @@ public class CertificateForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxLuachon = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        search_CertificateComboBox = new javax.swing.JComboBox<>();
+        search_CertificateText = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCertificate = new javax.swing.JTable();
@@ -306,40 +306,45 @@ public class CertificateForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxLuachon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên Farm", "Huyện", "Xã" }));
-        cbxLuachon.addActionListener(new java.awt.event.ActionListener() {
+        search_CertificateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
+        search_CertificateComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxLuachonActionPerformed(evt);
+                search_CertificateComboBoxActionPerformed(evt);
             }
         });
-        jPanel3.add(cbxLuachon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        search_CertificateComboBox.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                search_CertificateComboBoxPropertyChange(evt);
+            }
+        });
+        jPanel3.add(search_CertificateComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        search_CertificateText.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
+                search_CertificateTextInputMethodTextChanged(evt);
             }
         });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+        search_CertificateText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
+                search_CertificateTextActionPerformed(evt);
             }
         });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        search_CertificateText.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
+                search_CertificateTextPropertyChange(evt);
             }
         });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+        search_CertificateText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
+                search_CertificateTextKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                search_CertificateTextKeyReleased(evt);
             }
         });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(search_CertificateText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -460,94 +465,88 @@ public class CertificateForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_exportExcelActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+    private void search_CertificateTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_CertificateTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
+    }//GEN-LAST:event_search_CertificateTextActionPerformed
 
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
+    private void search_CertificateTextPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_search_CertificateTextPropertyChange
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txtSearchPropertyChange
+    }//GEN-LAST:event_search_CertificateTextPropertyChange
 
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
+    private void search_CertificateTextInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_search_CertificateTextInputMethodTextChanged
         // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
+    }//GEN-LAST:event_search_CertificateTextInputMethodTextChanged
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
          loadDataToTable((ArrayList<FarmCertificate>) FarmCertificateDAO.getInstance().selectAll());
     }//GEN-LAST:event_btnresetActionPerformed
 
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        // TODO add your handling code here:
+    private void search_CertificateTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_CertificateTextKeyPressed
+    // Thực hiện tìm kiếm khi người dùng nhập dữ liệu vào ô tìm kiếm
+        String luaChon = search_CertificateComboBox.getSelectedItem().toString();
+        String content = search_CertificateText.getText();
+        ArrayList<FarmCertificate> result = searchFn(luaChon, content);
+        loadDataToTable(result);
 
-    }//GEN-LAST:event_txtSearchKeyPressed
+    }//GEN-LAST:event_search_CertificateTextKeyPressed
 
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        String searchOption = (String) cbxLuachon.getSelectedItem(); // Lấy lựa chọn từ ComboBox
-        String searchContent = txtSearch.getText().trim(); // Nội dung tìm kiếm từ TextField
-
-        // Kiểm tra nếu lựa chọn tìm kiếm không hợp lệ
-        if (searchOption == null || searchOption.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một tùy chọn tìm kiếm hợp lệ!");
-            return;
-        }
-
-        // Tạo instance của SearchFarmCertificate
-        SearchFarmCertificate search = new SearchFarmCertificate();
+    private void search_CertificateTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_CertificateTextKeyReleased
+        // Thực hiện tìm kiếm khi người dùng nhập dữ liệu vào ô tìm kiếm
+        String luaChon = search_CertificateComboBox.getSelectedItem().toString();
+        String content = search_CertificateText.getText();
+        ArrayList<FarmCertificate> result = searchFn(luaChon, content);
+        loadDataToTable(result);
+    }//GEN-LAST:event_search_CertificateTextKeyReleased
+// Hàm tìm kiếm chung
+    public ArrayList<FarmCertificate> searchFn(String luaChon, String content) {
         ArrayList<FarmCertificate> result = new ArrayList<>();
+        SearchFarmCertificate searchCert = new SearchFarmCertificate();
 
-        try {
-            // Xử lý tìm kiếm dựa trên lựa chọn
-            switch (searchOption) {
-                case "Tất cả":
-                    result = (ArrayList<FarmCertificate>) FarmCertificateDAO.getInstance().selectAll();
-                    break;
-
-                case "Loại chứng chỉ":
-                    result = (ArrayList<FarmCertificate>) search.searchByType(searchContent);
-                    break;
-
-                case "Ngày cấp":
-                    result = (ArrayList<FarmCertificate>) search.searchByIssueDate(searchContent);
-                    break;
-
-                case "Trạng thái":
-                    try {
-                        int status = Integer.parseInt(searchContent); // Trạng thái dạng số (0 hoặc 1)
-                        result = (ArrayList<FarmCertificate>) search.searchByStatus(status);
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Trạng thái phải là số (0 hoặc 1)!");
-                        return;
-                    }
-                    break;
-
-                default:
-                    JOptionPane.showMessageDialog(this, "Tùy chọn tìm kiếm không hợp lệ!");
-                    return;
-            }
-
-            // Hiển thị kết quả tìm kiếm
-            if (result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả phù hợp!");
-                tblModel.setRowCount(0); // Xóa dữ liệu bảng nếu không có kết quả
-            } else {
-                loadDataToTable(result); // Nạp kết quả vào bảng
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi tìm kiếm: " + e.getMessage());
-            e.printStackTrace();
+        // Lựa chọn tìm kiếm dựa trên ComboBox
+        switch (luaChon) {
+            case "Tất cả":
+                result = (ArrayList<FarmCertificate>) FarmCertificateDAO.getInstance().selectAll();
+                break;
+            case "Loại chứng chỉ":
+                result = (ArrayList<FarmCertificate>) searchCert.searchByType(content);
+                break;
+            case "Ngày cấp":
+                result = (ArrayList<FarmCertificate>) searchCert.searchByIssueDate(content);
+                break;
+            case "Trạng thái":
+                try {
+                    int status = content.equalsIgnoreCase("Hiệu lực") ? 1 : 0;
+                    result = (ArrayList<FarmCertificate>) searchCert.searchByStatus(status);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Trạng thái phải là 'Hiệu lực' hoặc 'Hết hạn'!");
+                }
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một tùy chọn tìm kiếm hợp lệ!");
         }
-       
-    }//GEN-LAST:event_txtSearchKeyReleased
+        return result;
+    }
 
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxLuachonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLuachonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxLuachonActionPerformed
+    private void search_CertificateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_CertificateComboBoxActionPerformed
+        // Thực hiện tìm kiếm khi thay đổi lựa chọn trong ComboBox
+        String luaChon = search_CertificateComboBox.getSelectedItem().toString();
+        String content = search_CertificateText.getText();
+        ArrayList<FarmCertificate> result = searchFn(luaChon, content);
+        loadDataToTable(result);
+    }//GEN-LAST:event_search_CertificateComboBoxActionPerformed
+
+    private void search_CertificateComboBoxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_search_CertificateComboBoxPropertyChange
+        // Thực hiện tìm kiếm khi ComboBox có thay đổi trạng thái
+        String luaChon = search_CertificateComboBox.getSelectedItem().toString();
+        String content = search_CertificateText.getText();
+        ArrayList<FarmCertificate> result = searchFn(luaChon, content);
+        loadDataToTable(result);
+    }//GEN-LAST:event_search_CertificateComboBoxPropertyChange
 
     public void openFile(String file) {
         try {
@@ -566,7 +565,6 @@ public class CertificateForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxLuachon;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -584,8 +582,9 @@ public class CertificateForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> search_CertificateComboBox;
+    private javax.swing.JTextField search_CertificateText;
     public javax.swing.JTable tblCertificate;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {

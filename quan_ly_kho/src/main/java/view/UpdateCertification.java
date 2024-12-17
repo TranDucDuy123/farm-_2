@@ -14,12 +14,16 @@ import model.Account;
 import dao.AccountDAO;
 import dao.CommuneDAO;
 import dao.DistrictDAO;
+import dao.FarmCertificateDAO;
 import dao.FarmDAO;
 import dao.ProductionFacilityDAO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import model.Commune;
 import model.District;
 import model.Farm;
+import model.FarmCertificate;
 import model.ProductionFacility;
 import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
 
@@ -28,98 +32,89 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
  * @author Admin
  */
 public class UpdateCertification extends javax.swing.JDialog {
-        private ProductionFacilityForm owner;  // Form cha để tải lại dữ liệu sau khi cập nhật
+    private CertificateForm owner; // Form cha để tải lại dữ liệu sau khi cập nhật
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format ngày
 
-        public UpdateCertification(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
-            super(owner, modal);
-            initComponents();
-            setLocationRelativeTo(null);
+    public UpdateCertification(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
+        super(owner, modal);
+        initComponents();
+        setLocationRelativeTo(null);
 
-            // Truyền đối tượng ProductionFacilityForm từ parent
-            this.owner = (ProductionFacilityForm) parent;
+        // Truyền đối tượng CertificateForm từ parent
+        this.owner = (CertificateForm) parent;
 
-            // Lấy thông tin ProductionFacility đã được chọn
-            ProductionFacility facility = this.owner.getFacilitySelect();
+        // Lấy thông tin chứng chỉ đã được chọn
+        FarmCertificate certificate = this.owner.getCertificateSelected();
 
-            // Điền thông tin ProductionFacility vào các trường nhập liệu
-            txtFacilityId.setText(String.valueOf(facility.getFacilityId()));  // Mã cơ sở
-            txtFacilityName.setText(facility.getFacilityName());  // Tên cơ sở
-            txtAddress.setText(facility.getAddress());  // Địa chỉ
-            txtContactPerson.setText(facility.getContactPerson());  // Người liên hệ
-            txtContactPhone.setText(facility.getContactPhone());  // Số điện thoại
+        // Điền thông tin chứng chỉ vào các trường nhập liệu
+        txtFarmId.setText(String.valueOf(certificate.getCertificateId())); // ID chứng chỉ
+        txtCertificateType.setText(certificate.getCertificateType()); // Loại chứng chỉ
+        txtIssueDate.setDate(parseDate(certificate.getIssueDate())); // Ngày cấp
+        txtExpiryDate.setDate(parseDate(certificate.getExpiryDate())); // Ngày hết hạn
+        txtIssuer.setText(certificate.getIssuer()); // Cơ quan cấp
 
-            // Thiết lập các giá trị cho ComboBox huyện và xã
-            loadDistricts();  // Nạp các huyện vào combobox huyện
-            loadCommuneByDistrict(facility.getDistrictId());  // Nạp các xã theo huyện đã chọn
+        // Load danh sách cơ sở vào ComboBox và set cơ sở đã chọn
+        loadFarms();
+        cbxFarm.setSelectedItem(getFarmNameById(certificate.getFarmId()));
 
-            // Set huyện và xã đã được chọn
-            cbxDistrict.setSelectedItem(getDistrictName(facility.getDistrictId()));  // Set huyện theo ID
-            cbxCommune.setSelectedItem(getCommuneName(facility.getCommuneId()));  // Set xã theo ID
+        // Thiết lập trạng thái cho RadioButton
+        if (certificate.getStatus() == 1) {
+            rbtnActive.setSelected(true);
+        } else {
+            rbtnInactive.setSelected(true);
         }
-        private void loadDistricts() {
-            DistrictDAO districtDAO = new DistrictDAO();
-            ArrayList<District> districts = (ArrayList<District>) districtDAO.selectAll();
-            cbxDistrict.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-            cbxDistrict.addItem("Chọn huyện");  // Item mặc định
+    }
 
-            // Nạp các huyện vào ComboBox
-            for (District district : districts) {
-                cbxDistrict.addItem(district.getDistrictName());
-            }
+    // Load danh sách cơ sở vào ComboBox
+    private void loadFarms() {
+        ArrayList<Farm> farms = (ArrayList<Farm>) FarmDAO.getInstance().selectAll();
+        cbxFarm.removeAllItems();
+        for (Farm farm : farms) {
+            cbxFarm.addItem(farm.getFarmId() + " - " + farm.getFarmName());
         }
-        private void loadCommuneByDistrict(int districtId) {
-            CommuneDAO communeDAO = new CommuneDAO();
-            ArrayList<Commune> communes = communeDAO.selectByDistrictId(districtId);
-            cbxCommune.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-            cbxCommune.addItem("Chọn xã");  // Item mặc định
+    }
 
-            // Nạp các xã vào ComboBox
-            for (Commune commune : communes) {
-                cbxCommune.addItem(commune.getCommuneName());
-            }
+    // Hàm chuyển String sang Date
+    private Date parseDate(String dateStr) {
+        try {
+            return dateFormat.parse(dateStr);
+        } catch (Exception e) {
+            return null;
         }
-        private String getDistrictName(int districtId) {
-            DistrictDAO districtDAO = new DistrictDAO();
-            District district = districtDAO.selectById(districtId);
-            return district != null ? district.getDistrictName() : "";
-        }
+    }
 
-        private String getCommuneName(int communeId) {
-            CommuneDAO communeDAO = new CommuneDAO();
-            Commune commune = communeDAO.selectById(communeId);
-            return commune != null ? commune.getCommuneName() : "";
-        }
-
-
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    // Lấy tên cơ sở từ ID
+    private String getFarmNameById(int farmId) {
+        Farm farm = FarmDAO.getInstance().selectById(farmId);
+        return farm != null ? farm.getFarmId() + " - " + farm.getFarmName() : "";
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtFacilityName = new javax.swing.JTextField();
+        txtCertificateType = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtContactPhone = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbxCommune = new javax.swing.JComboBox<>();
+        cbxFarm = new javax.swing.JComboBox<>();
         btnupdate = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cbxDistrict = new javax.swing.JComboBox<>();
-        txtAddress = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtFacilityId = new javax.swing.JLabel();
+        txtFarmId = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtContactPerson = new javax.swing.JTextField();
+        txtIssuer = new javax.swing.JTextField();
+        txtIssueDate = new com.toedter.calendar.JDateChooser();
+        txtExpiryDate = new com.toedter.calendar.JDateChooser();
+        rbtnActive = new javax.swing.JRadioButton();
+        rbtnInactive = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa tài khoản");
@@ -128,33 +123,32 @@ public class UpdateCertification extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel2.setText("Name");
+        jLabel2.setText("Loại chứng chỉ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 110, -1));
 
-        txtFacilityName.addActionListener(new java.awt.event.ActionListener() {
+        txtCertificateType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFacilityNameActionPerformed(evt);
+                txtCertificateTypeActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFacilityName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
+        jPanel1.add(txtCertificateType, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel3.setText("Địa chỉ");
+        jLabel3.setText("Ngày cấp");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 24));
-        jPanel1.add(txtContactPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 298, 38));
 
         jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel5.setText("Xã");
+        jLabel5.setText("Cơ sở");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 50, -1));
 
-        cbxCommune.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        cbxCommune.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cbxCommune.addActionListener(new java.awt.event.ActionListener() {
+        cbxFarm.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+        cbxFarm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxFarm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxCommuneActionPerformed(evt);
+                cbxFarmActionPerformed(evt);
             }
         });
-        jPanel1.add(cbxCommune, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 298, 38));
+        jPanel1.add(cbxFarm, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 298, 38));
 
         btnupdate.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         btnupdate.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
@@ -210,27 +204,35 @@ public class UpdateCertification extends javax.swing.JDialog {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 70));
 
         jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel6.setText("Số điện thoại");
+        jLabel6.setText("Trạng thái");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 100, -1));
 
         jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel4.setText("Huyện");
+        jLabel4.setText("Ngày hết hạn");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
-
-        cbxDistrict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxDistrict, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 300, 40));
-        jPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 298, 38));
 
         jLabel7.setText("ID");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
 
-        txtFacilityId.setText("txtFarmId");
-        jPanel1.add(txtFacilityId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+        txtFarmId.setText("txtFarmId");
+        jPanel1.add(txtFarmId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel8.setText("Người liên hệ");
+        jLabel8.setText("Cơ quan cấp");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 100, -1));
-        jPanel1.add(txtContactPerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 298, 38));
+        jPanel1.add(txtIssuer, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 298, 38));
+        jPanel1.add(txtIssueDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 300, 40));
+        jPanel1.add(txtExpiryDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 300, 40));
+
+        buttonGroup1.add(rbtnActive);
+        rbtnActive.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnActive.setText("Hiệu lực");
+        jPanel1.add(rbtnActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, -1, -1));
+
+        buttonGroup1.add(rbtnInactive);
+        rbtnInactive.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnInactive.setText("Hết hạn");
+        jPanel1.add(rbtnInactive, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 540, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,7 +251,43 @@ public class UpdateCertification extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        // TODO add your handling code here:
+     try {
+            // Lấy thông tin từ các trường
+            int certificateId = Integer.parseInt(txtFarmId.getText());
+            String certificateType = txtCertificateType.getText().trim();
+            String issueDate = dateFormat.format(txtIssueDate.getDate());
+            String expiryDate = dateFormat.format(txtExpiryDate.getDate());
+            String issuer = txtIssuer.getText().trim();
+            int status = rbtnActive.isSelected() ? 1 : 0;
+
+            // Kiểm tra các trường dữ liệu
+            if (certificateType.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty() || issuer.isEmpty() || cbxFarm.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // Lấy farmId từ ComboBox
+            String selectedFarm = cbxFarm.getSelectedItem().toString();
+            int farmId = Integer.parseInt(selectedFarm.split(" - ")[0]);
+
+            // Tạo đối tượng FarmCertificate
+            FarmCertificate certificate = new FarmCertificate(
+                certificateId, farmId, certificateType, issueDate, expiryDate, issuer, status
+            );
+
+            // Cập nhật vào database
+            int result = FarmCertificateDAO.getInstance().update(certificate);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this, "Cập nhật chứng chỉ thành công!");
+                this.dispose(); // Đóng form sau khi cập nhật
+                owner.loadDataToTable((ArrayList<FarmCertificate>) FarmCertificateDAO.getInstance().selectAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật chứng chỉ thất bại!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật chứng chỉ!");
+        }
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -258,55 +296,16 @@ public class UpdateCertification extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnupdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnupdateMouseClicked
-         // Lấy thông tin từ các trường đầu vào
-        String facilityName = txtFacilityName.getText().trim();
-        String address = txtAddress.getText().trim();
-        String contactPhone = txtContactPhone.getText().trim();
-        String contactPerson = txtContactPerson.getText().trim();
-
-        // Kiểm tra các trường thông tin
-        if (facilityName.isEmpty() || address.isEmpty() || contactPhone.isEmpty() || contactPerson.isEmpty()
-                || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-            return;
-        }
-
-        // Lấy ID huyện và xã từ ComboBox
-        int districtId = getDistrictId(cbxDistrict.getSelectedItem().toString());
-        int communeId = getCommuneId(cbxCommune.getSelectedItem().toString());
-
-        // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
-        if (districtId == -1 || communeId == -1) {
-            JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
-            return;
-        }
-
-        // Lấy ProductionFacility từ form đã chọn
-        ProductionFacility facility = owner.getFacilitySelect();
-        facility.setFacilityName(facilityName);
-        facility.setAddress(address);
-        facility.setContactPhone(contactPhone);
-        facility.setContactPerson(contactPerson);
-        facility.setDistrictId(districtId);
-        facility.setCommuneId(communeId);
-
-        // Cập nhật ProductionFacility vào cơ sở dữ liệu
-        try {
-            int result = ProductionFacilityDAO.getInstance().update(facility);
-
-            if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Cập nhật cơ sở sản xuất thành công!");
-                this.dispose();  // Đóng form sau khi cập nhật thành công
-                owner.loadDataToTable((ArrayList<ProductionFacility>) ProductionFacilityDAO.getInstance().selectAll());  // Tải lại dữ liệu vào bảng
-            } else {
-                JOptionPane.showMessageDialog(this, "Cập nhật cơ sở sản xuất thất bại!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật cơ sở sản xuất!");
-        }
         
     }//GEN-LAST:event_btnupdateMouseClicked
+
+    private void cbxFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFarmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxFarmActionPerformed
+
+    private void txtCertificateTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCertificateTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCertificateTypeActionPerformed
  // Hàm lấy ID của huyện từ tên huyện
     private int getDistrictId(String districtName) {
         DistrictDAO districtDAO = new DistrictDAO();
@@ -320,20 +319,12 @@ public class UpdateCertification extends javax.swing.JDialog {
         Commune commune = communeDAO.selectByName(communeName);
         return commune != null ? commune.getCommuneId() : -1;
     }
-    private void txtFacilityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacilityNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFacilityNameActionPerformed
-
-    private void cbxCommuneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCommuneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxCommuneActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnupdate;
-    private javax.swing.JComboBox<String> cbxCommune;
-    private javax.swing.JComboBox<String> cbxDistrict;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbxFarm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -344,10 +335,12 @@ public class UpdateCertification extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtContactPerson;
-    private javax.swing.JTextField txtContactPhone;
-    private javax.swing.JLabel txtFacilityId;
-    private javax.swing.JTextField txtFacilityName;
+    private javax.swing.JRadioButton rbtnActive;
+    private javax.swing.JRadioButton rbtnInactive;
+    private javax.swing.JTextField txtCertificateType;
+    private com.toedter.calendar.JDateChooser txtExpiryDate;
+    private javax.swing.JLabel txtFarmId;
+    private com.toedter.calendar.JDateChooser txtIssueDate;
+    private javax.swing.JTextField txtIssuer;
     // End of variables declaration//GEN-END:variables
 }
