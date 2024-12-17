@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
 package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -11,11 +15,14 @@ import dao.AccountDAO;
 import dao.CommuneDAO;
 import dao.DistrictDAO;
 import dao.FarmDAO;
+import dao.ProductionFacilityDAO;
+import dao.TestingFacilityDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import model.Commune;
 import model.District;
 import model.Farm;
+import model.ProductionFacility;
 import model.TestingFacility;
 import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
 
@@ -24,39 +31,58 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
  * @author Admin
  */
 public class UpdateTestingFacility extends javax.swing.JDialog {
-        private FarmForm homeFarm;  // Truyền đối tượng FarmForm từ parent
-    
-        public UpdateTestingFacility(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
-                        super(owner, modal);
-              initComponents();
-              setLocationRelativeTo(null);
+    private TestingFacilityForm owner;  // Form cha để tải lại dữ liệu sau khi cập nhật
 
-              // Truyền đối tượng FarmForm từ parent
-              homeFarm = (FarmForm) parent;
+    public UpdateTestingFacility(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
+        super(owner, modal);
+        initComponents();
+        setLocationRelativeTo(null);
 
-              // Lấy thông tin farm đã được chọn
-              Farm farm = homeFarm.getFarmSelect();  // Lấy farm đã chọn từ bảng
+        // Truyền đối tượng TestingFacilityForm từ parent
+        this.owner = (TestingFacilityForm) parent;
 
-              // Điền thông tin farm vào các trường nhập liệu
-              txtFarmName.setText(farm.getFarmName());
-              txtAddress.setText(farm.getAddress());
-              txtOwner.setText(farm.getOwner());  // Tên chủ sở hữu
-              txtFarmId.setText(String.valueOf(farm.getFarmId()));  // Mã farm (ID farm)
+        // Lấy thông tin TestingFacility đã được chọn
+        TestingFacility facility = this.owner.getFacilitySelect();
 
-              // Thiết lập các giá trị cho ComboBox huyện và xã
-              loadDistricts();  // Nạp các huyện vào combobox huyện
+        // Điền thông tin TestingFacility vào các trường nhập liệu
+        txtFacilityId.setText(String.valueOf(facility.getFacilityId()));  // Mã cơ sở
+        txtFacilityName.setText(facility.getFacilityName());  // Tên cơ sở
+        txtAddress.setText(facility.getAddress());  // Địa chỉ
+        txtContactPerson.setText(facility.getContactPerson());  // Người liên hệ
+        txtContactPhone.setText(facility.getContactPhone());  // Số điện thoại
 
-              // Load các xã theo huyện đã chọn
-              loadCommuneByDistrict(farm.getDistrictId());  // Nạp các xã theo huyện đã chọn
+        // Thiết lập các giá trị cho ComboBox huyện và xã
+        loadDistricts();  // Nạp các huyện vào combobox huyện
+        loadCommuneByDistrict(facility.getDistrictId());  // Nạp các xã theo huyện đã chọn
 
-              // Set huyện và xã đã được chọn
-              cbxDistrict.setSelectedItem(getDistrictName(farm.getDistrictId()));  // Set huyện theo ID
-              cbxCommune.setSelectedItem(getCommuneName(farm.getCommuneId()));  // Set xã theo ID
-        }
-
-    UpdateTestingFacility(TestingFacilityForm aThis, TestingFacility facilityToEdit, JFrame jFrame, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Set huyện và xã đã được chọn
+        cbxDistrict.setSelectedItem(getDistrictName(facility.getDistrictId()));  // Set huyện theo ID
+        cbxCommune.setSelectedItem(getCommuneName(facility.getCommuneId()));  // Set xã theo ID
     }
+
+    public UpdateTestingFacility(TestingFacilityForm parent, TestingFacility facilityToEdit, JFrame owner, boolean modal) {
+        super(owner, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+
+        this.owner = parent;
+
+        // Điền thông tin TestingFacility vào các trường nhập liệu
+        txtFacilityId.setText(String.valueOf(facilityToEdit.getFacilityId()));  // Mã cơ sở
+        txtFacilityName.setText(facilityToEdit.getFacilityName());  // Tên cơ sở
+        txtAddress.setText(facilityToEdit.getAddress());  // Địa chỉ
+        txtContactPerson.setText(facilityToEdit.getContactPerson());  // Người liên hệ
+        txtContactPhone.setText(facilityToEdit.getContactPhone());  // Số điện thoại
+
+        // Thiết lập các giá trị cho ComboBox huyện và xã
+        loadDistricts();
+        loadCommuneByDistrict(facilityToEdit.getDistrictId());
+
+        // Set huyện và xã đã được chọn
+        cbxDistrict.setSelectedItem(getDistrictName(facilityToEdit.getDistrictId()));
+        cbxCommune.setSelectedItem(getCommuneName(facilityToEdit.getCommuneId()));
+    }
+
         private void loadDistricts() {
             DistrictDAO districtDAO = new DistrictDAO();
             ArrayList<District> districts = (ArrayList<District>) districtDAO.selectAll();
@@ -104,9 +130,9 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtFarmName = new javax.swing.JTextField();
+        txtFacilityName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtOwner = new javax.swing.JTextField();
+        txtContactPhone = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbxCommune = new javax.swing.JComboBox<>();
         btnupdate = new javax.swing.JButton();
@@ -118,7 +144,9 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         cbxDistrict = new javax.swing.JComboBox<>();
         txtAddress = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtFarmId = new javax.swing.JLabel();
+        txtFacilityId = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtContactPerson = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa tài khoản");
@@ -127,20 +155,20 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel2.setText("Farm name");
+        jLabel2.setText("Name");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 110, -1));
 
-        txtFarmName.addActionListener(new java.awt.event.ActionListener() {
+        txtFacilityName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFarmNameActionPerformed(evt);
+                txtFacilityNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFarmName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
+        jPanel1.add(txtFacilityName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel3.setText("Địa chỉ");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 24));
-        jPanel1.add(txtOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 298, 38));
+        jPanel1.add(txtContactPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 298, 38));
 
         jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel5.setText("Xã");
@@ -171,7 +199,7 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
                 btnupdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 140, 38));
+        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 140, 38));
 
         btnClose.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         btnClose.setText("Huỷ");
@@ -181,7 +209,7 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
                 btnCloseActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 510, 140, 38));
+        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 590, 140, 38));
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
 
@@ -209,8 +237,8 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 70));
 
         jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel6.setText("Chủ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 90, -1));
+        jLabel6.setText("Số điện thoại");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 100, -1));
 
         jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel4.setText("Huyện");
@@ -223,8 +251,13 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         jLabel7.setText("ID");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
 
-        txtFarmId.setText("txtFarmId");
-        jPanel1.add(txtFarmId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+        txtFacilityId.setText("txtFarmId");
+        jPanel1.add(txtFacilityId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+        jLabel8.setText("Người liên hệ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 100, -1));
+        jPanel1.add(txtContactPerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 298, 38));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,7 +267,9 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,43 +285,52 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnupdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnupdateMouseClicked
-                // Lấy thông tin từ các trường đầu vào
-            String farmName = txtFarmName.getText();
-            String address = txtAddress.getText();
-            String ownerName = txtOwner.getText();
+          // Lấy thông tin từ các trường đầu vào
+            String facilityName = txtFacilityName.getText().trim();
+            String address = txtAddress.getText().trim();
+            String contactPhone = txtContactPhone.getText().trim();
+            String contactPerson = txtContactPerson.getText().trim();
 
             // Kiểm tra các trường thông tin
-            if (farmName.equals("") || address.equals("") || ownerName.equals("") || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
+            if (facilityName.isEmpty() || address.isEmpty() || contactPhone.isEmpty() || contactPerson.isEmpty()
+                    || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-            } else {
-                // Lấy ID huyện và xã từ ComboBox
-                int districtId = getDistrictId(cbxDistrict.getSelectedItem().toString());
-                int communeId = getCommuneId(cbxCommune.getSelectedItem().toString());
+                return;
+            }
 
-                // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
-                if (districtId == -1 || communeId == -1) {
-                    JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
-                    return;
-                }
+            // Lấy ID huyện và xã từ ComboBox
+            int districtId = getDistrictId(cbxDistrict.getSelectedItem().toString());
+            int communeId = getCommuneId(cbxCommune.getSelectedItem().toString());
 
-                // Lấy farm từ form đã chọn
-                Farm farm = homeFarm.getFarmSelect();
-                farm.setFarmName(farmName);
-                farm.setAddress(address);
-                farm.setOwner(ownerName);
-                farm.setDistrictId(districtId);
-                farm.setCommuneId(communeId);
+            // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
+            if (districtId == -1 || communeId == -1) {
+                JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
+                return;
+            }
 
-                // Cập nhật farm vào cơ sở dữ liệu
-                try {
-                    FarmDAO.getInstance().update(farm);
-                    JOptionPane.showMessageDialog(this, "Cập nhật farm thành công!");
+            // Lấy TestingFacility từ form đã chọn
+            TestingFacility facility = owner.getFacilitySelect();
+            facility.setFacilityName(facilityName);
+            facility.setAddress(address);
+            facility.setContactPhone(contactPhone);
+            facility.setContactPerson(contactPerson);
+            facility.setDistrictId(districtId);
+            facility.setCommuneId(communeId);
+
+            // Cập nhật TestingFacility vào cơ sở dữ liệu
+            try {
+                int result = TestingFacilityDAO.getInstance().update(facility);
+
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật cơ sở khảo nghiệm thành công!");
                     this.dispose();  // Đóng form sau khi cập nhật thành công
-                    homeFarm.loadDataToTable();  // Tải lại dữ liệu vào bảng
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Cập nhật farm thất bại!");
+                    owner.loadDataToTable((ArrayList<TestingFacility>) TestingFacilityDAO.getInstance().selectAll());  // Tải lại dữ liệu vào bảng
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật cơ sở khảo nghiệm thất bại!");
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật cơ sở khảo nghiệm!");
             }
         
     }//GEN-LAST:event_btnupdateMouseClicked
@@ -303,9 +347,9 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
         Commune commune = communeDAO.selectByName(communeName);
         return commune != null ? commune.getCommuneId() : -1;
     }
-    private void txtFarmNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFarmNameActionPerformed
+    private void txtFacilityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacilityNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFarmNameActionPerformed
+    }//GEN-LAST:event_txtFacilityNameActionPerformed
 
     private void cbxCommuneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCommuneActionPerformed
         // TODO add your handling code here:
@@ -324,11 +368,13 @@ public class UpdateTestingFacility extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JLabel txtFarmId;
-    private javax.swing.JTextField txtFarmName;
-    private javax.swing.JTextField txtOwner;
+    private javax.swing.JTextField txtContactPerson;
+    private javax.swing.JTextField txtContactPhone;
+    private javax.swing.JLabel txtFacilityId;
+    private javax.swing.JTextField txtFacilityName;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,11 +15,13 @@ import dao.AccountDAO;
 import dao.CommuneDAO;
 import dao.DistrictDAO;
 import dao.FarmDAO;
+import dao.OrganizationDAO;
 import dao.ProductionFacilityDAO;
 import java.util.ArrayList;
 import model.Commune;
 import model.District;
 import model.Farm;
+import model.Organization;
 import model.ProductionFacility;
 import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
 
@@ -28,69 +30,42 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Facet;
  * @author Admin
  */
 public class UpdateOrganization extends javax.swing.JDialog {
-        private ProductionFacilityForm owner;  // Form cha để tải lại dữ liệu sau khi cập nhật
+    private OrganizationForm owner;  // Form cha để tải lại dữ liệu sau khi cập nhật
 
-        public UpdateOrganization(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
-            super(owner, modal);
-            initComponents();
-            setLocationRelativeTo(null);
+    public UpdateOrganization(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
+    super(owner, modal);
+    initComponents();
+    setLocationRelativeTo(null);
 
-            // Truyền đối tượng ProductionFacilityForm từ parent
-            this.owner = (ProductionFacilityForm) parent;
+    // Truyền đối tượng OrganizationForm từ parent
+    this.owner = (OrganizationForm) parent;
 
-            // Lấy thông tin ProductionFacility đã được chọn
-            ProductionFacility facility = this.owner.getFacilitySelect();
+    // Lấy thông tin Organization đã được chọn
+    Organization org = this.owner.getOrganizationSelected();
 
-            // Điền thông tin ProductionFacility vào các trường nhập liệu
-            txtFacilityId.setText(String.valueOf(facility.getFacilityId()));  // Mã cơ sở
-            txtFacilityName.setText(facility.getFacilityName());  // Tên cơ sở
-            txtAddress.setText(facility.getAddress());  // Địa chỉ
-            txtContactPerson.setText(facility.getContactPerson());  // Người liên hệ
-            txtContactPhone.setText(facility.getContactPhone());  // Số điện thoại
+    // Điền thông tin Organization vào các trường nhập liệu
+    txtOrganizationId.setText(String.valueOf(org.getOrganizationId())); // Mã tổ chức
+    txtOrganizationName.setText(org.getName()); // Tên tổ chức
+    txtAddress.setText(org.getAddress()); // Người liên hệ
+    txtContactPhone.setText(org.getPhone()); // Số điện thoại
+    txtEmail.setText(org.getEmail()); // Email
+    txtContactPerson.setText(org.getContactPerson()); // Địa chỉ
 
-            // Thiết lập các giá trị cho ComboBox huyện và xã
-            loadDistricts();  // Nạp các huyện vào combobox huyện
-            loadCommuneByDistrict(facility.getDistrictId());  // Nạp các xã theo huyện đã chọn
+    // Thiết lập loại tổ chức vào ComboBox
+    cbxOrganizationType.setSelectedItem(org.getOrganizationType());
 
-            // Set huyện và xã đã được chọn
-            cbxDistrict.setSelectedItem(getDistrictName(facility.getDistrictId()));  // Set huyện theo ID
-            cbxCommune.setSelectedItem(getCommuneName(facility.getCommuneId()));  // Set xã theo ID
+    // Thiết lập trạng thái (RadioButton)
+   if (org != null) {
+        // Kiểm tra giá trị trạng thái tránh null
+        if ("1".equals(org.getStatus())) { // Sử dụng "1".equals() để tránh NullPointerException
+            jRadioButton.setSelected(true); // Hoạt động
+        } else {
+            jRadioButton1.setSelected(true); // Dừng hoạt động
         }
-        private void loadDistricts() {
-            DistrictDAO districtDAO = new DistrictDAO();
-            ArrayList<District> districts = (ArrayList<District>) districtDAO.selectAll();
-            cbxDistrict.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-            cbxDistrict.addItem("Chọn huyện");  // Item mặc định
-
-            // Nạp các huyện vào ComboBox
-            for (District district : districts) {
-                cbxDistrict.addItem(district.getDistrictName());
-            }
-        }
-        private void loadCommuneByDistrict(int districtId) {
-            CommuneDAO communeDAO = new CommuneDAO();
-            ArrayList<Commune> communes = communeDAO.selectByDistrictId(districtId);
-            cbxCommune.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-            cbxCommune.addItem("Chọn xã");  // Item mặc định
-
-            // Nạp các xã vào ComboBox
-            for (Commune commune : communes) {
-                cbxCommune.addItem(commune.getCommuneName());
-            }
-        }
-        private String getDistrictName(int districtId) {
-            DistrictDAO districtDAO = new DistrictDAO();
-            District district = districtDAO.selectById(districtId);
-            return district != null ? district.getDistrictName() : "";
-        }
-
-        private String getCommuneName(int communeId) {
-            CommuneDAO communeDAO = new CommuneDAO();
-            Commune commune = communeDAO.selectById(communeId);
-            return commune != null ? commune.getCommuneName() : "";
-        }
-
-
+    } else {
+        JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu tổ chức!");
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,25 +76,29 @@ public class UpdateOrganization extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtFacilityName = new javax.swing.JTextField();
+        txtOrganizationName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtContactPhone = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbxCommune = new javax.swing.JComboBox<>();
         btnupdate = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cbxDistrict = new javax.swing.JComboBox<>();
-        txtAddress = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtFacilityId = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        cbxOrganizationType = new javax.swing.JComboBox<>();
         txtContactPerson = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtOrganizationId = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtContactPhone = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        jRadioButton = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa tài khoản");
@@ -128,33 +107,24 @@ public class UpdateOrganization extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel2.setText("Name");
+        jLabel2.setText("Tên tổ chức");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 110, -1));
 
-        txtFacilityName.addActionListener(new java.awt.event.ActionListener() {
+        txtOrganizationName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFacilityNameActionPerformed(evt);
+                txtOrganizationNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFacilityName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
+        jPanel1.add(txtOrganizationName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel3.setText("Địa chỉ");
+        jLabel3.setText("Người liên hệ");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 24));
-        jPanel1.add(txtContactPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 298, 38));
+        jPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 298, 38));
 
         jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel5.setText("Xã");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 50, -1));
-
-        cbxCommune.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        cbxCommune.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cbxCommune.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxCommuneActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cbxCommune, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 298, 38));
+        jLabel5.setText("Số điện thoại");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 130, -1));
 
         btnupdate.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         btnupdate.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
@@ -172,7 +142,7 @@ public class UpdateOrganization extends javax.swing.JDialog {
                 btnupdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 140, 38));
+        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 140, 38));
 
         btnClose.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         btnClose.setText("Huỷ");
@@ -182,7 +152,7 @@ public class UpdateOrganization extends javax.swing.JDialog {
                 btnCloseActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 590, 140, 38));
+        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 640, 140, 38));
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
 
@@ -197,40 +167,58 @@ public class UpdateOrganization extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(jLabel1)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 70));
 
         jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel6.setText("Số điện thoại");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 100, -1));
+        jLabel6.setText("Địa chỉ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 100, -1));
 
         jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel4.setText("Huyện");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+        jLabel4.setText("Loại tổ chức");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
-        cbxDistrict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxDistrict, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 300, 40));
-        jPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 298, 38));
+        cbxOrganizationType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cá nhân", "Tổ chức" }));
+        jPanel1.add(cbxOrganizationType, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 300, 40));
+        jPanel1.add(txtContactPerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 298, 38));
 
         jLabel7.setText("ID");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
 
-        txtFacilityId.setText("txtFarmId");
-        jPanel1.add(txtFacilityId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+        txtOrganizationId.setText("txt organization id");
+        jPanel1.add(txtOrganizationId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
-        jLabel8.setText("Người liên hệ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 100, -1));
-        jPanel1.add(txtContactPerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 298, 38));
+        jLabel8.setText("Email");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 100, -1));
+        jPanel1.add(txtContactPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 298, 38));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 298, 38));
+
+        buttonGroup1.add(jRadioButton);
+        jRadioButton.setText("Hoạt động");
+        jRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 600, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Trạng thái");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, -1, -1));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Dừng");
+        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 600, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,7 +229,7 @@ public class UpdateOrganization extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -258,82 +246,78 @@ public class UpdateOrganization extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnupdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnupdateMouseClicked
-         // Lấy thông tin từ các trường đầu vào
-        String facilityName = txtFacilityName.getText().trim();
-        String address = txtAddress.getText().trim();
-        String contactPhone = txtContactPhone.getText().trim();
+          // Lấy thông tin từ các trường đầu vào
+        String organizationName = txtOrganizationName.getText().trim();
         String contactPerson = txtContactPerson.getText().trim();
+        String contactPhone = txtContactPhone.getText().trim();
+        String email = txtEmail.getText().trim();
+        String address = txtAddress.getText().trim();
+        String organizationType = cbxOrganizationType.getSelectedItem().toString();
 
         // Kiểm tra các trường thông tin
-        if (facilityName.isEmpty() || address.isEmpty() || contactPhone.isEmpty() || contactPerson.isEmpty()
-                || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
+        if (organizationName.isEmpty() || contactPerson.isEmpty() || contactPhone.isEmpty() 
+                || email.isEmpty() || address.isEmpty() || cbxOrganizationType.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
 
-        // Lấy ID huyện và xã từ ComboBox
-        int districtId = getDistrictId(cbxDistrict.getSelectedItem().toString());
-        int communeId = getCommuneId(cbxCommune.getSelectedItem().toString());
+        // Lấy trạng thái từ RadioButtons
+        int status = jRadioButton.isSelected() ? 1 : 0;
 
-        // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
-        if (districtId == -1 || communeId == -1) {
-            JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
-            return;
-        }
+        // Lấy Organization từ form đã chọn
+        Organization org = owner.getOrganizationSelected();
+        org.setName(organizationName);
+        org.setContactPerson(contactPerson);
+        org.setPhone(contactPhone);
+        org.setEmail(email);
+        org.setAddress(address);
+        org.setOrganizationType(organizationType);
+        org.setStatus(status);
 
-        // Lấy ProductionFacility từ form đã chọn
-        ProductionFacility facility = owner.getFacilitySelect();
-        facility.setFacilityName(facilityName);
-        facility.setAddress(address);
-        facility.setContactPhone(contactPhone);
-        facility.setContactPerson(contactPerson);
-        facility.setDistrictId(districtId);
-        facility.setCommuneId(communeId);
-
-        // Cập nhật ProductionFacility vào cơ sở dữ liệu
+        // Cập nhật Organization vào cơ sở dữ liệu
         try {
-            int result = ProductionFacilityDAO.getInstance().update(facility);
+            int result = OrganizationDAO.getInstance().update(org);
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Cập nhật cơ sở sản xuất thành công!");
+                JOptionPane.showMessageDialog(this, "Cập nhật tổ chức thành công!");
                 this.dispose();  // Đóng form sau khi cập nhật thành công
-                owner.loadDataToTable((ArrayList<ProductionFacility>) ProductionFacilityDAO.getInstance().selectAll());  // Tải lại dữ liệu vào bảng
+                owner.loadDataToTable((ArrayList<Organization>) OrganizationDAO.getInstance().selectAll());  // Tải lại dữ liệu vào bảng
             } else {
-                JOptionPane.showMessageDialog(this, "Cập nhật cơ sở sản xuất thất bại!");
+                JOptionPane.showMessageDialog(this, "Cập nhật tổ chức thất bại!");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật cơ sở sản xuất!");
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật tổ chức!");
         }
         
     }//GEN-LAST:event_btnupdateMouseClicked
- // Hàm lấy ID của huyện từ tên huyện
-    private int getDistrictId(String districtName) {
-        DistrictDAO districtDAO = new DistrictDAO();
-        District district = districtDAO.selectByName(districtName);
-        return district != null ? district.getDistrictId() : -1;
-    }
-
-    // Hàm lấy ID của xã từ tên xã
-    private int getCommuneId(String communeName) {
-        CommuneDAO communeDAO = new CommuneDAO();
-        Commune commune = communeDAO.selectByName(communeName);
-        return commune != null ? commune.getCommuneId() : -1;
-    }
-    private void txtFacilityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacilityNameActionPerformed
+// // Hàm lấy ID của huyện từ tên huyện
+//    private int getDistrictId(String districtName) {
+//        DistrictDAO districtDAO = new DistrictDAO();
+//        District district = districtDAO.selectByName(districtName);
+//        return district != null ? district.getDistrictId() : -1;
+//    }
+//
+//    // Hàm lấy ID của xã từ tên xã
+//    private int getCommuneId(String communeName) {
+//        CommuneDAO communeDAO = new CommuneDAO();
+//        Commune commune = communeDAO.selectByName(communeName);
+//        return commune != null ? commune.getCommuneId() : -1;
+//    }
+    private void txtOrganizationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganizationNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFacilityNameActionPerformed
+    }//GEN-LAST:event_txtOrganizationNameActionPerformed
 
-    private void cbxCommuneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCommuneActionPerformed
+    private void jRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxCommuneActionPerformed
+    }//GEN-LAST:event_jRadioButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnupdate;
-    private javax.swing.JComboBox<String> cbxCommune;
-    private javax.swing.JComboBox<String> cbxDistrict;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbxOrganizationType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,12 +326,16 @@ public class UpdateOrganization extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContactPerson;
     private javax.swing.JTextField txtContactPhone;
-    private javax.swing.JLabel txtFacilityId;
-    private javax.swing.JTextField txtFacilityName;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JLabel txtOrganizationId;
+    private javax.swing.JTextField txtOrganizationName;
     // End of variables declaration//GEN-END:variables
 }
