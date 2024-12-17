@@ -6,32 +6,35 @@ public class Organization {
     private String contactPerson;
     private String phone;
     private String email;
+    private String address;          // Thêm thuộc tính address
     private String organizationType;
-    private String status;
+    private int status;              // Sửa kiểu dữ liệu của status thành int
 
     // Constructors
-    public Organization(int organizationId, String name, String contactPerson, String phone, String email, String organizationType, String status) {
+    public Organization(int organizationId, String name, String contactPerson, String phone, String email, String address, String organizationType, int status) {
         this.organizationId = organizationId;
         this.name = name;
         this.contactPerson = contactPerson;
         this.phone = phone;
         this.email = email;
+        this.address = address;
         this.organizationType = organizationType;
         this.status = status;
     }
 
-    public Organization(String name, String contactPerson, String phone, String email, String organizationType, String status) {
+    public Organization(String name, String contactPerson, String phone, String email, String address, String organizationType, int status) {
         this.name = name;
         this.contactPerson = contactPerson;
         this.phone = phone;
         this.email = email;
+        this.address = address;
         this.organizationType = organizationType;
         this.status = status;
     }
 
     public Organization() {}
 
-    // Getter and Setter
+    // Getters và Setters
     public int getOrganizationId() {
         return organizationId;
     }
@@ -72,6 +75,14 @@ public class Organization {
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getOrganizationType() {
         return organizationType;
     }
@@ -80,17 +91,18 @@ public class Organization {
         this.organizationType = organizationType;
     }
 
-    public String getStatus() {
+    public int getStatus() {  // Sửa kiểu dữ liệu của status
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {  // Setter cho status
         this.status = status;
     }
 
     @Override
     public String toString() {
         return "Organization [organizationId=" + organizationId + ", name=" + name + ", contactPerson=" + contactPerson
-                + ", phone=" + phone + ", email=" + email + ", organizationType=" + organizationType + ", status=" + status + "]";
+                + ", phone=" + phone + ", email=" + email + ", address=" + address + ", organizationType=" 
+                + organizationType + ", status=" + status + "]";
     }
 }

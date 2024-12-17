@@ -109,6 +109,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         CSKT = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
+        clickOrganization = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        clickCertificate = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
         MainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -698,6 +702,76 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(CSKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 240, -1));
 
+        clickOrganization.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        clickOrganization.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clickOrganization.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickOrganizationMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickOrganizationMousePressed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restructuring.png"))); // NOI18N
+        jLabel19.setText("Tổ chức");
+
+        javax.swing.GroupLayout clickOrganizationLayout = new javax.swing.GroupLayout(clickOrganization);
+        clickOrganization.setLayout(clickOrganizationLayout);
+        clickOrganizationLayout.setHorizontalGroup(
+            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clickOrganizationLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel19)
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        clickOrganizationLayout.setVerticalGroup(
+            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clickOrganizationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        NavbarMenu.add(clickOrganization, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 710, 240, -1));
+
+        clickCertificate.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        clickCertificate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clickCertificate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickCertificateMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickCertificateMousePressed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/certificate (2).png"))); // NOI18N
+        jLabel20.setText("Chứng chỉ");
+
+        javax.swing.GroupLayout clickCertificateLayout = new javax.swing.GroupLayout(clickCertificate);
+        clickCertificate.setLayout(clickCertificateLayout);
+        clickCertificateLayout.setHorizontalGroup(
+            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clickCertificateLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel20)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        clickCertificateLayout.setVerticalGroup(
+            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clickCertificateLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        NavbarMenu.add(clickCertificate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 750, 240, -1));
+
         getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 920));
 
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
@@ -1141,6 +1215,76 @@ public class Admin extends javax.swing.JFrame {
         CSKT.setBackground(ClickedColor);
     }//GEN-LAST:event_CSKTMousePressed
 
+    private void clickOrganizationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickOrganizationMouseClicked
+        // TODO add your handling code here:
+         // Khởi tạo form quản lý Organization
+        OrganizationForm organizationForm = new OrganizationForm();
+
+        // Thay thế nội dung chính bằng form Organization
+        MainContent.removeAll(); // Xóa tất cả nội dung cũ trong MainContent
+        MainContent.add(organizationForm).setVisible(true); // Thêm form Organization và hiển thị
+        MainContent.revalidate(); // Làm mới layout
+        MainContent.repaint();    // Vẽ lại giao diện
+    }//GEN-LAST:event_clickOrganizationMouseClicked
+
+    private void clickOrganizationMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickOrganizationMousePressed
+        // TODO add your handling code here:
+         // Đặt lại màu nền mặc định cho tất cả các menu khác
+        ThucAn.setBackground(DefaultColor);
+        PhieuNhap.setBackground(DefaultColor);
+        NhapHang.setBackground(DefaultColor);
+        XuatHang.setBackground(DefaultColor);
+        PhieuXuat.setBackground(DefaultColor);
+        NhaCungCap.setBackground(DefaultColor);
+        TonKho.setBackground(DefaultColor);
+        TaiKhoan1.setBackground(DefaultColor);
+        Farm.setBackground(DefaultColor);
+        NCC.setBackground(DefaultColor);
+        NhapHang1.setBackground(DefaultColor);
+        TruyCapHeThong.setBackground(DefaultColor);
+        LoggerTacVu.setBackground(DefaultColor);
+        CSSX.setBackground(DefaultColor);
+        CSKT.setBackground(DefaultColor);
+
+        // Đặt màu nhấn (clicked) cho Organization
+        clickOrganization.setBackground(ClickedColor);
+    }//GEN-LAST:event_clickOrganizationMousePressed
+
+    private void clickCertificateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickCertificateMouseClicked
+//        // TODO add your handling code here:
+//        // Khởi tạo form quản lý Certificate
+//        CertificateForm certificateForm = new CertificateForm();
+//
+//        // Thay thế nội dung chính bằng form Certificate
+//        MainContent.removeAll(); // Xóa tất cả nội dung cũ trong MainContent
+//        MainContent.add(certificateForm).setVisible(true); // Thêm form Certificate và hiển thị
+//        MainContent.revalidate(); // Làm mới layout
+//        MainContent.repaint();    // Vẽ lại giao diện
+    }//GEN-LAST:event_clickCertificateMouseClicked
+
+    private void clickCertificateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickCertificateMousePressed
+        // TODO add your handling code here: // Đặt lại màu nền mặc định cho tất cả các menu khác
+        ThucAn.setBackground(DefaultColor);
+        PhieuNhap.setBackground(DefaultColor);
+        NhapHang.setBackground(DefaultColor);
+        XuatHang.setBackground(DefaultColor);
+        PhieuXuat.setBackground(DefaultColor);
+        NhaCungCap.setBackground(DefaultColor);
+        TonKho.setBackground(DefaultColor);
+        TaiKhoan1.setBackground(DefaultColor);
+        Farm.setBackground(DefaultColor);
+        NCC.setBackground(DefaultColor);
+        NhapHang1.setBackground(DefaultColor);
+        TruyCapHeThong.setBackground(DefaultColor);
+        LoggerTacVu.setBackground(DefaultColor);
+        CSSX.setBackground(DefaultColor);
+        CSKT.setBackground(DefaultColor);
+        clickOrganization.setBackground(DefaultColor);
+
+        // Đặt màu nhấn (clicked) cho Certificate
+        clickCertificate.setBackground(ClickedColor);
+    }//GEN-LAST:event_clickCertificateMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1179,6 +1323,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel TonKho;
     private javax.swing.JPanel TruyCapHeThong;
     private javax.swing.JPanel XuatHang;
+    private javax.swing.JPanel clickCertificate;
+    private javax.swing.JPanel clickOrganization;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1188,7 +1334,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

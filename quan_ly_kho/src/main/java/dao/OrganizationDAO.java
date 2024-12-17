@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class OrganizationDAO {
 
+    // Sử dụng Singleton
     public static OrganizationDAO getInstance() {
         return new OrganizationDAO();
     }
@@ -20,14 +21,16 @@ public class OrganizationDAO {
         int result = 0;
         try {
             Connection con = JDBCUtil.getConnection();
-            String sql = "INSERT INTO organization (name, contact_person, phone, email, organization_type, status) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO organization (name, contact_person, phone, email, address, organization_type, status) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, org.getName());
             pst.setString(2, org.getContactPerson());
             pst.setString(3, org.getPhone());
             pst.setString(4, org.getEmail());
-            pst.setString(5, org.getOrganizationType());
-            pst.setString(6, org.getStatus());
+            pst.setString(5, org.getAddress());  // Thêm địa chỉ
+            pst.setString(6, org.getOrganizationType());
+            pst.setInt(7, org.getStatus());  // Truyền status là kiểu int
             result = pst.executeUpdate();
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
@@ -57,15 +60,17 @@ public class OrganizationDAO {
         int result = 0;
         try {
             Connection con = JDBCUtil.getConnection();
-            String sql = "UPDATE organization SET name = ?, contact_person = ?, phone = ?, email = ?, organization_type = ?, status = ? WHERE organization_id = ?";
+            String sql = "UPDATE organization SET name = ?, contact_person = ?, phone = ?, email = ?, address = ?, organization_type = ?, status = ? " +
+                         "WHERE organization_id = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, org.getName());
             pst.setString(2, org.getContactPerson());
             pst.setString(3, org.getPhone());
             pst.setString(4, org.getEmail());
-            pst.setString(5, org.getOrganizationType());
-            pst.setString(6, org.getStatus());
-            pst.setInt(7, org.getOrganizationId());
+            pst.setString(5, org.getAddress());  // Cập nhật địa chỉ
+            pst.setString(6, org.getOrganizationType());
+            pst.setInt(7, org.getStatus());  // Truyền status là kiểu int
+            pst.setInt(8, org.getOrganizationId());
             result = pst.executeUpdate();
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
@@ -89,8 +94,9 @@ public class OrganizationDAO {
                     rs.getString("contact_person"),
                     rs.getString("phone"),
                     rs.getString("email"),
+                    rs.getString("address"),  // Thêm địa chỉ
                     rs.getString("organization_type"),
-                    rs.getString("status")
+                    rs.getInt("status")  // Lấy status là kiểu int
                 );
                 orgList.add(org);
             }
@@ -117,8 +123,9 @@ public class OrganizationDAO {
                     rs.getString("contact_person"),
                     rs.getString("phone"),
                     rs.getString("email"),
+                    rs.getString("address"),  // Lấy địa chỉ
                     rs.getString("organization_type"),
-                    rs.getString("status")
+                    rs.getInt("status")  // Lấy status là kiểu int
                 );
             }
             JDBCUtil.closeConnection(con);

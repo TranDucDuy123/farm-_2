@@ -23,12 +23,12 @@ import model.SanPham;
  *
  * @author Admin
  */
-public class AddProductionFacility extends javax.swing.JDialog {
-    private ProductionFacilityForm owner;  // Thay đổi từ ProductForm thành FarmForm
+public class AddCertification extends javax.swing.JDialog {
+    private OrganizationForm owner;  // Thay đổi từ ProductForm thành FarmForm
 
-    public AddProductionFacility(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
+    public AddCertification(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
         super(owner, modal);
-        this.owner = (ProductionFacilityForm) parent;  // Thay đổi từ ProductForm thành FarmForm
+        this.owner = (OrganizationForm) parent;  // Thay đổi từ ProductForm thành FarmForm
         initComponents();
         setLocationRelativeTo(null);
         loadDistricts();  // Tải danh sách huyện
@@ -37,7 +37,7 @@ public class AddProductionFacility extends javax.swing.JDialog {
 //        txtFarmId.setText(createIdLT());  // Nếu không cần, có thể xóa dòng này
     }
 
-    private AddProductionFacility(JFrame jFrame, boolean b) {
+    private AddCertification(JFrame jFrame, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -245,7 +245,7 @@ public class AddProductionFacility extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("SF Pro Display", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("THÊM NHÀ SXSP MỚI");
+        jLabel1.setText("THÊM CHỨNG CHỈ MỚI");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -254,7 +254,7 @@ public class AddProductionFacility extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jLabel1)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,7 +439,7 @@ public class AddProductionFacility extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddProductionFacility dialog = new AddProductionFacility(new javax.swing.JFrame(), true);
+                AddCertification dialog = new AddCertification(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
