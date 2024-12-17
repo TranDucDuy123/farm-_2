@@ -320,7 +320,7 @@ public class AddTestingFacility extends javax.swing.JDialog {
     }//GEN-LAST:event_txtContactPersonActionPerformed
 
     private void cbxDistrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistrictActionPerformed
-         // Lấy tên huyện được chọn và tìm id của huyện
+         // Lấy tên huyện được chọn và tìm id của huyện         
         String selectedDistrict = (String) cbxDistrict.getSelectedItem();
         
         // Kiểm tra xem người dùng đã chọn huyện chưa

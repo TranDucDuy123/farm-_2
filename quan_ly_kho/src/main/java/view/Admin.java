@@ -296,7 +296,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 780, 240, -1));
+        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 880, 240, -1));
 
         NhaCungCap.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -525,7 +525,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 740, 240, -1));
+        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 840, 240, -1));
 
         NhapHang1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         NhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -698,7 +698,7 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(CSKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 240, -1));
 
-        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 820));
+        getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 920));
 
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -710,10 +710,10 @@ public class Admin extends javax.swing.JFrame {
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
+            .addGap(0, 920, Short.MAX_VALUE)
         );
 
-        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 820));
+        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1180, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

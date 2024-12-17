@@ -7,7 +7,21 @@ public class Farm {
     private int districtId;
     private int communeId;
     private String owner;
+    
+    private double latitude;   // Thuộc tính mới
+    private double longitude;  // Thuộc tính mới
 
+    // Constructor có tất cả thuộc tính
+    public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner, double latitude, double longitude) {
+        this.farmId = farmId;
+        this.farmName = farmName;
+        this.address = address;
+        this.districtId = districtId;
+        this.communeId = communeId;
+        this.owner = owner;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
     // Constructor
     public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner) {
         this.farmId = farmId;
@@ -73,6 +87,22 @@ public class Farm {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+    
+     public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
