@@ -54,13 +54,13 @@ public class AddOrganization extends javax.swing.JDialog {
         buttonGroup6 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        contactPerson = new javax.swing.JTextField();
+        txtContactPerson = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnAddProduct = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtContactPerson = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
         txtOrganizationName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -81,9 +81,9 @@ public class AddOrganization extends javax.swing.JDialog {
 
         jLabel3.setText("Người liên hệ");
 
-        contactPerson.addActionListener(new java.awt.event.ActionListener() {
+        txtContactPerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contactPersonActionPerformed(evt);
+                txtContactPersonActionPerformed(evt);
             }
         });
 
@@ -115,9 +115,9 @@ public class AddOrganization extends javax.swing.JDialog {
 
         jLabel16.setText("Địa chỉ");
 
-        txtContactPerson.addActionListener(new java.awt.event.ActionListener() {
+        txtAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContactPersonActionPerformed(evt);
+                txtAddressActionPerformed(evt);
             }
         });
 
@@ -162,12 +162,12 @@ public class AddOrganization extends javax.swing.JDialog {
                                 .addComponent(jRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(contactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(comboLoaiToChuc, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtContactPerson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
+                                .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +185,7 @@ public class AddOrganization extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(2, 2, 2)
@@ -197,7 +197,7 @@ public class AddOrganization extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContactPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,8 +256,8 @@ public class AddOrganization extends javax.swing.JDialog {
         String contactPerson = txtContactPerson.getText().trim();
         String phone = txtPhone.getText().trim();
         String email = txtEmail.getText().trim();
-        String address = txtContactPerson.getText().trim();
-        String organizationType = buttonGroup1.getSelection().toString();
+        String address = txtAddress.getText().trim();
+        String organizationType = comboLoaiToChuc.getSelectedItem().toString();
 
         // Kiểm tra dữ liệu đầu vào
         if (name.isEmpty() || contactPerson.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
@@ -291,13 +291,13 @@ public class AddOrganization extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
+    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAddressActionPerformed
+
     private void txtContactPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactPersonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContactPersonActionPerformed
-
-    private void contactPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactPersonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contactPersonActionPerformed
 
     private void jRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonActionPerformed
         // TODO add your handling code here:
@@ -410,7 +410,6 @@ public class AddOrganization extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.ButtonGroup buttonGroup6;
     private javax.swing.JComboBox<String> comboLoaiToChuc;
-    private javax.swing.JTextField contactPerson;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -423,6 +422,7 @@ public class AddOrganization extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton;
     private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContactPerson;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtOrganizationName;

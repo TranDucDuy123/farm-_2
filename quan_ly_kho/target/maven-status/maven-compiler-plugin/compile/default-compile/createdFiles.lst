@@ -19,7 +19,9 @@ view\UpdateCustomer$3.class
 view\AddTestingFacility$6.class
 view\QuanLiKho$5.class
 view\AddProduct.class
+view\CertificateForm$9.class
 view\Admin$5.class
+view\CertificateForm$4.class
 view\DetailProduct$1.class
 view\AccessHistoryForm$3.class
 view\UpdatePhieuNhap$4.class
@@ -71,6 +73,7 @@ view\AddOrganization$6.class
 view\TestingFacilityForm$11.class
 view\TestingFacilityForm$9.class
 view\AddCertification$1.class
+view\CertificateForm$11.class
 view\ProductionFacilityForm$4.class
 model\ThongKeProduct.class
 view\ProductForm.class
@@ -96,6 +99,7 @@ view\ProductionFacilityForm$12.class
 view\XuatKho.class
 view\PhieuNhapForm$13.class
 view\AddProductionFacility.class
+view\CertificateForm$7.class
 view\FarmForm$6.class
 view\NhapKho$6.class
 view\ThongKeForm$8.class
@@ -110,6 +114,7 @@ view\Login$4.class
 dao\SystemActionHistoryDAO.class
 view\UpdateProductionFacility$3.class
 view\AddTestingFacility$1.class
+view\CertificateForm$13.class
 view\SystemActionForm$11.class
 dao\FarmDAO.class
 view\SystemActionForm$10.class
@@ -180,6 +185,7 @@ view\AddTestingFacility$4.class
 view\UpdateOrganization$5.class
 view\UpdateCustomer$1.class
 model\TestingFacility.class
+view\CertificateForm$10.class
 view\UpdateProduct.class
 model\Farm.class
 view\TestingFacilityForm$7.class
@@ -231,7 +237,6 @@ view\Admin$21.class
 view\NhapHangForm.class
 view\AddProduct$4.class
 view\CTPhieuXuat$1.class
-view\AddCertification$4.class
 view\PhieuXuatForm$11.class
 view\TestingFacilityForm$1.class
 view\ChangePassword$1.class
@@ -276,6 +281,7 @@ view\AddOrganization$2.class
 model\ChiTietPhieu.class
 view\OrganizationForm$10.class
 view\CustomerForm$6.class
+view\CertificateForm.class
 controller\SearchUserAccessHistory.class
 view\TestingFacilityForm$5.class
 view\AddCustomer$2.class
@@ -317,6 +323,7 @@ controller\SendEmailSMTP$1.class
 controller\SendEmailSMTP.class
 view\UpdateTestingFacility$3.class
 view\UpdatePhieuNhap$3.class
+view\CertificateForm$5.class
 view\DetailProduct.class
 view\PhieuXuatForm$3.class
 view\NhapHangForm$4.class
@@ -381,6 +388,7 @@ view\Admin$9.class
 view\CustomerForm$1.class
 view\FarmForm.class
 view\SystemActionForm$6.class
+view\CertificateForm$12.class
 dao\SanPhamDAO.class
 view\TestingFacilityForm.class
 view\UpdateProduct$3.class
@@ -390,6 +398,7 @@ view\QuanLiKho$6.class
 view\Login.class
 view\PhieuNhapForm$12.class
 view\ThongKeForm$9.class
+view\CertificateForm$8.class
 view\UpdateProductionFacility$2.class
 view\NhaCungCapForm$3.class
 view\UpdatePhieuXuat$7$1.class
@@ -400,6 +409,7 @@ view\XuatHangForm$6.class
 view\UpdateFarm$2.class
 view\SystemActionForm$5.class
 view\QuanLiKho$8.class
+view\CertificateForm$1.class
 view\AddFarm$1.class
 view\PhieuXuatForm.class
 view\CTPhieuXuat.class
@@ -410,6 +420,7 @@ controller\Test.class
 view\ThongKeForm$23.class
 view\UpdateTestingFacility$1.class
 view\ProductionFacilityForm$3.class
+view\CertificateForm$6.class
 view\NhapHangForm$6.class
 view\OrganizationForm$9.class
 view\FarmForm$10.class
@@ -469,6 +480,7 @@ view\NhaCungCapForm.class
 view\ThongKeForm$27.class
 view\UpdateCertification.class
 view\UpdateFarm$4.class
+view\CertificateForm$3.class
 view\RecoverPassword$1.class
 view\AddCustomer$5.class
 view\UpdateOrganization.class
@@ -476,6 +488,7 @@ view\RecoverPassword$2.class
 view\XuatHangForm$7.class
 view\AccessHistoryForm$2.class
 model\SanPham.class
+view\CertificateForm$2.class
 view\OrganizationForm$4.class
 dao\TestingFacilityDAO.class
 view\AccessHistoryForm$1.class

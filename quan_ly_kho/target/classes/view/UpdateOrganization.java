@@ -46,10 +46,10 @@ public class UpdateOrganization extends javax.swing.JDialog {
     // Điền thông tin Organization vào các trường nhập liệu
     txtOrganizationId.setText(String.valueOf(org.getOrganizationId())); // Mã tổ chức
     txtOrganizationName.setText(org.getName()); // Tên tổ chức
-    txtAddress.setText(org.getContactPerson()); // Người liên hệ
+    txtAddress.setText(org.getAddress()); // Người liên hệ
     txtContactPhone.setText(org.getPhone()); // Số điện thoại
     txtEmail.setText(org.getEmail()); // Email
-    txtContactPerson.setText(org.getAddress()); // Địa chỉ
+    txtContactPerson.setText(org.getContactPerson()); // Địa chỉ
 
     // Thiết lập loại tổ chức vào ComboBox
     cbxOrganizationType.setSelectedItem(org.getOrganizationType());
