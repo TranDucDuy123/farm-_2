@@ -1,49 +1,89 @@
 package model;
 
 public class Slaughterhouse {
-    private int slaughterhouseId;
-    private String slaughterhouseName;
-    private String address;
-    private int capacity; // Số lượng gia súc/gia cầm có thể giết mổ
-    private String contactPerson;
+    private int id;                // ID của lò mổ
+    private String name;           // Tên lò mổ
+    private String address;        // Địa chỉ lò mổ
+    private String phone;          // Số điện thoại liên hệ
+    private String type;           // Loại lò mổ (Gia súc, Gia cầm, Cả hai)
+    private int capacity;          // Sức chứa (số lượng gia súc/gia cầm)
+    private String status;         // Trạng thái (Operational, Under Maintenance)
 
     // Constructors
-    public Slaughterhouse(int slaughterhouseId, String slaughterhouseName, String address, int capacity, String contactPerson) {
-        this.slaughterhouseId = slaughterhouseId;
-        this.slaughterhouseName = slaughterhouseName;
+    public Slaughterhouse(int id, String name, String address, String phone, String type, int capacity, String status) {
+        this.id = id;
+        this.name = name;
         this.address = address;
+        this.phone = phone;
+        this.type = type;
         this.capacity = capacity;
-        this.contactPerson = contactPerson;
+        this.status = status;
     }
 
-    public Slaughterhouse(String slaughterhouseName, String address, int capacity, String contactPerson) {
-        this.slaughterhouseName = slaughterhouseName;
+    public Slaughterhouse(String name, String address, String phone, String type, int capacity, String status) {
+        this.name = name;
         this.address = address;
+        this.phone = phone;
+        this.type = type;
         this.capacity = capacity;
-        this.contactPerson = contactPerson;
+        this.status = status;
     }
 
     public Slaughterhouse() {}
 
-    // Getter and Setter
-    public int getSlaughterhouseId() { return slaughterhouseId; }
-    public void setSlaughterhouseId(int slaughterhouseId) { this.slaughterhouseId = slaughterhouseId; }
+    // Getters và Setters
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getSlaughterhouseName() { return slaughterhouseName; }
-    public void setSlaughterhouseName(String slaughterhouseName) { this.slaughterhouseName = slaughterhouseName; }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public int getCapacity() { return capacity; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public String getContactPerson() { return contactPerson; }
-    public void setContactPerson(String contactPerson) { this.contactPerson = contactPerson; }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {
-        return "Slaughterhouse [slaughterhouseId=" + slaughterhouseId + ", slaughterhouseName=" + slaughterhouseName +
-               ", address=" + address + ", capacity=" + capacity + ", contactPerson=" + contactPerson + "]";
+        return "Slaughterhouse [id=" + id + ", name=" + name + ", address=" + address +
+               ", phone=" + phone + ", type=" + type + ", capacity=" + capacity + ", status=" + status + "]";
     }
 }

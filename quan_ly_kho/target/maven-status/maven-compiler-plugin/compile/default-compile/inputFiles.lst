@@ -11,6 +11,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SearchNhaCungCap.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\SlaughterhouseDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\NhaCungCapDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\model\Organization.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\QuarantineZoneForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SearchVeterinaryDepartment.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\ChiTietPhieuNhapDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\PhieuNhapForm.java
@@ -35,6 +36,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddTestingFacility.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\model\VeterinaryDepartment.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\BCrypt.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SendEmailSMTP.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\VeterinaryDepartmentForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\PhieuNhapDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\DetailCustomer.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SearchFarmCertificate.java
@@ -46,6 +48,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\FarmForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\TestingFacilityForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SearchSystemGuides.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddFarm.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\SlaughterhouseForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\UpdateCertification.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\LivestockHealthDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\PhieuXuatDAO.java
@@ -72,6 +75,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\UpdateTestingFacility.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\SystemActionHistoryDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\FarmCertificateDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\model\Account.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\VeterinaryAgencyForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\RoleDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\CTPhieuXuat.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\NhaCungCapForm.java
@@ -106,6 +110,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\VeterinaryAgencyDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\ProductForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AccessHistoryForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\NhapHangForm.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AnimalQuarantineForm.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\UpdatePhieuXuat.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddProduct.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\AccountDAO.java

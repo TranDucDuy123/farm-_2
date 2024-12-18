@@ -1,49 +1,55 @@
 package model;
 
 public class VeterinaryDepartment {
-    private int departmentId;
-    private String departmentName;
-    private String address;
-    private String contactPerson;
-    private String contactPhone;
+    private int id;             // ID chi cục thú y
+    private String name;        // Tên chi cục thú y
+    private String address;     // Địa chỉ
+    private String phone;       // Số điện thoại
+    private String email;       // Email liên hệ
+    private String region;      // Khu vực (Miền Bắc, Miền Nam...)
 
     // Constructors
-    public VeterinaryDepartment(int departmentId, String departmentName, String address, String contactPerson, String contactPhone) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
+    public VeterinaryDepartment(int id, String name, String address, String phone, String email, String region) {
+        this.id = id;
+        this.name = name;
         this.address = address;
-        this.contactPerson = contactPerson;
-        this.contactPhone = contactPhone;
+        this.phone = phone;
+        this.email = email;
+        this.region = region;
     }
 
-    public VeterinaryDepartment(String departmentName, String address, String contactPerson, String contactPhone) {
-        this.departmentName = departmentName;
+    public VeterinaryDepartment(String name, String address, String phone, String email, String region) {
+        this.name = name;
         this.address = address;
-        this.contactPerson = contactPerson;
-        this.contactPhone = contactPhone;
+        this.phone = phone;
+        this.email = email;
+        this.region = region;
     }
 
     public VeterinaryDepartment() {}
 
-    // Getter and Setter
-    public int getDepartmentId() { return departmentId; }
-    public void setDepartmentId(int departmentId) { this.departmentId = departmentId; }
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getDepartmentName() { return departmentName; }
-    public void setDepartmentName(String departmentName) { this.departmentName = departmentName; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
-    public String getContactPerson() { return contactPerson; }
-    public void setContactPerson(String contactPerson) { this.contactPerson = contactPerson; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getContactPhone() { return contactPhone; }
-    public void setContactPhone(String contactPhone) { this.contactPhone = contactPhone; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getRegion() { return region; }
+    public void setRegion(String region) { this.region = region; }
 
     @Override
     public String toString() {
-        return "VeterinaryDepartment [departmentId=" + departmentId + ", departmentName=" + departmentName +
-               ", address=" + address + ", contactPerson=" + contactPerson + ", contactPhone=" + contactPhone + "]";
+        return "VeterinaryDepartment [id=" + id + ", name=" + name + ", address=" + address +
+               ", phone=" + phone + ", email=" + email + ", region=" + region + "]";
     }
 }
