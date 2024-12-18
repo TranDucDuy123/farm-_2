@@ -11,6 +11,7 @@ view\PhieuNhapForm$11.class
 view\NhaCungCapForm$2.class
 view\AddProduct$3.class
 view\AddTestingFacility$6.class
+view\Admin$28.class
 view\AddProduct.class
 view\AnimalQuarantineForm$11.class
 view\CertificateForm$9.class
@@ -78,6 +79,7 @@ view\AddTestingFacility.class
 view\PhieuNhapForm$6.class
 view\UpdateNhaCungCap$2.class
 view\VeterinaryAgencyForm$3.class
+view\Admin$31.class
 view\VeterinaryAgencyForm$11.class
 view\VeterinaryDepartmentForm$9.class
 view\PhieuXuatForm$1.class
@@ -155,6 +157,7 @@ view\AddProduct$2.class
 view\UpdateAccount$3.class
 view\UpdateOrganization$3.class
 view\TonKhoForm$4.class
+view\Admin$35.class
 dao\NhaCungCapDAO.class
 view\SystemActionForm$8.class
 model\ChiTietPhieu.class
@@ -223,6 +226,7 @@ view\AddNhaCungCap$2.class
 view\PhieuNhapForm$5.class
 view\XuatKho$2.class
 view\AccessHistoryForm$9.class
+view\Admin$30.class
 view\QuarantineZoneForm$12.class
 view\UpdateOrganization$1.class
 view\XuatHangForm$1.class
@@ -249,11 +253,13 @@ view\SystemActionForm$5.class
 view\VeterinaryAgencyForm$12.class
 view\CertificateForm$1.class
 view\AddProductionFacility$2.class
+view\Admin$38.class
 dao\LivestockHealthDAO.class
 controller\Test.class
 view\CertificateForm$6.class
 view\NhapHangForm$6.class
 view\OrganizationForm$9.class
+view\Admin$32.class
 view\PhieuNhapForm$7.class
 view\Login$5.class
 view\OrganizationForm$3.class
@@ -267,6 +273,7 @@ view\QuarantineZoneForm$5.class
 dao\VeterinaryDepartmentDAO.class
 view\AddNhaCungCap$3$1.class
 view\UpdateLivestockHealth$1.class
+view\Admin$33.class
 view\PhieuNhapForm$8.class
 view\AddLivestockHealth$3.class
 model\Account.class
@@ -291,6 +298,7 @@ view\SystemActionForm$1.class
 model\UserRole.class
 view\VeterinaryDepartmentForm$2.class
 view\QuarantineZoneForm$9.class
+view\Admin$36.class
 view\UpdateFarm$1.class
 view\NhapHangForm$2.class
 view\XuatHangForm$5.class
@@ -311,6 +319,7 @@ view\AccessHistoryForm$1.class
 controller\SearchCustomer.class
 view\QuarantineZoneForm$7.class
 view\NhapHangForm$1.class
+view\Admin$37.class
 view\UpdateFarm$3.class
 view\AddLivestockHealth.class
 model\FarmCertificate.class
@@ -345,6 +354,7 @@ view\SystemActionForm$2.class
 view\CustomerForm$5.class
 view\LivestockHealthForm.class
 view\OrganizationForm$1.class
+view\Admin$34.class
 view\PhieuNhapForm$9.class
 view\QuarantineZoneForm$3.class
 view\AddOrganization$6.class
@@ -508,6 +518,7 @@ view\AccountForm$7.class
 view\AddTestingFacility$5.class
 view\VeterinaryAgencyForm$7.class
 view\Admin$22.class
+view\Admin$29.class
 view\UpdateTestingFacility$3.class
 view\UpdatePhieuNhap$3.class
 view\DetailProduct.class
@@ -539,6 +550,7 @@ view\CertificateForm$14.class
 view\UpdateCustomer$3$1.class
 view\ProductForm$10.class
 view\UpdateNhaCungCap$3.class
+view\Admin$27.class
 view\UpdateTestingFacility$5.class
 view\AddFarm$3.class
 view\AccountForm$9.class

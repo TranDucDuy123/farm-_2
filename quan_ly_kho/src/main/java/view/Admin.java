@@ -7,13 +7,18 @@ package view;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Account;
@@ -26,9 +31,6 @@ import model.NhaCungCap;
  */
 public class Admin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Navbar
-     */
     Color DefaultColor, ClickedColor;
     private Account currentAcc;
 
@@ -53,8 +55,8 @@ public class Admin extends javax.swing.JFrame {
         ProductForm pf = new ProductForm();
         MainContent.add(pf).setVisible(true);
 //        pf.checkRole(currentAcc);
-        DefaultColor = new Color(89, 168, 105);
-        ClickedColor = new Color(26, 188, 156);
+        DefaultColor = new Color(204,204,204);
+        ClickedColor = new Color(102,102,102);
         NavbarMenu.setBackground(DefaultColor);
         ThucAn.setBackground(ClickedColor);
         PhieuNhap.setBackground(DefaultColor);
@@ -77,46 +79,39 @@ public class Admin extends javax.swing.JFrame {
     private void initComponents() {
 
         NavbarMenu = new javax.swing.JPanel();
+        DangXuat = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        NameUser = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        Account = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        NhaCungCap = new javax.swing.JPanel();
+        Farm = new javax.swing.JLabel();
+        TonKho = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        TaiKhoan1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         ThucAn = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        NCC = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         NhapHang = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         PhieuNhap = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         XuatHang = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        DangXuat = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        NhaCungCap = new javax.swing.JPanel();
-        Farm = new javax.swing.JLabel();
-        NameUser = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         PhieuXuat = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        TonKho = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        TaiKhoan1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        NCC = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Account = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        NhapHang1 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        TruyCapHeThong = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        LoggerTacVu = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        CSSX = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        CSKT = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        clickOrganization = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        clickCertificate = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        health = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
         chicucthuy = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         dailythuoc = new javax.swing.JPanel();
@@ -125,6 +120,31 @@ public class Admin extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         csmothit = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        CSSX = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        CSKT = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        clickOrganization = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        clickCertificate = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        health = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        NhapHang1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        LoggerTacVu = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        TruyCapHeThong = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
         MainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,145 +157,9 @@ public class Admin extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        NavbarMenu.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        NavbarMenu.setBackground(new java.awt.Color(204, 204, 204));
+        NavbarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         NavbarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ThucAn.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        ThucAn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ThucAn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ThucAnMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                ThucAnMousePressed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_product_25px_2.png"))); // NOI18N
-        jLabel1.setText("THỨC ĂN");
-
-        javax.swing.GroupLayout ThucAnLayout = new javax.swing.GroupLayout(ThucAn);
-        ThucAn.setLayout(ThucAnLayout);
-        ThucAnLayout.setHorizontalGroup(
-            ThucAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ThucAnLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-        ThucAnLayout.setVerticalGroup(
-            ThucAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ThucAnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(ThucAn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 30));
-
-        NhapHang.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        NhapHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NhapHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NhapHangMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                NhapHangMousePressed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_import_25px.png"))); // NOI18N
-        jLabel2.setText("NHẬP KHO");
-
-        javax.swing.GroupLayout NhapHangLayout = new javax.swing.GroupLayout(NhapHang);
-        NhapHang.setLayout(NhapHangLayout);
-        NhapHangLayout.setHorizontalGroup(
-            NhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhapHangLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addContainerGap(86, Short.MAX_VALUE))
-        );
-        NhapHangLayout.setVerticalGroup(
-            NhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhapHangLayout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(NhapHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 240, 30));
-
-        PhieuNhap.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        PhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PhieuNhapMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                PhieuNhapMousePressed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_file_25px_2.png"))); // NOI18N
-        jLabel3.setText("PHIẾU NHẬP");
-
-        javax.swing.GroupLayout PhieuNhapLayout = new javax.swing.GroupLayout(PhieuNhap);
-        PhieuNhap.setLayout(PhieuNhapLayout);
-        PhieuNhapLayout.setHorizontalGroup(
-            PhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PhieuNhapLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
-        PhieuNhapLayout.setVerticalGroup(
-            PhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PhieuNhapLayout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(PhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 30));
-
-        XuatHang.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        XuatHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        XuatHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                XuatHangMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                XuatHangMousePressed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_export_25px.png"))); // NOI18N
-        jLabel4.setText("XUẤT KHO");
-
-        javax.swing.GroupLayout XuatHangLayout = new javax.swing.GroupLayout(XuatHang);
-        XuatHang.setLayout(XuatHangLayout);
-        XuatHangLayout.setHorizontalGroup(
-            XuatHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(XuatHangLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel4)
-                .addContainerGap(87, Short.MAX_VALUE))
-        );
-        XuatHangLayout.setVerticalGroup(
-            XuatHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(XuatHangLayout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(XuatHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 240, 30));
 
         DangXuat.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -309,198 +193,17 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 880, 240, -1));
-
-        NhaCungCap.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        NhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NhaCungCapMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                NhaCungCapMousePressed(evt);
-            }
-        });
-
-        Farm.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        Farm.setForeground(new java.awt.Color(255, 255, 255));
-        Farm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_supplier_25px.png"))); // NOI18N
-        Farm.setText("FARM");
-        Farm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FarmMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                FarmMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout NhaCungCapLayout = new javax.swing.GroupLayout(NhaCungCap);
-        NhaCungCap.setLayout(NhaCungCapLayout);
-        NhaCungCapLayout.setHorizontalGroup(
-            NhaCungCapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhaCungCapLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Farm, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        NhaCungCapLayout.setVerticalGroup(
-            NhaCungCapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhaCungCapLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Farm)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(NhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 30));
+        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 240, -1));
 
         NameUser.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        NameUser.setForeground(new java.awt.Color(255, 255, 255));
         NameUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NameUser.setText("ADMIN");
         NameUser.setToolTipText("");
         NavbarMenu.add(NameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 160, -1));
 
         jLabel8.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("HI !");
         NavbarMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 40, -1));
-
-        PhieuXuat.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        PhieuXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PhieuXuat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PhieuXuatMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                PhieuXuatMousePressed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_database_daily_export_25px.png"))); // NOI18N
-        jLabel9.setText("PHIẾU XUẤT");
-
-        javax.swing.GroupLayout PhieuXuatLayout = new javax.swing.GroupLayout(PhieuXuat);
-        PhieuXuat.setLayout(PhieuXuatLayout);
-        PhieuXuatLayout.setHorizontalGroup(
-            PhieuXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PhieuXuatLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel9)
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
-        PhieuXuatLayout.setVerticalGroup(
-            PhieuXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PhieuXuatLayout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(PhieuXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 240, 30));
-
-        TonKho.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        TonKho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TonKho.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TonKhoMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TonKhoMousePressed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-warehouse-25.png"))); // NOI18N
-        jLabel10.setText("TỒN KHO");
-
-        javax.swing.GroupLayout TonKhoLayout = new javax.swing.GroupLayout(TonKho);
-        TonKho.setLayout(TonKhoLayout);
-        TonKhoLayout.setHorizontalGroup(
-            TonKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TonKhoLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        TonKhoLayout.setVerticalGroup(
-            TonKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TonKhoLayout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(TonKho, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 240, 30));
-
-        TaiKhoan1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        TaiKhoan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TaiKhoan1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TaiKhoan1MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TaiKhoan1MousePressed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_test_account_25px.png"))); // NOI18N
-        jLabel12.setText("TÀI KHOẢN");
-
-        javax.swing.GroupLayout TaiKhoan1Layout = new javax.swing.GroupLayout(TaiKhoan1);
-        TaiKhoan1.setLayout(TaiKhoan1Layout);
-        TaiKhoan1Layout.setHorizontalGroup(
-            TaiKhoan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TaiKhoan1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel12)
-                .addContainerGap(81, Short.MAX_VALUE))
-        );
-        TaiKhoan1Layout.setVerticalGroup(
-            TaiKhoan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TaiKhoan1Layout.createSequentialGroup()
-                .addComponent(jLabel12)
-                .addGap(0, 6, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(TaiKhoan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 240, -1));
-
-        NCC.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        NCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NCC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NCCMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                NCCMousePressed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_supplier_25px.png"))); // NOI18N
-        jLabel6.setText("N CUNG CẤP");
-
-        javax.swing.GroupLayout NCCLayout = new javax.swing.GroupLayout(NCC);
-        NCC.setLayout(NCCLayout);
-        NCCLayout.setHorizontalGroup(
-            NCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NCCLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
-        NCCLayout.setVerticalGroup(
-            NCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NCCLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        NavbarMenu.add(NCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 40));
 
         Account.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         Account.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -535,285 +238,443 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 840, 240, -1));
+        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 240, -1));
 
-        NhapHang1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        NhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NhapHang1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NhapHang1MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                NhapHang1MousePressed(evt);
+                jPanel3MouseClicked(evt);
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
-        jLabel13.setText("THỐNG KÊ");
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("QUẢN LÝ HỆ THỐNG");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel7MouseEntered(evt);
+            }
+        });
 
-        javax.swing.GroupLayout NhapHang1Layout = new javax.swing.GroupLayout(NhapHang1);
-        NhapHang1.setLayout(NhapHang1Layout);
-        NhapHang1Layout.setHorizontalGroup(
-            NhapHang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhapHang1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel13)
-                .addContainerGap(83, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        NhapHang1Layout.setVerticalGroup(
-            NhapHang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NhapHang1Layout.createSequentialGroup()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        NhaCungCap.setBackground(new java.awt.Color(204, 204, 204));
+        NhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NhaCungCap.setPreferredSize(new java.awt.Dimension(240, 50));
+        NhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NhaCungCapMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                NhaCungCapMousePressed(evt);
+            }
+        });
+
+        Farm.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        Farm.setForeground(new java.awt.Color(255, 255, 255));
+        Farm.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Farm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_supplier_25px.png"))); // NOI18N
+        Farm.setText("FARM");
+        Farm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FarmMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                FarmMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout NhaCungCapLayout = new javax.swing.GroupLayout(NhaCungCap);
+        NhaCungCap.setLayout(NhaCungCapLayout);
+        NhaCungCapLayout.setHorizontalGroup(
+            NhaCungCapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NhaCungCapLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Farm, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        NhaCungCapLayout.setVerticalGroup(
+            NhaCungCapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Farm, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        TonKho.setBackground(new java.awt.Color(204, 204, 204));
+        TonKho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TonKho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TonKhoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TonKhoMousePressed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-warehouse-25.png"))); // NOI18N
+        jLabel10.setText("TỒN KHO");
+
+        javax.swing.GroupLayout TonKhoLayout = new javax.swing.GroupLayout(TonKho);
+        TonKho.setLayout(TonKhoLayout);
+        TonKhoLayout.setHorizontalGroup(
+            TonKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TonKhoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        TonKhoLayout.setVerticalGroup(
+            TonKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        TaiKhoan1.setBackground(new java.awt.Color(204, 204, 204));
+        TaiKhoan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TaiKhoan1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TaiKhoan1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TaiKhoan1MousePressed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_test_account_25px.png"))); // NOI18N
+        jLabel12.setText("TÀI KHOẢN");
+
+        javax.swing.GroupLayout TaiKhoan1Layout = new javax.swing.GroupLayout(TaiKhoan1);
+        TaiKhoan1.setLayout(TaiKhoan1Layout);
+        TaiKhoan1Layout.setHorizontalGroup(
+            TaiKhoan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaiKhoan1Layout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        TaiKhoan1Layout.setVerticalGroup(
+            TaiKhoan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        ThucAn.setBackground(new java.awt.Color(204, 204, 204));
+        ThucAn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ThucAn.setPreferredSize(new java.awt.Dimension(240, 50));
+        ThucAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ThucAnMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ThucAnMousePressed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_product_25px_2.png"))); // NOI18N
+        jLabel1.setText("THỨC ĂN");
+
+        javax.swing.GroupLayout ThucAnLayout = new javax.swing.GroupLayout(ThucAn);
+        ThucAn.setLayout(ThucAnLayout);
+        ThucAnLayout.setHorizontalGroup(
+            ThucAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ThucAnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        ThucAnLayout.setVerticalGroup(
+            ThucAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        NCC.setBackground(new java.awt.Color(204, 204, 204));
+        NCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NCCMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                NCCMousePressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_supplier_25px.png"))); // NOI18N
+        jLabel6.setText("N CUNG CẤP");
+
+        javax.swing.GroupLayout NCCLayout = new javax.swing.GroupLayout(NCC);
+        NCC.setLayout(NCCLayout);
+        NCCLayout.setHorizontalGroup(
+            NCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        NCCLayout.setVerticalGroup(
+            NCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NCCLayout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        NavbarMenu.add(NhapHang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 240, 30));
-
-        TruyCapHeThong.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        TruyCapHeThong.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TruyCapHeThong.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TruyCapHeThongMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TruyCapHeThongMousePressed(evt);
-            }
-        });
-
-        jLabel15.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
-        jLabel15.setText("Truy Cập HT");
-
-        javax.swing.GroupLayout TruyCapHeThongLayout = new javax.swing.GroupLayout(TruyCapHeThong);
-        TruyCapHeThong.setLayout(TruyCapHeThongLayout);
-        TruyCapHeThongLayout.setHorizontalGroup(
-            TruyCapHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TruyCapHeThongLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel15)
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-        TruyCapHeThongLayout.setVerticalGroup(
-            TruyCapHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TruyCapHeThongLayout.createSequentialGroup()
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        NavbarMenu.add(TruyCapHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 240, -1));
-
-        LoggerTacVu.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        LoggerTacVu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LoggerTacVu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LoggerTacVuMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                LoggerTacVuMousePressed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
-        jLabel16.setText("Logger Tác vụ");
-
-        javax.swing.GroupLayout LoggerTacVuLayout = new javax.swing.GroupLayout(LoggerTacVu);
-        LoggerTacVu.setLayout(LoggerTacVuLayout);
-        LoggerTacVuLayout.setHorizontalGroup(
-            LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoggerTacVuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel16)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-        LoggerTacVuLayout.setVerticalGroup(
-            LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoggerTacVuLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TaiKhoan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(TonKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ThucAn, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(NCC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        NavbarMenu.add(LoggerTacVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 240, 30));
-
-        CSSX.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        CSSX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CSSX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CSSXMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CSSXMousePressed(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
-        jLabel17.setText("CSSX SPCT");
-
-        javax.swing.GroupLayout CSSXLayout = new javax.swing.GroupLayout(CSSX);
-        CSSX.setLayout(CSSXLayout);
-        CSSXLayout.setHorizontalGroup(
-            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CSSXLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel17)
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
-        CSSXLayout.setVerticalGroup(
-            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CSSXLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17)
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(CSSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 240, 40));
-
-        CSKT.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        CSKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CSKT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CSKTMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CSKTMousePressed(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
-        jLabel18.setText("CSKT SPCT");
-
-        javax.swing.GroupLayout CSKTLayout = new javax.swing.GroupLayout(CSKT);
-        CSKT.setLayout(CSKTLayout);
-        CSKTLayout.setHorizontalGroup(
-            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CSKTLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel18)
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
-        CSKTLayout.setVerticalGroup(
-            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CSKTLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18)
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-
-        NavbarMenu.add(CSKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 240, 40));
-
-        clickOrganization.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        clickOrganization.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        clickOrganization.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clickOrganizationMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                clickOrganizationMousePressed(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restructuring.png"))); // NOI18N
-        jLabel19.setText("Tổ chức");
-
-        javax.swing.GroupLayout clickOrganizationLayout = new javax.swing.GroupLayout(clickOrganization);
-        clickOrganization.setLayout(clickOrganizationLayout);
-        clickOrganizationLayout.setHorizontalGroup(
-            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clickOrganizationLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel19)
-                .addContainerGap(99, Short.MAX_VALUE))
-        );
-        clickOrganizationLayout.setVerticalGroup(
-            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clickOrganizationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NhaCungCap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TonKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TaiKhoan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ThucAn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(clickOrganization, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 240, 30));
+        NavbarMenu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 40));
 
-        clickCertificate.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        clickCertificate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        clickCertificate.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clickCertificateMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                clickCertificateMousePressed(evt);
+                jPanel4MouseClicked(evt);
             }
         });
 
-        jLabel20.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/certificate (2).png"))); // NOI18N
-        jLabel20.setText("Chứng chỉ");
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("QUẢN LÝ KHO");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout clickCertificateLayout = new javax.swing.GroupLayout(clickCertificate);
-        clickCertificate.setLayout(clickCertificateLayout);
-        clickCertificateLayout.setHorizontalGroup(
-            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clickCertificateLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel20)
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
-        clickCertificateLayout.setVerticalGroup(
-            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clickCertificateLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
 
-        NavbarMenu.add(clickCertificate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, 240, 40));
-
-        health.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        health.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        health.addMouseListener(new java.awt.event.MouseAdapter() {
+        NhapHang.setBackground(new java.awt.Color(204, 204, 204));
+        NhapHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NhapHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                healthMouseClicked(evt);
+                NhapHangMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                healthMousePressed(evt);
+                NhapHangMousePressed(evt);
             }
         });
 
-        jLabel21.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/heart.png"))); // NOI18N
-        jLabel21.setText("Sức khỏe CN");
+        jLabel2.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_import_25px.png"))); // NOI18N
+        jLabel2.setText("NHẬP KHO");
 
-        javax.swing.GroupLayout healthLayout = new javax.swing.GroupLayout(health);
-        health.setLayout(healthLayout);
-        healthLayout.setHorizontalGroup(
-            healthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(healthLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel21)
-                .addContainerGap(61, Short.MAX_VALUE))
+        javax.swing.GroupLayout NhapHangLayout = new javax.swing.GroupLayout(NhapHang);
+        NhapHang.setLayout(NhapHangLayout);
+        NhapHangLayout.setHorizontalGroup(
+            NhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NhapHangLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        healthLayout.setVerticalGroup(
-            healthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+        NhapHangLayout.setVerticalGroup(
+            NhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        NavbarMenu.add(health, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 240, -1));
+        PhieuNhap.setBackground(new java.awt.Color(204, 204, 204));
+        PhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PhieuNhapMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                PhieuNhapMousePressed(evt);
+            }
+        });
 
-        chicucthuy.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        jLabel3.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_file_25px_2.png"))); // NOI18N
+        jLabel3.setText("PHIẾU NHẬP");
+
+        javax.swing.GroupLayout PhieuNhapLayout = new javax.swing.GroupLayout(PhieuNhap);
+        PhieuNhap.setLayout(PhieuNhapLayout);
+        PhieuNhapLayout.setHorizontalGroup(
+            PhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PhieuNhapLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        PhieuNhapLayout.setVerticalGroup(
+            PhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        XuatHang.setBackground(new java.awt.Color(204, 204, 204));
+        XuatHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        XuatHang.setPreferredSize(new java.awt.Dimension(173, 40));
+        XuatHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                XuatHangMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                XuatHangMousePressed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_export_25px.png"))); // NOI18N
+        jLabel4.setText("XUẤT KHO");
+
+        javax.swing.GroupLayout XuatHangLayout = new javax.swing.GroupLayout(XuatHang);
+        XuatHang.setLayout(XuatHangLayout);
+        XuatHangLayout.setHorizontalGroup(
+            XuatHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, XuatHangLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        XuatHangLayout.setVerticalGroup(
+            XuatHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        PhieuXuat.setBackground(new java.awt.Color(204, 204, 204));
+        PhieuXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PhieuXuat.setPreferredSize(new java.awt.Dimension(171, 40));
+        PhieuXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PhieuXuatMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                PhieuXuatMousePressed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_database_daily_export_25px.png"))); // NOI18N
+        jLabel9.setText("PHIẾU XUẤT");
+
+        javax.swing.GroupLayout PhieuXuatLayout = new javax.swing.GroupLayout(PhieuXuat);
+        PhieuXuat.setLayout(PhieuXuatLayout);
+        PhieuXuatLayout.setHorizontalGroup(
+            PhieuXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PhieuXuatLayout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        PhieuXuatLayout.setVerticalGroup(
+            PhieuXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NhapHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PhieuNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PhieuXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(XuatHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NhapHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PhieuNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(XuatHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PhieuXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 40));
+
+        jPanel6.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("QUẢN LÝ ĐỐI TÁC");
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel26MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        chicucthuy.setBackground(new java.awt.Color(204, 204, 204));
         chicucthuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chicucthuy.setPreferredSize(new java.awt.Dimension(240, 40));
         chicucthuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 chicucthuyMouseClicked(evt);
@@ -832,23 +693,18 @@ public class Admin extends javax.swing.JFrame {
         chicucthuy.setLayout(chicucthuyLayout);
         chicucthuyLayout.setHorizontalGroup(
             chicucthuyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chicucthuyLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel22)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chicucthuyLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         chicucthuyLayout.setVerticalGroup(
             chicucthuyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chicucthuyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        NavbarMenu.add(chicucthuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 240, -1));
-
-        dailythuoc.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        dailythuoc.setBackground(new java.awt.Color(204, 204, 204));
         dailythuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dailythuoc.setPreferredSize(new java.awt.Dimension(240, 40));
         dailythuoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dailythuocMouseClicked(evt);
@@ -867,22 +723,16 @@ public class Admin extends javax.swing.JFrame {
         dailythuoc.setLayout(dailythuocLayout);
         dailythuocLayout.setHorizontalGroup(
             dailythuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dailythuocLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel23)
-                .addContainerGap(64, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dailythuocLayout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         dailythuocLayout.setVerticalGroup(
             dailythuocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dailythuocLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        NavbarMenu.add(dailythuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, 240, -1));
-
-        tieuhuy.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        tieuhuy.setBackground(new java.awt.Color(204, 204, 204));
         tieuhuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tieuhuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -902,22 +752,16 @@ public class Admin extends javax.swing.JFrame {
         tieuhuy.setLayout(tieuhuyLayout);
         tieuhuyLayout.setHorizontalGroup(
             tieuhuyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tieuhuyLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel24)
-                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tieuhuyLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         tieuhuyLayout.setVerticalGroup(
             tieuhuyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tieuhuyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel24)
-                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        NavbarMenu.add(tieuhuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 730, 240, -1));
-
-        csmothit.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        csmothit.setBackground(new java.awt.Color(204, 204, 204));
         csmothit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         csmothit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -937,20 +781,458 @@ public class Admin extends javax.swing.JFrame {
         csmothit.setLayout(csmothitLayout);
         csmothitLayout.setHorizontalGroup(
             csmothitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(csmothitLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, csmothitLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         csmothitLayout.setVerticalGroup(
             csmothitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(csmothitLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel25)
-                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        NavbarMenu.add(csmothit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 770, 240, -1));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dailythuoc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(chicucthuy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(tieuhuy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(csmothit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chicucthuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dailythuoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tieuhuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(csmothit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 40));
+
+        jPanel8.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("QUẢN LÝ SP CHẤT THẢI");
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        CSSX.setBackground(new java.awt.Color(204, 204, 204));
+        CSSX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CSSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CSSXMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CSSXMousePressed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
+        jLabel17.setText("CSSX SPCT");
+
+        javax.swing.GroupLayout CSSXLayout = new javax.swing.GroupLayout(CSSX);
+        CSSX.setLayout(CSSXLayout);
+        CSSXLayout.setHorizontalGroup(
+            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CSSXLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        CSSXLayout.setVerticalGroup(
+            CSSXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        CSKT.setBackground(new java.awt.Color(204, 204, 204));
+        CSKT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CSKT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CSKTMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CSKTMousePressed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logistics.png"))); // NOI18N
+        jLabel18.setText("CSKT SPCT");
+
+        javax.swing.GroupLayout CSKTLayout = new javax.swing.GroupLayout(CSKT);
+        CSKT.setLayout(CSKTLayout);
+        CSKTLayout.setHorizontalGroup(
+            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CSKTLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        CSKTLayout.setVerticalGroup(
+            CSKTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CSSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CSKT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CSSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CSKT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 240, 40));
+
+        jPanel10.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel10MouseClicked(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("QUẢN LÝ DỊNH BỆNH");
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        clickOrganization.setBackground(new java.awt.Color(204, 204, 204));
+        clickOrganization.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clickOrganization.setPreferredSize(new java.awt.Dimension(240, 40));
+        clickOrganization.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickOrganizationMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickOrganizationMousePressed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restructuring.png"))); // NOI18N
+        jLabel19.setText("Tổ chức");
+
+        javax.swing.GroupLayout clickOrganizationLayout = new javax.swing.GroupLayout(clickOrganization);
+        clickOrganization.setLayout(clickOrganizationLayout);
+        clickOrganizationLayout.setHorizontalGroup(
+            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clickOrganizationLayout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        clickOrganizationLayout.setVerticalGroup(
+            clickOrganizationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        clickCertificate.setBackground(new java.awt.Color(204, 204, 204));
+        clickCertificate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clickCertificate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickCertificateMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickCertificateMousePressed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/certificate (2).png"))); // NOI18N
+        jLabel20.setText("Chứng chỉ");
+
+        javax.swing.GroupLayout clickCertificateLayout = new javax.swing.GroupLayout(clickCertificate);
+        clickCertificate.setLayout(clickCertificateLayout);
+        clickCertificateLayout.setHorizontalGroup(
+            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clickCertificateLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        clickCertificateLayout.setVerticalGroup(
+            clickCertificateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clickCertificateLayout.createSequentialGroup()
+                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        health.setBackground(new java.awt.Color(204, 204, 204));
+        health.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        health.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                healthMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                healthMousePressed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/heart.png"))); // NOI18N
+        jLabel21.setText("Sức khỏe CN");
+
+        javax.swing.GroupLayout healthLayout = new javax.swing.GroupLayout(health);
+        health.setLayout(healthLayout);
+        healthLayout.setHorizontalGroup(
+            healthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, healthLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        healthLayout.setVerticalGroup(
+            healthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(clickCertificate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(health, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clickOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clickOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clickCertificate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(health, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 240, 40));
+
+        jPanel12.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("THỐNG KÊ");
+        jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel31MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        NhapHang1.setBackground(new java.awt.Color(204, 204, 204));
+        NhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NhapHang1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NhapHang1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                NhapHang1MousePressed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
+        jLabel13.setText("THỐNG KÊ");
+
+        javax.swing.GroupLayout NhapHang1Layout = new javax.swing.GroupLayout(NhapHang1);
+        NhapHang1.setLayout(NhapHang1Layout);
+        NhapHang1Layout.setHorizontalGroup(
+            NhapHang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NhapHang1Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        NhapHang1Layout.setVerticalGroup(
+            NhapHang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        LoggerTacVu.setBackground(new java.awt.Color(204, 204, 204));
+        LoggerTacVu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LoggerTacVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoggerTacVuMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LoggerTacVuMousePressed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
+        jLabel16.setText("Logger Tác vụ");
+
+        javax.swing.GroupLayout LoggerTacVuLayout = new javax.swing.GroupLayout(LoggerTacVu);
+        LoggerTacVu.setLayout(LoggerTacVuLayout);
+        LoggerTacVuLayout.setHorizontalGroup(
+            LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoggerTacVuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        LoggerTacVuLayout.setVerticalGroup(
+            LoggerTacVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        TruyCapHeThong.setBackground(new java.awt.Color(204, 204, 204));
+        TruyCapHeThong.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TruyCapHeThong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TruyCapHeThongMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TruyCapHeThongMousePressed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/statisticals.png"))); // NOI18N
+        jLabel15.setText("Truy Cập HT");
+
+        javax.swing.GroupLayout TruyCapHeThongLayout = new javax.swing.GroupLayout(TruyCapHeThong);
+        TruyCapHeThong.setLayout(TruyCapHeThongLayout);
+        TruyCapHeThongLayout.setHorizontalGroup(
+            TruyCapHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TruyCapHeThongLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        TruyCapHeThongLayout.setVerticalGroup(
+            TruyCapHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NhapHang1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LoggerTacVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TruyCapHeThong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NhapHang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LoggerTacVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TruyCapHeThong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 240, 40));
 
         getContentPane().add(NavbarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 240, 930));
 
@@ -960,14 +1242,14 @@ public class Admin extends javax.swing.JFrame {
         MainContent.setLayout(MainContentLayout);
         MainContentLayout.setHorizontalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1180, Short.MAX_VALUE)
+            .addGap(0, 1170, Short.MAX_VALUE)
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 920, Short.MAX_VALUE)
         );
 
-        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 1180, 920));
+        getContentPane().add(MainContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1170, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1034,9 +1316,7 @@ public class Admin extends javax.swing.JFrame {
         TaiKhoan1.setBackground(DefaultColor);
         NCC.setBackground(DefaultColor);
         TruyCapHeThong.setBackground(DefaultColor);
-                LoggerTacVu.setBackground(DefaultColor); 
-
-
+        LoggerTacVu.setBackground(DefaultColor); 
     }//GEN-LAST:event_PhieuNhapMousePressed
 
     private void XuatHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XuatHangMousePressed
@@ -1051,9 +1331,7 @@ public class Admin extends javax.swing.JFrame {
         TaiKhoan1.setBackground(DefaultColor);
         NCC.setBackground(DefaultColor);
         TruyCapHeThong.setBackground(DefaultColor);
-                LoggerTacVu.setBackground(DefaultColor); 
-                
-
+        LoggerTacVu.setBackground(DefaultColor); 
 
     }//GEN-LAST:event_XuatHangMousePressed
 
@@ -1538,6 +1816,64 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_csmothitMousePressed
 
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        Rectangle currentBounds = jPanel1.getBounds();
+        jPanel1.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 280);
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+        Rectangle currentBounds = jPanel2.getBounds();
+        jPanel2.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 230);
+    }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+        Rectangle currentBounds = jPanel5.getBounds();
+        jPanel5.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 230);
+    }//GEN-LAST:event_jLabel26MouseClicked
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+        Rectangle currentBounds = jPanel7.getBounds();
+        jPanel7.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 140);
+    }//GEN-LAST:event_jLabel27MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+        Rectangle currentBounds = jPanel9.getBounds();
+        jPanel9.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 184);
+    }//GEN-LAST:event_jLabel28MouseClicked
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel10MouseClicked
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel12MouseClicked
+
+    private void jLabel31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MouseClicked
+       Rectangle currentBounds = jPanel11.getBounds();
+        jPanel11.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 184);
+    }//GEN-LAST:event_jLabel31MouseClicked
+
     // Phương thức đặt lại màu nền mặc định cho tất cả menu
     private void resetMenuColors() {
         Component[] menuItems = { 
@@ -1611,6 +1947,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel health;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1626,12 +1963,29 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel tieuhuy;
     // End of variables declaration//GEN-END:variables
 }
