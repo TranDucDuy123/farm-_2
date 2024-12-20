@@ -126,4 +126,19 @@ public class CommuneDAO {
         }
         return commune;
     }
+    public int selectIdByName(String communeName) {
+    String sql = "SELECT commune_id FROM commune WHERE commune_name = ?";
+    try (Connection con = JDBCUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement(sql)) {
+        pst.setString(1, communeName);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("commune_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu không tìm thấy
+}
+
 }

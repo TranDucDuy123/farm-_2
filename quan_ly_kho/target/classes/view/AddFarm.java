@@ -7,13 +7,16 @@ package view;
 import dao.CommuneDAO;
 import dao.DistrictDAO;
 import dao.FarmDAO;
+import dao.OrganizationDAO;
 import dao.SanPhamDAO;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Commune;
 import model.District;
 import model.Farm;
+import model.Organization;
 import model.SanPham;
 
 
@@ -22,60 +25,103 @@ import model.SanPham;
  * @author Admin
  */
 public class AddFarm extends javax.swing.JDialog {
-    private FarmForm owner;  // Thay đổi từ ProductForm thành FarmForm
+   private FarmForm owner;
 
     public AddFarm(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
         super(owner, modal);
-        this.owner = (FarmForm) parent;  // Thay đổi từ ProductForm thành FarmForm
+        this.owner = (FarmForm) parent;
         initComponents();
         setLocationRelativeTo(null);
-        loadDistricts();  // Tải danh sách huyện
-        loadCommuneByDistrict(0);  // Mặc định chọn huyện có id = 0 (hoặc bạn có thể để trống)
-        // Ví dụ về mã khác nếu cần
-//        txtFarmId.setText(createIdLT());  // Nếu không cần, có thể xóa dòng này
+        loadDistricts();
+        loadOrganizations();
+        loadCommuneByDistrict(0);
     }
 
     private AddFarm(JFrame jFrame, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // Load danh sách huyện vào ComboBox
     private void loadDistricts() {
         DistrictDAO districtDAO = new DistrictDAO();
         ArrayList<District> districts = (ArrayList<District>) districtDAO.selectAll();
-        cbxDistrict.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-        cbxDistrict.addItem("Chọn huyện");  // Item mặc định
+        cbxDistrict.removeAllItems();
+        cbxDistrict.addItem("Chọn huyện");
         for (District district : districts) {
-            cbxDistrict.addItem(district.getDistrictName());
+            cbxDistrict.addItem(district.getDistrictId() + " - " + district.getDistrictName());
         }
+
+        // Lắng nghe sự kiện thay đổi huyện để cập nhật xã
+        cbxDistrict.addActionListener(e -> {
+            if (cbxDistrict.getSelectedIndex() > 0) {
+                String selectedDistrict = (String) cbxDistrict.getSelectedItem();
+                int districtId = Integer.parseInt(selectedDistrict.split(" - ")[0]); // Lấy ID từ chuỗi "ID - Tên"
+                loadCommuneByDistrict(districtId);
+            } else {
+                loadCommuneByDistrict(0);
+            }
+        });
     }
 
-    // Load danh sách xã vào ComboBox khi chọn huyện
+    // Load danh sách xã vào ComboBox
     private void loadCommuneByDistrict(int districtId) {
         CommuneDAO communeDAO = new CommuneDAO();
         ArrayList<Commune> communes = communeDAO.selectByDistrictId(districtId);
-        cbxCommune.removeAllItems();  // Xóa hết các mục cũ trong ComboBox
-        cbxCommune.addItem("Chọn xã");  // Item mặc định
+        cbxCommune.removeAllItems();
+        cbxCommune.addItem("Chọn xã");
         for (Commune commune : communes) {
-            cbxCommune.addItem(commune.getCommuneName());
+            cbxCommune.addItem(commune.getCommuneId() + " - " + commune.getCommuneName());
         }
     }
-    
-    // Sự kiện khi chọn huyện (cập nhật lại xã tương ứng)
-   
 
-    // Phương thức lấy ID của huyện từ tên huyện (đã có sẵn trong DistrictDAO)
-    private int getDistrictIdByName(String districtName) {
-        DistrictDAO districtDAO = new DistrictDAO();
-        District district = districtDAO.selectByName(districtName);
-        return district != null ? district.getDistrictId() : 0;
+    // Load danh sách tổ chức vào ComboBox
+    private void loadOrganizations() {
+        OrganizationDAO organizationDAO = new OrganizationDAO();
+        ArrayList<Organization> organizations = (ArrayList<Organization>) organizationDAO.selectAll();
+        cbxOrganization.removeAllItems();
+        cbxOrganization.addItem("Chọn tổ chức");
+        for (Organization org : organizations) {
+            cbxOrganization.addItem(org.getOrganizationId() + " - " + org.getName());
+        }
     }
 
-    // Phương thức lấy ID của xã từ tên xã
-    private int getCommuneIdByName(String communeName) {
-        CommuneDAO communeDAO = new CommuneDAO();
-        Commune commune = communeDAO.selectByName(communeName);
-        return commune != null ? commune.getCommuneId() : 0;
+    // Lấy ID từ ComboBox
+    private int getIdFromComboBox(JComboBox<String> comboBox) {
+        String selectedItem = (String) comboBox.getSelectedItem();
+        if (selectedItem != null && selectedItem.contains(" - ")) {
+            return Integer.parseInt(selectedItem.split(" - ")[0]);
+        }
+        return 0;
+    }
+
+    // Lấy dữ liệu nhập từ form
+    private Farm getFarmFromInput() {
+        String farmName = txtFarmName.getText().trim();
+        String address = txtAddress.getText().trim();
+        String owner = txtOwner.getText().trim();
+        int districtId = getIdFromComboBox(cbxDistrict);
+        int communeId = getIdFromComboBox(cbxCommune);
+        int organizationId = getIdFromComboBox(cbxOrganization);
+
+        String latitudeStr = txtLatitude.getText().trim();
+        String longitudeStr = txtLongitude.getText().trim();
+
+        if (farmName.isEmpty() || address.isEmpty() || owner.isEmpty() || districtId == 0 || communeId == 0 || organizationId == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        double latitude = 0;
+        double longitude = 0;
+        try {
+            latitude = Double.parseDouble(latitudeStr);
+            longitude = Double.parseDouble(longitudeStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vĩ độ và kinh độ phải là số hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        return new Farm(farmName, address, districtId, communeId, owner, latitude, longitude, organizationId);
     }
 
     /**
@@ -100,6 +146,12 @@ public class AddFarm extends javax.swing.JDialog {
         cbxCommune = new javax.swing.JComboBox<>();
         txtFarmName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtLatitude = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtLongitude = new javax.swing.JTextField();
+        cbxOrganization = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -156,35 +208,60 @@ public class AddFarm extends javax.swing.JDialog {
 
         jLabel5.setText("Name");
 
+        txtLatitude.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLatitudeActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Lat");
+
+        jLabel6.setText("Long");
+
+        cbxOrganization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("Organization");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(32, 32, 32)
                 .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtFarmName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxDistrict, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5)
+                        .addComponent(txtFarmName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxDistrict, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(40, 40, 40)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbxOrganization, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFarmName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,7 +269,7 @@ public class AddFarm extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxDistrict, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,14 +281,26 @@ public class AddFarm extends javax.swing.JDialog {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
+                .addGap(28, 28, 28))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 380, 480));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 380, 510));
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
 
@@ -247,44 +336,17 @@ public class AddFarm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-            // Lấy thông tin từ các trường đầu vào
-              // Lấy thông tin từ các trường đầu vào
-         String farmName = txtFarmName.getText();
-         String address = txtAddress.getText();
-         String owner_name = txtOwner.getText();
-
-         // Kiểm tra các trường thông tin
-         if (farmName.equals("") || address.equals("") || owner_name.equals("") || cbxDistrict.getSelectedItem() == null || cbxCommune.getSelectedItem() == null) {
-             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-         } else {
-             // Lấy ID huyện và xã từ ComboBox (dùng phương thức để lấy ID từ tên)
-             String districtName = cbxDistrict.getSelectedItem().toString();
-             String communeName = cbxCommune.getSelectedItem().toString();
-
-             int districtId = getDistrictIdByName(districtName);
-             int communeId = getCommuneIdByName(communeName);
-
-             // Kiểm tra nếu ID huyện hoặc xã không hợp lệ
-             if (districtId == -1 || communeId == -1) {
-                 JOptionPane.showMessageDialog(this, "Huyện hoặc xã không hợp lệ!");
-                 return;
-             }
-
-             // Tạo đối tượng Farm với thông tin đã nhập
-             Farm farm = new Farm(farmName, address, districtId, communeId, owner_name);
-
-             try {
-                 // Thêm farm vào cơ sở dữ liệu
-                 FarmDAO.getInstance().insert(farm);
-                 JOptionPane.showMessageDialog(this, "Thêm farm thành công!");
-                 this.dispose();
-                 ArrayList<Farm> farms = (ArrayList<Farm>) FarmDAO.getInstance().selectAll();
-                 owner.loadDataToTable(farms);  // Tải lại bảng
-             } catch (Exception e) {
-                 e.printStackTrace();
-                 JOptionPane.showMessageDialog(this, "Thêm farm thất bại!");
-             }
-         }
+            Farm farm = getFarmFromInput();
+            if (farm != null) {
+                int result = FarmDAO.getInstance().insert(farm);
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm farm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    owner.loadDataToTable((ArrayList<Farm>) FarmDAO.getInstance().selectAll());
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm farm thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void txtOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerActionPerformed
@@ -309,6 +371,10 @@ public class AddFarm extends javax.swing.JDialog {
             loadCommuneByDistrict(0);  // Có thể thay 0 bằng giá trị mặc định
         }
     }//GEN-LAST:event_cbxDistrictActionPerformed
+
+    private void txtLatitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLatitudeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLatitudeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,16 +478,22 @@ public class AddFarm extends javax.swing.JDialog {
     private javax.swing.JButton btnCancel;
     private javax.swing.JComboBox<String> cbxCommune;
     private javax.swing.JComboBox<String> cbxDistrict;
+    private javax.swing.JComboBox<String> cbxOrganization;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtFarmName;
+    private javax.swing.JTextField txtLatitude;
+    private javax.swing.JTextField txtLongitude;
     private javax.swing.JTextField txtOwner;
     // End of variables declaration//GEN-END:variables
 }

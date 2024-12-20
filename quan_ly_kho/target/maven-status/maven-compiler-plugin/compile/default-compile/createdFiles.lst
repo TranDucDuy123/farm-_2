@@ -27,7 +27,6 @@ view\XuatKho$3.class
 view\AddFarm$4.class
 view\UpdateNhaCungCap.class
 view\QuarantineZoneForm$11.class
-view\FarmForm$13.class
 view\AccountForm$8.class
 view\RecoverPassword$3.class
 view\DetailProduct$1$1.class
@@ -197,7 +196,6 @@ dao\CommuneDAO.class
 view\AnimalQuarantineForm$3.class
 view\AddCustomer.class
 view\AddVeterinaryAgency$9$1.class
-view\AddFarm$5$1.class
 view\CustomerForm.class
 view\UpdateVeterinaryAgency$7.class
 view\ThongKeForm$13.class
@@ -209,6 +207,7 @@ view\UpdateSlaughterhouse$6.class
 controller\SendEmailSMTP$1.class
 view\UpdateAnimalQuarantine$2.class
 controller\SendEmailSMTP.class
+view\UpdateFarm$6.class
 view\CertificateForm$5.class
 view\NhapHangForm$4.class
 view\UpdateCustomer$2.class
@@ -406,6 +405,7 @@ view\FarmForm$4.class
 model\Customer.class
 view\AddNhaCungCap$1.class
 dao\DistrictDAO.class
+view\AddFarm$6$1.class
 view\UpdateOrganization$2.class
 view\AnimalQuarantineForm$4.class
 view\SystemActionForm$7.class
@@ -475,6 +475,7 @@ view\CustomerForm$4.class
 model\Role.class
 view\AddTestingFacility$4.class
 view\CertificateForm$10.class
+view\AddFarm$6.class
 view\LivestockHealthForm$5.class
 model\Farm.class
 view\PhieuXuatForm$12.class
@@ -575,7 +576,6 @@ view\AddAccount$3.class
 view\UpdateAccount.class
 view\DetailCustomer.class
 view\UpdateNhaCungCap$1.class
-view\FarmForm$12.class
 view\SlaughterhouseForm$3.class
 model\AnimalQuarantine.class
 view\AccessHistoryForm$10.class
@@ -636,7 +636,6 @@ dao\OrganizationDAO.class
 view\XuatHangForm.class
 view\UpdateProductionFacility$4.class
 model\PhieuNhap.class
-view\FarmForm$11.class
 view\ThongKeForm$24.class
 view\QuanLiKho$11.class
 controller\SearchAccount.class

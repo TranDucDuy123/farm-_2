@@ -97,4 +97,20 @@ public class DistrictDAO {
         }
         return districtName;
     }
+
+    public int selectIdByName(String districtName) {
+    String sql = "SELECT district_id FROM district WHERE district_name = ?";
+    try (Connection con = JDBCUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement(sql)) {
+        pst.setString(1, districtName);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("district_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu không tìm thấy
+}
+
 }

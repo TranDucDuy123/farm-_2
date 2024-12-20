@@ -7,12 +7,12 @@ public class Farm {
     private int districtId;
     private int communeId;
     private String owner;
-    
-    private double latitude;   // Thuộc tính mới
-    private double longitude;  // Thuộc tính mới
+    private double latitude;   // Vĩ độ
+    private double longitude;  // Kinh độ
+    private int organizationId; // Mã tổ chức liên kết
 
-    // Constructor có tất cả thuộc tính
-    public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner, double latitude, double longitude) {
+    // Constructor đầy đủ
+    public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner, double latitude, double longitude, int organizationId) {
         this.farmId = farmId;
         this.farmName = farmName;
         this.address = address;
@@ -21,26 +21,43 @@ public class Farm {
         this.owner = owner;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.organizationId = organizationId;
     }
-    // Constructor
-    public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner) {
+    public Farm( String farmName, String address, int districtId, int communeId, String owner, double latitude, double longitude, int organizationId) {
+        this.farmName = farmName;
+        this.address = address;
+        this.districtId = districtId;
+        this.communeId = communeId;
+        this.owner = owner;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.organizationId = organizationId;
+    }
+
+    // Constructor không có latitude, longitude
+    public Farm(int farmId, String farmName, String address, int districtId, int communeId, String owner, int organizationId) {
         this.farmId = farmId;
         this.farmName = farmName;
         this.address = address;
         this.districtId = districtId;
         this.communeId = communeId;
         this.owner = owner;
+        this.organizationId = organizationId;
     }
-    public Farm( String farmName, String address, int districtId, int communeId, String owner) {
+
+    // Constructor không có farmId (dùng cho thêm mới)
+    public Farm(String farmName, String address, int districtId, int communeId, String owner, int organizationId) {
         this.farmName = farmName;
         this.address = address;
         this.districtId = districtId;
         this.communeId = communeId;
         this.owner = owner;
+        this.organizationId = organizationId;
     }
-    public Farm(){}
 
-    // Getter and Setter methods
+    public Farm() {}
+
+    // Getter và Setter
     public int getFarmId() {
         return farmId;
     }
@@ -88,8 +105,8 @@ public class Farm {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-    
-     public double getLatitude() {
+
+    public double getLatitude() {
         return latitude;
     }
 
@@ -105,9 +122,18 @@ public class Farm {
         this.longitude = longitude;
     }
 
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
+    }
+
     @Override
     public String toString() {
         return "Farm [farmId=" + farmId + ", farmName=" + farmName + ", address=" + address + ", districtId=" + districtId 
-                + ", communeId=" + communeId + ", owner=" + owner + "]";
+                + ", communeId=" + communeId + ", owner=" + owner + ", latitude=" + latitude + ", longitude=" + longitude 
+                + ", organizationId=" + organizationId + "]";
     }
 }

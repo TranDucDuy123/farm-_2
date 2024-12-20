@@ -134,4 +134,19 @@ public class OrganizationDAO {
         }
         return org;
     }
+    public int selectIdByName(String organizationName) {
+    String sql = "SELECT organization_id FROM organization WHERE name = ?";
+    try (Connection con = JDBCUtil.getConnection();
+         PreparedStatement pst = con.prepareStatement(sql)) {
+        pst.setString(1, organizationName);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("organization_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu không tìm thấy
+}
+
 }

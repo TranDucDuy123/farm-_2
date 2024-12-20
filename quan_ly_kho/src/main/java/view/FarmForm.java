@@ -16,6 +16,7 @@ import dao.AccountDAO;
 import dao.CommuneDAO;
 import dao.DistrictDAO;
 import dao.FarmDAO;
+import dao.OrganizationDAO;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -43,11 +44,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author Admin
  */
 public class FarmForm extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form AccountForm
-     */
-   // Model table cho farm
+// Model table cho farm
     private DefaultTableModel tblModel;
     private ArrayList<Farm> farms = (ArrayList<Farm>) FarmDAO.getInstance().selectAll();
 
@@ -64,7 +61,9 @@ public class FarmForm extends javax.swing.JInternalFrame {
     // Phương thức khởi tạo bảng
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"farmid","Tên farm", "Địa chỉ", "Huyện", "Xã", "Chủ sở hữu"};
+        String[] headerTbl = new String[]{
+            "Farm ID", "Tên farm", "Địa chỉ", "Huyện", "Xã", "Chủ sở hữu", "Latitude", "Longitude", "Tổ chức"
+        };
         tblModel.setColumnIdentifiers(headerTbl);
         tblFarm.setModel(tblModel);
     }
@@ -80,7 +79,10 @@ public class FarmForm extends javax.swing.JInternalFrame {
                     farm.getAddress(),
                     getDistrictName(farm.getDistrictId()),  // Lấy tên huyện theo districtId
                     getCommuneName(farm.getCommuneId()),    // Lấy tên xã theo communeId
-                    farm.getOwner()
+                    farm.getOwner(),
+                    farm.getLatitude(),
+                    farm.getLongitude(),
+                    getOrganizationName(farm.getOrganizationId())  // Lấy tên tổ chức theo organizationId
                 });
             }
         } catch (Exception e) {
@@ -88,25 +90,30 @@ public class FarmForm extends javax.swing.JInternalFrame {
         }
     }
 
-    // Phương thức lấy thông tin huyện từ districtId (Giả sử bạn có một phương thức để lấy tên huyện từ ID)
+    // Phương thức lấy thông tin huyện từ districtId
     private String getDistrictName(int districtId) {
-        // Bạn có thể gọi một phương thức từ DAO để lấy tên huyện từ districtId
         return DistrictDAO.getInstance().getDistrictNameById(districtId);
     }
 
-    // Phương thức lấy thông tin xã từ communeId (Giả sử bạn có một phương thức để lấy tên xã từ ID)
+    // Phương thức lấy thông tin xã từ communeId
     private String getCommuneName(int communeId) {
-        // Bạn có thể gọi một phương thức từ DAO để lấy tên xã từ communeId
         return CommuneDAO.getInstance().getCommuneNameById(communeId);
+    }
+
+    // Phương thức lấy thông tin tổ chức từ organizationId
+    private String getOrganizationName(int organizationId) {
+        return OrganizationDAO.getInstance().selectById(organizationId).getName();
     }
 
     // Phương thức lấy farm được chọn từ bảng
     public Farm getFarmSelect() {
         int i_row = tblFarm.getSelectedRow();
-        Farm farm = FarmDAO.getInstance().selectById((int) tblFarm.getValueAt(i_row, 1)); // farm_id
-        return farm;
+        if (i_row >= 0) {
+            int farmId = (int) tblFarm.getValueAt(i_row, 0); // Lấy farm_id từ cột đầu tiên
+            return FarmDAO.getInstance().selectById(farmId);
+        }
+        return null;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +144,7 @@ public class FarmForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxLuachon = new javax.swing.JComboBox<>();
+        cbxSearchCategory = new javax.swing.JComboBox<>();
         txtSearch = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -303,35 +310,15 @@ public class FarmForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxLuachon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên Farm", "Huyện", "Xã" }));
-        cbxLuachon.addActionListener(new java.awt.event.ActionListener() {
+        cbxSearchCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên Farm", "Huyện", "Xã" }));
+        cbxSearchCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxLuachonActionPerformed(evt);
+                cbxSearchCategoryActionPerformed(evt);
             }
         });
-        jPanel3.add(cbxLuachon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(cbxSearchCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
             }
@@ -469,55 +456,10 @@ public class FarmForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_exportExcelActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
         // TODO add your handling code here:
         loadDataToTable(farms);
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        /// Lấy lựa chọn tìm kiếm từ combobox
-            // Lấy lựa chọn tìm kiếm từ combobox
-        String luachon = (String) cbxLuachon.getSelectedItem();
-        String searchContent = txtSearch.getText();
-        ArrayList<Farm> result = new ArrayList<>();
-
-        // Thực hiện tìm kiếm farm dựa trên lựa chọn trong combo box
-        switch (luachon) {
-            case "Tất cả":
-                result = SearchFarm.getInstance().searchTatCa(searchContent);
-                break;
-            case "Tên farm":
-                result = SearchFarm.getInstance().searchTenFarm(searchContent);
-                break;
-            case "Huyện":
-                result = SearchFarm.getInstance().searchByDistrictName(searchContent);
-                break;
-            case "Xã":
-                result = SearchFarm.getInstance().searchByCommuneName(searchContent);
-                break;
-        }
-
-        // Load kết quả tìm kiếm vào bảng
-        loadDataToTable(result);
-    }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
         // TODO add your handling code here:
@@ -570,9 +512,42 @@ public class FarmForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxLuachonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLuachonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxLuachonActionPerformed
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+          triggerSearch();
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void cbxSearchCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchCategoryActionPerformed
+          triggerSearch();
+    }//GEN-LAST:event_cbxSearchCategoryActionPerformed
+    private void triggerSearch() {
+        String searchCategory = cbxSearchCategory.getSelectedItem().toString(); // Lấy giá trị từ ComboBox
+        String keyword = txtSearch.getText().trim(); // Lấy từ khóa từ TextField
+        ArrayList<Farm> searchResults = new ArrayList<>();
+
+        switch (searchCategory) {
+            case "Tất cả":
+                searchResults = (ArrayList<Farm>) SearchFarm.getInstance().searchAll(keyword);
+                break;
+            case "Mã Farm":
+                searchResults = (ArrayList<Farm>) SearchFarm.getInstance().searchByFarmId(keyword);
+                break;
+            case "Tên Farm":
+                searchResults = (ArrayList<Farm>) SearchFarm.getInstance().searchByFarmName(keyword);
+                break;
+            case "Tên Huyện":
+                searchResults = (ArrayList<Farm>) SearchFarm.getInstance().searchByDistrictName(keyword);
+                break;
+            case "Tên Xã":
+                searchResults = (ArrayList<Farm>) SearchFarm.getInstance().searchByCommuneName(keyword);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn loại tìm kiếm hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+
+    // Load kết quả tìm kiếm vào bảng
+    loadDataToTable(searchResults);
+}
 
     public void openFile(String file) {
         try {
@@ -591,7 +566,7 @@ public class FarmForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxLuachon;
+    private javax.swing.JComboBox<String> cbxSearchCategory;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
