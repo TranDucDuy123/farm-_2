@@ -8,22 +8,38 @@ import java.util.List;
 
 public class SearchOrganization {
 
-    private final List<Organization> allOrganizations;
+    public static SearchOrganization getInstance() {
+        return new SearchOrganization();
+    }
 
-    // Constructor để load dữ liệu từ database
-    public SearchOrganization() {
-        this.allOrganizations = OrganizationDAO.getInstance().selectAll();
+    // Tìm kiếm theo tất cả thuộc tính
+    public List<Organization> searchAll(String keyword) {
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
+        List<Organization> resultList = new ArrayList<>();
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return allOrganizations;
+        }
+
+        for (Organization org : allOrganizations) {
+            if (org.getName().toLowerCase().contains(keyword.toLowerCase())
+                    || (org.getContactPerson() != null && org.getContactPerson().toLowerCase().contains(keyword.toLowerCase()))
+                    || (org.getAddress() != null && org.getAddress().toLowerCase().contains(keyword.toLowerCase()))
+                    || (org.getOrganizationType() != null && org.getOrganizationType().toLowerCase().contains(keyword.toLowerCase()))
+                    || (org.getEmail() != null && org.getEmail().toLowerCase().contains(keyword.toLowerCase()))) {
+                resultList.add(org);
+            }
+        }
+        return resultList;
     }
 
     // Tìm kiếm theo tên tổ chức
     public List<Organization> searchByName(String keyword) {
-        refreshData(); // Tự động làm mới dữ liệu
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
         List<Organization> resultList = new ArrayList<>();
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return allOrganizations;
-        }
+
         for (Organization org : allOrganizations) {
-            if (org.getName() != null && org.getName().toLowerCase().contains(keyword.trim().toLowerCase())) {
+            if (org.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 resultList.add(org);
             }
         }
@@ -32,13 +48,11 @@ public class SearchOrganization {
 
     // Tìm kiếm theo loại tổ chức
     public List<Organization> searchByType(String type) {
-        refreshData();
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
         List<Organization> resultList = new ArrayList<>();
-        if (type == null || type.trim().isEmpty()) {
-            return allOrganizations;
-        }
+
         for (Organization org : allOrganizations) {
-            if (org.getOrganizationType() != null && org.getOrganizationType().equalsIgnoreCase(type.trim())) {
+            if (org.getOrganizationType().equalsIgnoreCase(type)) {
                 resultList.add(org);
             }
         }
@@ -47,23 +61,22 @@ public class SearchOrganization {
 
     // Tìm kiếm theo người liên hệ
     public List<Organization> searchByContactPerson(String contactPerson) {
-        refreshData();
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
         List<Organization> resultList = new ArrayList<>();
-        if (contactPerson == null || contactPerson.trim().isEmpty()) {
-            return allOrganizations;
-        }
+
         for (Organization org : allOrganizations) {
-            if (org.getContactPerson() != null && org.getContactPerson().toLowerCase().contains(contactPerson.trim().toLowerCase())) {
+            if (org.getContactPerson().toLowerCase().contains(contactPerson.toLowerCase())) {
                 resultList.add(org);
             }
         }
         return resultList;
     }
 
-    // Tìm kiếm theo trạng thái (Active/Inactive)
+    // Tìm kiếm theo trạng thái (1: Active, 0: Inactive)
     public List<Organization> searchByStatus(int status) {
-        refreshData();
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
         List<Organization> resultList = new ArrayList<>();
+
         for (Organization org : allOrganizations) {
             if (org.getStatus() == status) {
                 resultList.add(org);
@@ -74,22 +87,14 @@ public class SearchOrganization {
 
     // Tìm kiếm theo địa chỉ
     public List<Organization> searchByAddress(String address) {
-        refreshData();
+        List<Organization> allOrganizations = OrganizationDAO.getInstance().selectAll();
         List<Organization> resultList = new ArrayList<>();
-        if (address == null || address.trim().isEmpty()) {
-            return allOrganizations;
-        }
+
         for (Organization org : allOrganizations) {
-            if (org.getAddress() != null && org.getAddress().toLowerCase().contains(address.trim().toLowerCase())) {
+            if (org.getAddress().toLowerCase().contains(address.toLowerCase())) {
                 resultList.add(org);
             }
         }
         return resultList;
-    }
-
-    // Làm mới dữ liệu từ cơ sở dữ liệu
-    public void refreshData() {
-        allOrganizations.clear();
-        allOrganizations.addAll(OrganizationDAO.getInstance().selectAll());
     }
 }

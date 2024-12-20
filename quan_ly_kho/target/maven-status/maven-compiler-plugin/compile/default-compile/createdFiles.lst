@@ -144,7 +144,6 @@ view\AccountForm$2.class
 view\ProductForm$6.class
 view\ThongKeForm$10.class
 view\TonKhoForm$2.class
-view\OrganizationForm$13.class
 model\ProductionFacility.class
 dao\VeterinaryAgencyDAO.class
 view\UpdatePhieuXuat$5.class
@@ -427,7 +426,6 @@ dao\UserAccessHistoryDAO.class
 view\AccountForm.class
 view\TestingFacilityForm$8.class
 view\Admin$8.class
-view\OrganizationForm$12.class
 view\ThongKeForm$11.class
 view\UpdatePhieuXuat$7.class
 view\ThongKeForm$5.class

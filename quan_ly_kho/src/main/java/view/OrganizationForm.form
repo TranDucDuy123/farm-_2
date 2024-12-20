@@ -320,19 +320,21 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="cbxLuachon">
+            <Component class="javax.swing.JComboBox" name="search_OrganizationFormComboBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
+                  <StringArray count="6">
                     <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                    <StringItem index="1" value="T&#xea;n Farm"/>
-                    <StringItem index="2" value="Huy&#x1ec7;n"/>
-                    <StringItem index="3" value="X&#xe3;"/>
+                    <StringItem index="1" value="T&#xea;n t&#x1ed5; ch&#x1ee9;c"/>
+                    <StringItem index="2" value="Lo&#x1ea1;i t&#x1ed5; ch&#x1ee9;c"/>
+                    <StringItem index="3" value="Ng&#x1b0;&#x1edd;i li&#xea;n h&#x1ec7;"/>
+                    <StringItem index="4" value="Tr&#x1ea1;ng th&#xe1;i"/>
+                    <StringItem index="5" value="&#x110;&#x1ecb;a ch&#x1ec9;"/>
                   </StringArray>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxLuachonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="search_OrganizationFormComboBoxActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -343,13 +345,10 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtSearch">
+            <Component class="javax.swing.JTextField" name="search_OrganizationFormText">
               <Events>
-                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="txtSearchInputMethodTextChanged"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchActionPerformed"/>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="txtSearchPropertyChange"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyPressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="search_OrganizationFormTextKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="search_OrganizationFormTextKeyReleased"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

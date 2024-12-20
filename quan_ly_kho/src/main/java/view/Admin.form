@@ -52,7 +52,12 @@
         <Container class="javax.swing.JPanel" name="DangXuat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="69" green="a8" id="Actions.Green" palette="3" red="59" type="palette"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
             </Property>
           </Properties>
           <Events>
@@ -61,7 +66,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="650" width="240" height="-1"/>
+              <AbsoluteConstraints x="0" y="810" width="240" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -71,7 +76,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                      <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -133,7 +138,12 @@
         <Container class="javax.swing.JPanel" name="Account">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="69" green="a8" id="Actions.Green" palette="3" red="59" type="palette"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
@@ -145,7 +155,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="610" width="240" height="-1"/>
+              <AbsoluteConstraints x="0" y="760" width="240" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -155,7 +165,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel14" min="-2" pref="176" max="-2" attributes="0"/>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -527,7 +537,6 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -537,6 +546,10 @@
                           <Component id="XuatHang" alignment="1" pref="232" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel4" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -572,8 +585,8 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel11" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel11" min="-2" pref="247" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

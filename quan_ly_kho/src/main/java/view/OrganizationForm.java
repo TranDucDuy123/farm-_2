@@ -43,6 +43,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import controller.SearchProductionFacility;
 import dao.OrganizationDAO;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.Organization;
 
 /**
@@ -137,8 +139,8 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxLuachon = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        search_OrganizationFormComboBox = new javax.swing.JComboBox<>();
+        search_OrganizationFormText = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrganization = new javax.swing.JTable();
@@ -303,40 +305,23 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxLuachon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên Farm", "Huyện", "Xã" }));
-        cbxLuachon.addActionListener(new java.awt.event.ActionListener() {
+        search_OrganizationFormComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên tổ chức", "Loại tổ chức", "Người liên hệ", "Trạng thái", "Địa chỉ" }));
+        search_OrganizationFormComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxLuachonActionPerformed(evt);
+                search_OrganizationFormComboBoxActionPerformed(evt);
             }
         });
-        jPanel3.add(cbxLuachon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(search_OrganizationFormComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+        search_OrganizationFormText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
+                search_OrganizationFormTextKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                search_OrganizationFormTextKeyReleased(evt);
             }
         });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(search_OrganizationFormText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -457,67 +442,80 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_exportExcelActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
-         loadDataToTable((ArrayList<Organization>) OrganizationDAO.getInstance().selectAll());
+        organizations = (ArrayList<Organization>) OrganizationDAO.getInstance().selectAll();
+        loadDataToTable(organizations);
+        search_OrganizationFormText.setText("");
+        search_OrganizationFormComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        String searchOption = (String) cbxLuachon.getSelectedItem(); // Lấy lựa chọn tìm kiếm từ combobox
-        String searchContent = txtSearch.getText(); // Nội dung tìm kiếm từ textfield
-
-        ArrayList<Organization> result = new ArrayList<>();
-        SearchOrganization search = new SearchOrganization(); // Tạo instance của SearchOrganization
-
-        switch (searchOption) {
-            case "Tất cả":
-                result = (ArrayList<Organization>) OrganizationDAO.getInstance().selectAll();
-                break;
-            case "Tên tổ chức":
-                result = (ArrayList<Organization>) search.searchByName(searchContent);
-                break;
-            case "Người liên hệ":
-                result = (ArrayList<Organization>) search.searchByContactPerson(searchContent);
-                break;
-            case "Loại tổ chức":
-                result = (ArrayList<Organization>) search.searchByType(searchContent);
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn một tùy chọn tìm kiếm hợp lệ!");
-        }
-
-        // Kiểm tra kết quả và load lại dữ liệu vào bảng
-        if (result != null && !result.isEmpty()) {
-            loadDataToTable(result);
-        } else {
-            tblModel.setRowCount(0); // Xóa dữ liệu bảng nếu không có kết quả
-        }
-    }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxLuachonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLuachonActionPerformed
+    private void search_OrganizationFormComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_OrganizationFormComboBoxActionPerformed
+        triggerSearch();
+    }//GEN-LAST:event_search_OrganizationFormComboBoxActionPerformed
+
+    private void search_OrganizationFormTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_OrganizationFormTextKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxLuachonActionPerformed
+    }//GEN-LAST:event_search_OrganizationFormTextKeyPressed
+
+    private void search_OrganizationFormTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_OrganizationFormTextKeyReleased
+        triggerSearch();
+    }//GEN-LAST:event_search_OrganizationFormTextKeyReleased
+
+    private void triggerSearch() {
+        String luaChon = search_OrganizationFormComboBox.getSelectedItem().toString();
+        String keyword = search_OrganizationFormText.getText();
+        ArrayList<Organization> result = new ArrayList<>();
+
+        switch (luaChon) {
+            case "Tất cả":
+                result = (ArrayList<Organization>) SearchOrganization.getInstance().searchAll(keyword);
+                break;
+            case "Tên tổ chức":
+                result = (ArrayList<Organization>) SearchOrganization.getInstance().searchByName(keyword);
+                break;
+            case "Người liên hệ":
+                result = (ArrayList<Organization>) SearchOrganization.getInstance().searchByContactPerson(keyword);
+                break;
+            case "Loại tổ chức":
+                result = (ArrayList<Organization>) SearchOrganization.getInstance().searchByType(keyword);
+                break;
+            case "Trạng thái":
+                result = keyword.equalsIgnoreCase("Active")
+                    ? (ArrayList<Organization>) SearchOrganization.getInstance().searchByStatus(1)
+                    : (ArrayList<Organization>) SearchOrganization.getInstance().searchByStatus(0);
+                break;
+            case "Địa chỉ":
+                result = (ArrayList<Organization>) SearchOrganization.getInstance().searchByAddress(keyword);
+                break;
+            }
+        loadDataToTable(result);
+    }   
+    public void changeTextFind() {
+            search_OrganizationFormText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                triggerSearch();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (search_OrganizationFormText.getText().trim().isEmpty()) {
+                    loadDataToTable(organizations);
+                } else {
+                    triggerSearch();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                triggerSearch();
+            }
+        });
+    }
 
     public void openFile(String file) {
         try {
@@ -536,7 +534,6 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxLuachon;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -554,8 +551,9 @@ public class OrganizationForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> search_OrganizationFormComboBox;
+    private javax.swing.JTextField search_OrganizationFormText;
     public javax.swing.JTable tblOrganization;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {

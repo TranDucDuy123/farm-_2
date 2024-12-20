@@ -161,7 +161,8 @@ public class Admin extends javax.swing.JFrame {
         NavbarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         NavbarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        DangXuat.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        DangXuat.setBackground(new java.awt.Color(153, 153, 153));
+        DangXuat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DangXuatMouseClicked(evt);
@@ -183,7 +184,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(DangXuatLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         DangXuatLayout.setVerticalGroup(
             DangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +194,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 240, -1));
+        NavbarMenu.add(DangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 810, 240, -1));
 
         NameUser.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
         NameUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -205,7 +206,8 @@ public class Admin extends javax.swing.JFrame {
         jLabel8.setText("HI !");
         NavbarMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 40, -1));
 
-        Account.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        Account.setBackground(new java.awt.Color(153, 153, 153));
+        Account.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Account.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Account.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -228,7 +230,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(AccountLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         AccountLayout.setVerticalGroup(
             AccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +240,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 240, -1));
+        NavbarMenu.add(Account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 760, 240, -1));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -486,8 +488,8 @@ public class Admin extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -616,7 +618,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -625,6 +626,9 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(PhieuXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                     .addComponent(XuatHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1821,7 +1825,8 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        // TODO add your handling code here:
+        Rectangle currentBounds = jPanel2.getBounds();
+        jPanel2.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 230);
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -1830,12 +1835,12 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
-        Rectangle currentBounds = jPanel2.getBounds();
-        jPanel2.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 230);
+       
     }//GEN-LAST:event_jLabel7MouseEntered
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
+        Rectangle currentBounds = jPanel2.getBounds();
+        jPanel2.setBounds(currentBounds.x,currentBounds.y,currentBounds.width, 230);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
