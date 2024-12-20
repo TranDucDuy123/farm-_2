@@ -44,12 +44,16 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import controller.SearchProductionFacility;
+import controller.SearchVeterinaryDepartment;
 import dao.FarmCertificateDAO;
 import dao.LivestockHealthDAO;
 import dao.OrganizationDAO;
 import dao.VeterinaryAgencyDAO;
 import dao.VeterinaryDepartmentDAO;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.FarmCertificate;
 import model.LivestockHealth;
 import model.Organization;
@@ -73,6 +77,13 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
 
         tblDepartment.setDefaultEditor(Object.class, null); // Không cho chỉnh sửa trực tiếp trong bảng
         initTable();
+        
+        searchDepartmentComboBox.addItem("Tất cả");
+        searchDepartmentComboBox.addItem("Tên");
+        searchDepartmentComboBox.addItem("Khu vực");
+        searchDepartmentComboBox.addItem("Địa chỉ");
+        searchDepartmentComboBox.addItem("Từ khóa");
+
 
         // Tải dữ liệu từ DAO
         departmentList = (ArrayList<VeterinaryDepartment>) VeterinaryDepartmentDAO.getInstance().selectAll();
@@ -142,8 +153,8 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxSearchOption = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        searchDepartmentComboBox = new javax.swing.JComboBox<>();
+        searchDepartmentText = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDepartment = new javax.swing.JTable();
@@ -308,40 +319,20 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxSearchOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
-        cbxSearchOption.addActionListener(new java.awt.event.ActionListener() {
+        searchDepartmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tên chi cục", "Khu vực", "Địa chỉ" }));
+        searchDepartmentComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSearchOptionActionPerformed(evt);
+                searchDepartmentComboBoxActionPerformed(evt);
             }
         });
-        cbxSearchOption.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cbxSearchOptionPropertyChange(evt);
-            }
-        });
-        jPanel3.add(cbxSearchOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(searchDepartmentComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
+        searchDepartmentText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                searchDepartmentTextKeyReleased(evt);
             }
         });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(searchDepartmentText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -390,28 +381,43 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        AddLivestockHealth form = new AddLivestockHealth(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
-        form.setVisible(true);
+        AddVeterinaryDepartment addForm = new AddVeterinaryDepartment(
+            this, 
+            (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+            rootPaneCheckingEnabled
+        );
+        addForm.setVisible(true);
+        // Load lại dữ liệu sau khi thêm
+        loadDataToTable((ArrayList<VeterinaryDepartment>) VeterinaryDepartmentDAO.getInstance().selectAll());
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccountActionPerformed
         if (tblDepartment.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn bệnh dịch cần chỉnh sửa!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn chi cục thú y cần chỉnh sửa!");
         } else {
-            UpdateLivestockHealth updateHealthForm = new UpdateLivestockHealth(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
-            updateHealthForm.setVisible(true);
+            UpdateVeterinaryDepartment updateForm = new UpdateVeterinaryDepartment(
+                this, 
+                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+                rootPaneCheckingEnabled
+            );
+            updateForm.setVisible(true);
+            // Load lại dữ liệu sau khi chỉnh sửa
+            loadDataToTable((ArrayList<VeterinaryDepartment>) VeterinaryDepartmentDAO.getInstance().selectAll());
         }
     }//GEN-LAST:event_btnEditAccountActionPerformed
 
     private void btnDeleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccountActionPerformed
-        if (tblDepartment.getSelectedRow() == -1) {
+         if (tblDepartment.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn chi cục thú y cần xóa!");
         } else {
-            int departmentId = (int) tblDepartment.getValueAt(tblDepartment.getSelectedRow(), 0); // Lấy `department_id` từ cột đầu tiên
+            int departmentId = (int) tblDepartment.getValueAt(tblDepartment.getSelectedRow(), 0); // Lấy `department_id`
 
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "Bạn có chắc chắn muốn xóa chi cục thú y này?", 
-                    "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(
+                this, 
+                "Bạn có chắc chắn muốn xóa chi cục thú y này?", 
+                "Xác nhận xóa", 
+                JOptionPane.YES_NO_OPTION
+            );
 
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
@@ -423,7 +429,7 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "Không thể xóa chi cục thú y này!");
                     }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa chi cục thú y: " + e.getMessage());
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa chi cục thú y: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -431,64 +437,66 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
 
     private void exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportExcelActionPerformed
         try {
-            JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.setDialogTitle("Chọn nơi lưu file Excel");
-            int userSelection = jFileChooser.showSaveDialog(this);
+           JFileChooser jFileChooser = new JFileChooser();
+           jFileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+           int userSelection = jFileChooser.showSaveDialog(this);
 
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File saveFile = jFileChooser.getSelectedFile();
+           if (userSelection == JFileChooser.APPROVE_OPTION) {
+               File saveFile = jFileChooser.getSelectedFile();
 
-                // Đảm bảo file có đuôi .xlsx
-                if (!saveFile.toString().toLowerCase().endsWith(".xlsx")) {
-                    saveFile = new File(saveFile.toString() + ".xlsx");
-                }
+               // Đảm bảo file có đuôi .xlsx
+               if (!saveFile.toString().toLowerCase().endsWith(".xlsx")) {
+                   saveFile = new File(saveFile.toString() + ".xlsx");
+               }
 
-                // Kiểm tra nếu file đã tồn tại
-                if (saveFile.exists()) {
-                    int confirm = JOptionPane.showConfirmDialog(this, 
-                            "File đã tồn tại. Bạn có muốn ghi đè không?", 
-                            "Xác nhận ghi đè", 
-                            JOptionPane.YES_NO_OPTION);
+               // Kiểm tra nếu file đã tồn tại
+               if (saveFile.exists()) {
+                   int confirm = JOptionPane.showConfirmDialog(
+                       this, 
+                       "File đã tồn tại. Bạn có muốn ghi đè không?", 
+                       "Xác nhận ghi đè", 
+                       JOptionPane.YES_NO_OPTION
+                   );
 
-                    if (confirm != JOptionPane.YES_OPTION) {
-                        return; // Dừng nếu người dùng không đồng ý ghi đè
-                    }
-                }
+                   if (confirm != JOptionPane.YES_OPTION) {
+                       return; // Dừng nếu người dùng không đồng ý ghi đè
+                   }
+               }
 
-                // Tạo Workbook và Sheet
-                Workbook workbook = new XSSFWorkbook();
-                Sheet sheet = workbook.createSheet("VeterinaryAgency");
+               // Tạo Workbook và Sheet
+               Workbook workbook = new XSSFWorkbook();
+               Sheet sheet = workbook.createSheet("VeterinaryDepartment");
 
-                // Tạo hàng tiêu đề
-                Row headerRow = sheet.createRow(0);
-                for (int i = 0; i < tblDepartment.getColumnCount(); i++) {
-                    Cell cell = headerRow.createCell(i);
-                    cell.setCellValue(tblDepartment.getColumnName(i));
-                }
+               // Tạo hàng tiêu đề
+               Row headerRow = sheet.createRow(0);
+               for (int i = 0; i < tblDepartment.getColumnCount(); i++) {
+                   Cell cell = headerRow.createCell(i);
+                   cell.setCellValue(tblDepartment.getColumnName(i));
+               }
 
-                // Nạp dữ liệu từ bảng vào file Excel
-                for (int rowIndex = 0; rowIndex < tblDepartment.getRowCount(); rowIndex++) {
-                    Row row = sheet.createRow(rowIndex + 1);
-                    for (int colIndex = 0; colIndex < tblDepartment.getColumnCount(); colIndex++) {
-                        Cell cell = row.createCell(colIndex);
-                        Object value = tblDepartment.getValueAt(rowIndex, colIndex);
-                        cell.setCellValue(value != null ? value.toString() : "");
-                    }
-                }
+               // Nạp dữ liệu từ bảng vào file Excel
+               for (int rowIndex = 0; rowIndex < tblDepartment.getRowCount(); rowIndex++) {
+                   Row row = sheet.createRow(rowIndex + 1);
+                   for (int colIndex = 0; colIndex < tblDepartment.getColumnCount(); colIndex++) {
+                       Cell cell = row.createCell(colIndex);
+                       Object value = tblDepartment.getValueAt(rowIndex, colIndex);
+                       cell.setCellValue(value != null ? value.toString() : "");
+                   }
+               }
 
-                // Ghi dữ liệu vào file
-                try (FileOutputStream out = new FileOutputStream(saveFile)) {
-                    workbook.write(out);
-                }
-                workbook.close();
+               // Ghi dữ liệu vào file
+               try (FileOutputStream out = new FileOutputStream(saveFile)) {
+                   workbook.write(out);
+               }
+               workbook.close();
 
-                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công: " + saveFile.getAbsolutePath());
-                openFile(saveFile.getAbsolutePath());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
+               JOptionPane.showMessageDialog(this, "Xuất file Excel thành công: " + saveFile.getAbsolutePath());
+               openFile(saveFile.getAbsolutePath());
+           }
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+           e.printStackTrace();
+       }
     }//GEN-LAST:event_exportExcelActionPerformed
         private void openFile(String filePath) {
             try {
@@ -498,39 +506,68 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Không thể mở file: " + e.getMessage());
             }
         }
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
-         loadDataToTable((ArrayList<VeterinaryDepartment>) VeterinaryDepartmentDAO.getInstance().selectAll());
+        departmentList = (ArrayList<VeterinaryDepartment>) VeterinaryDepartmentDAO.getInstance().selectAll();
+        loadDataToTable(departmentList); // Nạp lại toàn bộ dữ liệu
+        searchDepartmentText.setText(""); // Xóa trường tìm kiếm
+        searchDepartmentComboBox.setSelectedIndex(0); // Đặt ComboBox về mục đầu tiên
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-       
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-
-    }//GEN-LAST:event_txtSearchKeyReleased
     
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxSearchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchOptionActionPerformed
-       
-    }//GEN-LAST:event_cbxSearchOptionActionPerformed
+    private void searchDepartmentTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchDepartmentTextKeyReleased
+         triggerSearch(); // Gọi phương thức tìm kiếm
+    }//GEN-LAST:event_searchDepartmentTextKeyReleased
 
-    private void cbxSearchOptionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbxSearchOptionPropertyChange
-        
-    }//GEN-LAST:event_cbxSearchOptionPropertyChange
+    private void searchDepartmentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchDepartmentComboBoxActionPerformed
+          triggerSearch(); // Gọi phương thức tìm kiếm
+    }//GEN-LAST:event_searchDepartmentComboBoxActionPerformed
+    private void triggerSearch() {
+        String option = searchDepartmentComboBox.getSelectedItem().toString(); // Lấy tiêu chí tìm kiếm
+        String keyword = searchDepartmentText.getText(); // Lấy từ khóa
+        ArrayList<VeterinaryDepartment> result = new ArrayList<>();
 
+        switch (option) {
+            case "Tất cả":
+                result = (ArrayList<VeterinaryDepartment>) SearchVeterinaryDepartment.getInstance().searchByKeyword(keyword);
+                break;
+            case "Tên chi cục":
+                result = (ArrayList<VeterinaryDepartment>) SearchVeterinaryDepartment.getInstance().searchByName(keyword);
+                break;
+            case "Khu vực":
+                result = (ArrayList<VeterinaryDepartment>) SearchVeterinaryDepartment.getInstance().searchByRegion(keyword);
+                break;
+            case "Địa chỉ":
+                result = (ArrayList<VeterinaryDepartment>) SearchVeterinaryDepartment.getInstance().searchByAddress(keyword);
+                break;
+        }
+        loadDataToTable(result); // Nạp kết quả tìm kiếm vào bảng
+    }
 
+    public void changeTextFind() {
+    searchDepartmentText.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            triggerSearch(); // Kích hoạt tìm kiếm
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            if (searchDepartmentText.getText().trim().isEmpty()) {
+                loadDataToTable(departmentList); // Nạp lại dữ liệu gốc nếu trường tìm kiếm rỗng
+            } else {
+                triggerSearch(); // Kích hoạt tìm kiếm
+            }
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            triggerSearch(); // Kích hoạt tìm kiếm
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -539,7 +576,6 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxSearchOption;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -557,8 +593,9 @@ public class VeterinaryDepartmentForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> searchDepartmentComboBox;
+    private javax.swing.JTextField searchDepartmentText;
     public javax.swing.JTable tblDepartment;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {

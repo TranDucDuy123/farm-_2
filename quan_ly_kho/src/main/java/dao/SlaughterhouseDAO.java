@@ -19,7 +19,95 @@ public class SlaughterhouseDAO {
 
     private final Logger logger = Logger.getLogger(SlaughterhouseDAO.class.getName());
 
-    // Phương thức thực thi chung cho INSERT và UPDATE
+    // INSERT
+    public int insert(Slaughterhouse sh) {
+        String sql = "INSERT INTO slaughterhouse (name, address, phone, type, capacity, status) VALUES (?, ?, ?, ?, ?, ?)";
+        return executeUpdate(sql, sh, false);
+    }
+
+    // UPDATE
+    public int update(Slaughterhouse sh) {
+        String sql = "UPDATE slaughterhouse SET name=?, address=?, phone=?, type=?, capacity=?, status=? WHERE id=?";
+        return executeUpdate(sql, sh, true);
+    }
+
+    // DELETE
+    public int delete(int id) {
+        String sql = "DELETE FROM slaughterhouse WHERE id=?";
+        try (Connection con = JDBCUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, id);
+            return pst.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error deleting slaughterhouse: ", e);
+        }
+        return 0;
+    }
+
+   // Lấy tất cả lò giết mổ
+    public List<Slaughterhouse> selectAll() {
+        List<Slaughterhouse> slaughterhouses = new ArrayList<>();
+        String sql = "SELECT * FROM slaughterhouse";
+        try (Connection con = JDBCUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                slaughterhouses.add(new Slaughterhouse(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("phone"),
+                    rs.getString("type"),
+                    rs.getInt("capacity"),
+                    rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return slaughterhouses;
+    }
+
+    // SELECT BY ID
+    public Slaughterhouse selectById(int id) {
+        List<Slaughterhouse> result = queryWithConditions("id = ?", id);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    // SEARCH BY TYPE
+    public List<Slaughterhouse> searchByType(String type) {
+        return queryWithConditions("type = ?", type);
+    }
+
+    // SEARCH BY STATUS
+    public List<Slaughterhouse> searchByStatus(String status) {
+        return queryWithConditions("status = ?", status);
+    }
+
+    // GENERAL QUERY WITH CONDITIONS
+    public List<Slaughterhouse> queryWithConditions(String condition, Object... params) {
+        List<Slaughterhouse> list = new ArrayList<>();
+        String sql = "SELECT * FROM slaughterhouse";
+        if (condition != null && !condition.trim().isEmpty()) {
+            sql += " WHERE " + condition;
+        }
+
+        try (Connection con = JDBCUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                pst.setObject(i + 1, params[i]);
+            }
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                list.add(mapResultSetToModel(rs));
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error querying slaughterhouse: ", e);
+        }
+        return list;
+    }
+
+    // COMMON UPDATE EXECUTION
     private int executeUpdate(String sql, Slaughterhouse sh, boolean isUpdate) {
         int result = 0;
         try (Connection con = JDBCUtil.getConnection();
@@ -38,98 +126,7 @@ public class SlaughterhouseDAO {
         return result;
     }
 
-    // Thêm mới
-    public int insert(Slaughterhouse sh) {
-        String sql = "INSERT INTO slaughterhouse (name, address, phone, type, capacity, status) VALUES (?, ?, ?, ?, ?, ?)";
-        return executeUpdate(sql, sh, false);
-    }
-
-    // Cập nhật
-    public int update(Slaughterhouse sh) {
-        String sql = "UPDATE slaughterhouse SET name=?, address=?, phone=?, type=?, capacity=?, status=? WHERE id=?";
-        return executeUpdate(sql, sh, true);
-    }
-
-    // Xóa
-    public int delete(int id) {
-        String sql = "DELETE FROM slaughterhouse WHERE id=?";
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setInt(1, id);
-            return pst.executeUpdate();
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error deleting slaughterhouse: ", e);
-        }
-        return 0;
-    }
-
-    // Lấy tất cả dữ liệu
-    public List<Slaughterhouse> selectAll() {
-        List<Slaughterhouse> list = new ArrayList<>();
-        String sql = "SELECT * FROM slaughterhouse";
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql);
-             ResultSet rs = pst.executeQuery()) {
-            while (rs.next()) {
-                list.add(mapResultSetToModel(rs));
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error selecting all slaughterhouses: ", e);
-        }
-        return list;
-    }
-
-    // Lấy thông tin theo ID
-    public Slaughterhouse selectById(int id) {
-        String sql = "SELECT * FROM slaughterhouse WHERE id=?";
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setInt(1, id);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return mapResultSetToModel(rs);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error selecting slaughterhouse by ID: ", e);
-        }
-        return null;
-    }
-
-    // Tìm kiếm theo loại (type)
-    public List<Slaughterhouse> searchByType(String type) {
-        List<Slaughterhouse> list = new ArrayList<>();
-        String sql = "SELECT * FROM slaughterhouse WHERE type=?";
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setString(1, type);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                list.add(mapResultSetToModel(rs));
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error searching slaughterhouse by type: ", e);
-        }
-        return list;
-    }
-
-    // Tìm kiếm theo trạng thái (status)
-    public List<Slaughterhouse> searchByStatus(String status) {
-        List<Slaughterhouse> list = new ArrayList<>();
-        String sql = "SELECT * FROM slaughterhouse WHERE status=?";
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setString(1, status);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                list.add(mapResultSetToModel(rs));
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error searching slaughterhouse by status: ", e);
-        }
-        return list;
-    }
-
-    // Ánh xạ ResultSet thành đối tượng model
+    // MAP RESULTSET TO MODEL
     private Slaughterhouse mapResultSetToModel(ResultSet rs) throws SQLException {
         return new Slaughterhouse(
             rs.getInt("id"),

@@ -44,11 +44,13 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import controller.SearchProductionFacility;
+import controller.SearchVeterinaryAgency;
 import dao.FarmCertificateDAO;
 import dao.LivestockHealthDAO;
 import dao.OrganizationDAO;
 import dao.VeterinaryAgencyDAO;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import model.FarmCertificate;
 import model.LivestockHealth;
 import model.Organization;
@@ -158,8 +160,8 @@ public class VeterinaryAgencyForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxSearchOption = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        searchComboBox = new javax.swing.JComboBox<>();
+        searchTextField = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAgency = new javax.swing.JTable();
@@ -324,40 +326,20 @@ public class VeterinaryAgencyForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxSearchOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
-        cbxSearchOption.addActionListener(new java.awt.event.ActionListener() {
+        searchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
+        searchComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSearchOptionActionPerformed(evt);
+                searchComboBoxActionPerformed(evt);
             }
         });
-        cbxSearchOption.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cbxSearchOptionPropertyChange(evt);
-            }
-        });
-        jPanel3.add(cbxSearchOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(searchComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
+        searchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                searchTextFieldKeyReleased(evt);
             }
         });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(searchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -514,38 +496,57 @@ public class VeterinaryAgencyForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Không thể mở file: " + e.getMessage());
             }
         }
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
-         loadDataToTable((ArrayList<VeterinaryAgency>) VeterinaryAgencyDAO.getInstance().selectAll());
+        searchTextField.setText(""); // Xóa nội dung tìm kiếm
+        searchComboBox.setSelectedIndex(0); // Reset ComboBox về "Tất cả"
+        loadDataToTable((ArrayList<VeterinaryAgency>) VeterinaryAgencyDAO.getInstance().selectAll()); // Tải lại tất cả dữ liệu
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-       
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-
-    }//GEN-LAST:event_txtSearchKeyReleased
     
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxSearchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchOptionActionPerformed
-       
-    }//GEN-LAST:event_cbxSearchOptionActionPerformed
+    private void searchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchComboBoxActionPerformed
+         triggerSearch();
+    }//GEN-LAST:event_searchComboBoxActionPerformed
 
-    private void cbxSearchOptionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbxSearchOptionPropertyChange
-        
-    }//GEN-LAST:event_cbxSearchOptionPropertyChange
+    private void searchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyReleased
+        triggerSearch();        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextFieldKeyReleased
 
+    private void triggerSearch() {
+        String searchOption = searchComboBox.getSelectedItem().toString(); // ComboBox chứa các tùy chọn tìm kiếm
+        String keyword = searchTextField.getText().trim(); // TextField chứa từ khóa tìm kiếm
+        List<VeterinaryAgency> result = new ArrayList<>(); // Danh sách kết quả tìm kiếm
+
+        // Xử lý tìm kiếm theo tùy chọn
+        switch (searchOption) {
+            case "Tất cả":
+                result = VeterinaryAgencyDAO.getInstance().selectAll(); // Lấy tất cả đại lý
+                break;
+            case "Tên đại lý":
+                result = SearchVeterinaryAgency.getInstance().searchByAgencyName(keyword);
+                break;
+            case "Địa chỉ":
+                result = SearchVeterinaryAgency.getInstance().searchByAddress(keyword);
+                break;
+            case "Số điện thoại":
+                result = SearchVeterinaryAgency.getInstance().searchByPhone(keyword);
+                break;
+            case "Khu vực":
+                result = SearchVeterinaryAgency.getInstance().searchByRegion(keyword);
+                break;
+            case "Trạng thái":
+                result = keyword.equalsIgnoreCase("Active")
+                        ? SearchVeterinaryAgency.getInstance().searchByStatus("Active")
+                        : SearchVeterinaryAgency.getInstance().searchByStatus("Inactive");
+                break;
+        }
+
+        // Nạp lại kết quả tìm kiếm vào bảng
+        loadDataToTable((ArrayList<VeterinaryAgency>) result);
+    }
+   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -555,7 +556,6 @@ public class VeterinaryAgencyForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxSearchOption;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -573,8 +573,9 @@ public class VeterinaryAgencyForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> searchComboBox;
+    private javax.swing.JTextField searchTextField;
     public javax.swing.JTable tblAgency;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {

@@ -60,7 +60,7 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
    // Model table cho LivestockHealth
     private DefaultTableModel tblModel;
     private ArrayList<LivestockHealth> healthList;
-
+    
     public LivestockHealthForm() {
         initComponents();
         UIManager.put("Table.showVerticalLines", true);
@@ -73,6 +73,10 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
         // Tải dữ liệu từ DAO
         healthList = (ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll();
         loadDataToTable(healthList);
+        search_HealthFormComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
+            "Tất cả", "Tên bệnh", "Trạng thái", "Ngày báo cáo"
+        }));
+
     }
 
     // Phương thức khởi tạo bảng
@@ -145,8 +149,8 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxSearchOption = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        search_HealthFormComboBox = new javax.swing.JComboBox<>();
+        search_HealthFormText = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHealth = new javax.swing.JTable();
@@ -311,45 +315,20 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxSearchOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
-        cbxSearchOption.addActionListener(new java.awt.event.ActionListener() {
+        search_HealthFormComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
+        search_HealthFormComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSearchOptionActionPerformed(evt);
+                search_HealthFormComboBoxActionPerformed(evt);
             }
         });
-        cbxSearchOption.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cbxSearchOptionPropertyChange(evt);
-            }
-        });
-        jPanel3.add(cbxSearchOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(search_HealthFormComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
+        search_HealthFormText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                search_HealthFormTextKeyReleased(evt);
             }
         });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(search_HealthFormText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -480,85 +459,67 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Không thể mở file: " + e.getMessage());
             }
         }
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
-         loadDataToTable((ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll());
+         // Reset các trường tìm kiếm
+        search_HealthFormText.setText("");
+        search_HealthFormComboBox.setSelectedIndex(0);
+
+        // Tải lại toàn bộ dữ liệu
+        healthList = (ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll();
+        loadDataToTable(healthList);
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Thêm sự kiện khi nhấn Enter
-               String searchOption = (String) cbxSearchOption.getSelectedItem();
-               String searchContent = txtSearch.getText().trim();
-               ArrayList<LivestockHealth> result = searchHealthData(searchOption, searchContent);
-               loadDataToTable(result);
-           }
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-         String searchOption = (String) cbxSearchOption.getSelectedItem(); // Lấy lựa chọn tìm kiếm từ ComboBox
-        String searchContent = txtSearch.getText().trim(); // Nội dung tìm kiếm từ textfield
-        ArrayList<LivestockHealth> result = searchHealthData(searchOption, searchContent);
-        loadDataToTable(result); // Load dữ liệu tìm kiếm vào bảng
-    }//GEN-LAST:event_txtSearchKeyReleased
-    private ArrayList<LivestockHealth> searchHealthData(String searchOption, String searchContent) {
-        ArrayList<LivestockHealth> result = new ArrayList<>();
-        SearchLivestockHealth search = new SearchLivestockHealth();
-    if (searchContent.isEmpty()) {
-        return (ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll(); // Hiển thị toàn bộ nếu nội dung rỗng
-    }
-
-    switch (searchOption) {
-        case "Tất cả":
-            result = (ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll();
-            break;
-        case "Tên bệnh dịch":
-            result = (ArrayList<LivestockHealth>) search.searchByDiseaseName(searchContent);
-            break;
-        case "Trạng thái":
-            result = (ArrayList<LivestockHealth>) search.searchByStatus(searchContent);
-            break;
-        case "Ngày báo cáo":
-            result = (ArrayList<LivestockHealth>) search.searchByReportedDate(searchContent);
-            break;
-        default:
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một tùy chọn tìm kiếm hợp lệ!");
-    }
-    return result;
-}
+   
 
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxSearchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchOptionActionPerformed
-        String searchOption = (String) cbxSearchOption.getSelectedItem();
-        String searchContent = txtSearch.getText().trim();
-        ArrayList<LivestockHealth> result = searchHealthData(searchOption, searchContent);
+    private void search_HealthFormTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_HealthFormTextKeyReleased
+        String keyword = search_HealthFormText.getText();
+        String option = search_HealthFormComboBox.getSelectedItem().toString();
+
+        ArrayList<LivestockHealth> result = searchHealth(keyword, option);
+        loadDataToTable(result);        // TODO add your handling code here:
+    }//GEN-LAST:event_search_HealthFormTextKeyReleased
+
+    private void search_HealthFormComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_HealthFormComboBoxActionPerformed
+        String keyword = search_HealthFormText.getText();
+        String option = search_HealthFormComboBox.getSelectedItem().toString();
+
+        ArrayList<LivestockHealth> result = searchHealth(keyword, option);
         loadDataToTable(result);
-    }//GEN-LAST:event_cbxSearchOptionActionPerformed
+    }//GEN-LAST:event_search_HealthFormComboBoxActionPerformed
+//    hàm search
+    public ArrayList<LivestockHealth> searchHealth(String keyword, String option) {
+     ArrayList<LivestockHealth> result = new ArrayList<>();
+     SearchLivestockHealth searchHealth = new SearchLivestockHealth();
 
-    private void cbxSearchOptionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbxSearchOptionPropertyChange
-        if (cbxSearchOption.getSelectedItem() != null) { // Kiểm tra ComboBox có giá trị
-            String searchOption = cbxSearchOption.getSelectedItem().toString(); // Lấy lựa chọn tìm kiếm
-            String searchContent = txtSearch.getText().trim(); // Nội dung tìm kiếm từ ô TextField
+     // Xử lý tùy chọn tìm kiếm
+     switch (option) {
+         case "Tất cả":
+             result = (ArrayList<LivestockHealth>) LivestockHealthDAO.getInstance().selectAll();
+             break;
+         case "Tên bệnh":
+             result = keyword != null && !keyword.trim().isEmpty()
+                      ? (ArrayList<LivestockHealth>) searchHealth.searchByDiseaseName(keyword)
+                      : new ArrayList<>();
+             break;
+         case "Trạng thái":
+             result = keyword != null && !keyword.trim().isEmpty()
+                      ? (ArrayList<LivestockHealth>) searchHealth.searchByStatus(keyword)
+                      : new ArrayList<>();
+             break;
+         case "Ngày báo cáo":
+             result = keyword != null && !keyword.trim().isEmpty()
+                      ? (ArrayList<LivestockHealth>) searchHealth.searchByReportedDate(keyword)
+                      : new ArrayList<>();
+             break;
+         default:
+             break;
+     }
 
-            ArrayList<LivestockHealth> result = searchHealthData(searchOption, searchContent); // Tìm kiếm dữ liệu
-            loadDataToTable(result); // Load kết quả vào bảng
-        }
-    }//GEN-LAST:event_cbxSearchOptionPropertyChange
-
+        return result;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -568,7 +529,6 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxSearchOption;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -586,8 +546,9 @@ public class LivestockHealthForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> search_HealthFormComboBox;
+    private javax.swing.JTextField search_HealthFormText;
     public javax.swing.JTable tblHealth;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {

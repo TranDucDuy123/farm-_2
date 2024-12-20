@@ -81,7 +81,7 @@ public class AnimalQuarantineForm extends javax.swing.JInternalFrame {
     public final void initTable() {
         tblModel = new DefaultTableModel();
         String[] headerTbl = new String[]{
-            "ID", "Tên địa điểm", "Địa chỉ", "Sức chứa", "Trạng thái"
+            "ID", "Tên địa điểm", "Địa chỉ", "Loại", "Sức chứa", "Trạng thái"
         };
         tblModel.setColumnIdentifiers(headerTbl);
         tblQuarantine.setModel(tblModel);
@@ -96,6 +96,7 @@ public class AnimalQuarantineForm extends javax.swing.JInternalFrame {
                     quarantine.getQuarantineId(),
                     quarantine.getLocationName(),
                     quarantine.getAddress(),
+                    quarantine.getType(), // Thêm cột "Loại"
                     quarantine.getCapacity(),
                     quarantine.getStatus()
                 });

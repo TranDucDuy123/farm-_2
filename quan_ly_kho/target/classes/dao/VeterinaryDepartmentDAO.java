@@ -42,39 +42,77 @@ public class VeterinaryDepartmentDAO {
         }
         return result;
     }
-
     // Lấy tất cả chi cục thú y
     public List<VeterinaryDepartment> selectAll() {
-        List<VeterinaryDepartment> list = new ArrayList<>();
+        List<VeterinaryDepartment> departments = new ArrayList<>();
         String sql = "SELECT * FROM vet_subdepartment";
-        try (Connection con = JDBCUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
-            ResultSet rs = pst.executeQuery();
+        try (Connection con = JDBCUtil.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                list.add(mapResultSetToModel(rs));
+                departments.add(new VeterinaryDepartment(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("region")
+                ));
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return list;
+        return departments;
     }
+
+    
 
     // Lấy chi cục thú y theo ID
     public VeterinaryDepartment selectById(int departmentId) {
-        VeterinaryDepartment dept = null;
-        String sql = "SELECT * FROM vet_subdepartment WHERE id=?";
+        List<VeterinaryDepartment> result = queryWithConditions("id = ?", departmentId);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    // Tìm kiếm theo tên, địa chỉ, hoặc khu vực (phổ quát)
+    public List<VeterinaryDepartment> searchWithKeyword(String keyword) {
+        String condition = "LOWER(name) LIKE ? OR LOWER(address) LIKE ? OR LOWER(region) LIKE ?";
+        String param = "%" + keyword.toLowerCase() + "%";
+        return queryWithConditions(condition, param, param, param);
+    }
+
+    // Query with Dynamic Conditions
+    public List<VeterinaryDepartment> queryWithConditions(String condition, Object... params) {
+        List<VeterinaryDepartment> departments = new ArrayList<>();
+        String sql = "SELECT * FROM vet_subdepartment";
+        if (condition != null && !condition.trim().isEmpty()) {
+            sql += " WHERE " + condition;
+        }
+
         try (Connection con = JDBCUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setInt(1, departmentId);
+            for (int i = 0; i < params.length; i++) {
+                if (params[i] != null) {
+                    pst.setObject(i + 1, params[i]);
+                }
+            }
+
             ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                dept = mapResultSetToModel(rs);
+            while (rs.next()) {
+                departments.add(new VeterinaryDepartment(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("region")
+                ));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return dept;
+        return departments;
     }
 
-    // Phương thức thực thi chung cho insert và update
+    // Thực thi chung cho insert và update
     private int executeUpdate(String sql, VeterinaryDepartment dept, boolean isUpdate) {
         int result = 0;
         try (Connection con = JDBCUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
@@ -83,23 +121,13 @@ public class VeterinaryDepartmentDAO {
             pst.setString(3, dept.getPhone());
             pst.setString(4, dept.getEmail());
             pst.setString(5, dept.getRegion());
-            if (isUpdate) pst.setInt(6, dept.getId());
+            if (isUpdate) {
+                pst.setInt(6, dept.getId());
+            }
             result = pst.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return result;
-    }
-
-    // Map dữ liệu từ ResultSet sang model
-    private VeterinaryDepartment mapResultSetToModel(ResultSet rs) throws SQLException {
-        return new VeterinaryDepartment(
-            rs.getInt("id"),
-            rs.getString("name"),
-            rs.getString("address"),
-            rs.getString("phone"),
-            rs.getString("email"),
-            rs.getString("region")
-        );
     }
 }

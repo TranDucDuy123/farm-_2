@@ -4,41 +4,66 @@ import dao.VeterinaryDepartmentDAO;
 import model.VeterinaryDepartment;
 
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class SearchVeterinaryDepartment {
 
-    // Tìm kiếm theo tên chi cục thú y
+    // Singleton Instance
+    private static SearchVeterinaryDepartment instance;
+
+    public static SearchVeterinaryDepartment getInstance() {
+        if (instance == null) {
+            instance = new SearchVeterinaryDepartment();
+        }
+        return instance;
+    }
+
+    // Tìm kiếm theo tên
     public List<VeterinaryDepartment> searchByName(String name) {
-        return filterByCondition(dept -> dept.getName() != null &&
-                dept.getName().toLowerCase().contains(name.trim().toLowerCase()));
-    }
-
-    // Tìm kiếm theo người liên hệ (email)
-    public List<VeterinaryDepartment> searchByEmail(String email) {
-        return filterByCondition(dept -> dept.getEmail() != null &&
-                dept.getEmail().toLowerCase().contains(email.trim().toLowerCase()));
-    }
-
-    // Tìm kiếm theo số điện thoại
-    public List<VeterinaryDepartment> searchByPhone(String phone) {
-        return filterByCondition(dept -> dept.getPhone() != null &&
-                dept.getPhone().trim().equals(phone.trim()));
+        String condition = "LOWER(name) LIKE ?";
+        String param = "%" + name.toLowerCase() + "%";
+        return VeterinaryDepartmentDAO.getInstance().queryWithConditions(condition, param);
     }
 
     // Tìm kiếm theo khu vực
     public List<VeterinaryDepartment> searchByRegion(String region) {
-        return filterByCondition(dept -> dept.getRegion() != null &&
-                dept.getRegion().toLowerCase().contains(region.trim().toLowerCase()));
+        String condition = "region = ?";
+        return VeterinaryDepartmentDAO.getInstance().queryWithConditions(condition, region);
     }
 
-    // Phương thức chung để lọc danh sách dựa trên điều kiện linh hoạt
-    private List<VeterinaryDepartment> filterByCondition(Predicate<VeterinaryDepartment> condition) {
-        return VeterinaryDepartmentDAO.getInstance()
-                .selectAll()
-                .stream()
-                .filter(condition)
-                .collect(Collectors.toList());
+    // Tìm kiếm theo địa chỉ
+    public List<VeterinaryDepartment> searchByAddress(String address) {
+        String condition = "LOWER(address) LIKE ?";
+        String param = "%" + address.toLowerCase() + "%";
+        return VeterinaryDepartmentDAO.getInstance().queryWithConditions(condition, param);
+    }
+
+    // Tìm kiếm với từ khóa tổng quát
+    public List<VeterinaryDepartment> searchByKeyword(String keyword) {
+        String condition = "LOWER(name) LIKE ? OR LOWER(address) LIKE ? OR LOWER(region) LIKE ?";
+        String param = "%" + keyword.toLowerCase() + "%";
+        return VeterinaryDepartmentDAO.getInstance().queryWithConditions(condition, param, param, param);
+    }
+
+    // Tìm kiếm nâng cao (kết hợp nhiều tiêu chí)
+    public List<VeterinaryDepartment> advancedSearch(String name, String region, String address) {
+        StringBuilder condition = new StringBuilder();
+        if (name != null && !name.isEmpty()) {
+            condition.append("LOWER(name) LIKE ? ");
+        }
+        if (region != null && !region.isEmpty()) {
+            if (condition.length() > 0) condition.append("AND ");
+            condition.append("region = ? ");
+        }
+        if (address != null && !address.isEmpty()) {
+            if (condition.length() > 0) condition.append("AND ");
+            condition.append("LOWER(address) LIKE ? ");
+        }
+
+        return VeterinaryDepartmentDAO.getInstance().queryWithConditions(
+            condition.toString(),
+            name != null ? "%" + name.toLowerCase() + "%" : null,
+            region,
+            address != null ? "%" + address.toLowerCase() + "%" : null
+        );
     }
 }
