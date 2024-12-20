@@ -35,6 +35,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddCustomer.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddTestingFacility.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\model\VeterinaryDepartment.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddVeterinaryAgency.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddSlaughterhouse.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\BCrypt.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SendEmailSMTP.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\VeterinaryDepartmentForm.java
@@ -74,6 +75,7 @@ D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddProductionFacility.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\model\Slaughterhouse.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\AddNhaCungCap.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\controller\SearchVeterinaryAgency.java
+D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\UpdateSlaughterhouse.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\view\UpdateTestingFacility.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\SystemActionHistoryDAO.java
 D:\quan_ly_kho_update\quan_ly_kho\src\main\java\dao\FarmCertificateDAO.java

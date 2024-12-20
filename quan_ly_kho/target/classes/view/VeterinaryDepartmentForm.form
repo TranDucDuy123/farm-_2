@@ -323,12 +323,7 @@
             <Component class="javax.swing.JComboBox" name="searchDepartmentComboBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                    <StringItem index="1" value="T&#xea;n chi c&#x1ee5;c"/>
-                    <StringItem index="2" value="Khu v&#x1ef1;c"/>
-                    <StringItem index="3" value="&#x110;&#x1ecb;a ch&#x1ec9;"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <Events>

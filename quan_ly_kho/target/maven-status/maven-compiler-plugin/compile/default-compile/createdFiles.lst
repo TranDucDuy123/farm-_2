@@ -15,6 +15,7 @@ view\Admin$28.class
 view\AddProduct.class
 view\AnimalQuarantineForm$11.class
 view\CertificateForm$9.class
+view\AddSlaughterhouse$9$1.class
 view\Admin$5.class
 view\CertificateForm$4.class
 view\UpdatePhieuNhap$4.class
@@ -36,12 +37,12 @@ view\Login$7.class
 view\AnimalQuarantineForm$7.class
 view\ThongKeForm$14.class
 view\Admin$23.class
-view\SlaughterhouseForm$11.class
 view\PhieuNhapForm$16.class
 view\XuatHangForm$4.class
 view\CTThongKeAcc.class
 view\AddProductionFacility$5.class
 view\NhaCungCapForm$7.class
+view\UpdateSlaughterhouse$5.class
 view\SystemActionForm$9.class
 dao\FarmCertificateDAO.class
 view\AnimalQuarantineForm$2.class
@@ -54,6 +55,7 @@ controller\SearchSystemGuides.class
 controller\SearchVeterinaryDepartment.class
 view\AddCertification$1.class
 view\ProductionFacilityForm$4.class
+view\AddSlaughterhouse$2.class
 view\ProductForm$1.class
 model\Phieu.class
 view\UpdateProduct$1.class
@@ -97,6 +99,7 @@ view\TestingFacilityForm$2.class
 view\AddAnimalQuarantine$1.class
 view\ThongKeForm$4.class
 model\Commune.class
+view\AddSlaughterhouse$6.class
 model\SystemGuide.class
 view\ProductForm$5.class
 view\PhieuNhapForm$1.class
@@ -108,6 +111,7 @@ view\AddOrganization$4.class
 view\UpdateAnimalQuarantine$1.class
 view\ProductionFacilityForm$9.class
 view\FarmForm$2.class
+view\AddSlaughterhouse$7.class
 view\CTThongKe$1.class
 view\PhieuXuatForm$2.class
 view\UpdateOrganization$5.class
@@ -122,7 +126,6 @@ controller\SearchOrganization.class
 view\QuanLiKho$2.class
 view\NhapKho$3.class
 view\Admin$11.class
-view\SlaughterhouseForm$10.class
 view\PhieuNhapForm$2.class
 dao\ThongKeDAO.class
 view\SlaughterhouseForm.class
@@ -142,6 +145,7 @@ view\Admin$16.class
 view\AddProduct$4.class
 view\TestingFacilityForm$1.class
 view\ChangePassword$1.class
+view\AddSlaughterhouse.class
 view\LivestockHealthForm$4.class
 view\DetailCustomer$1$1.class
 view\AddTestingFacility$7.class
@@ -152,6 +156,7 @@ view\ProductForm$6.class
 view\ThongKeForm$10.class
 view\TonKhoForm$2.class
 model\ProductionFacility.class
+view\UpdateSlaughterhouse$9.class
 dao\VeterinaryAgencyDAO.class
 view\UpdateAnimalQuarantine$5.class
 view\UpdatePhieuXuat$5.class
@@ -201,6 +206,7 @@ view\UpdateLivestockHealth$2.class
 model\VeterinaryAgency.class
 view\AnimalQuarantineForm$8.class
 view\UpdateProduct$3$1.class
+view\UpdateSlaughterhouse$6.class
 controller\SendEmailSMTP$1.class
 view\UpdateAnimalQuarantine$2.class
 controller\SendEmailSMTP.class
@@ -223,9 +229,11 @@ view\ThongKeForm$15.class
 view\AccessHistoryForm$7.class
 model\Organization.class
 view\PhieuNhapForm$3.class
+view\AddSlaughterhouse$5.class
 view\QuarantineZoneForm$10.class
 view\AnimalQuarantineForm$6.class
 view\Login$1.class
+view\UpdateSlaughterhouse$4.class
 view\ProductionFacilityForm$11.class
 view\VeterinaryDepartmentForm$8.class
 view\ThongKeForm$18.class
@@ -233,7 +241,9 @@ view\AddProduct$4$1.class
 view\Admin$19.class
 view\NhapKho$5.class
 view\SystemActionForm$12.class
+view\UpdateSlaughterhouse$1.class
 view\VeterinaryDepartmentForm.class
+view\UpdateSlaughterhouse$9$1.class
 view\AddProductionFacility$1.class
 view\AddNhaCungCap$2.class
 view\PhieuNhapForm$5.class
@@ -244,6 +254,7 @@ view\QuarantineZoneForm$12.class
 view\UpdateOrganization$1.class
 view\XuatHangForm$1.class
 service\SearchTestingFacility.class
+view\AddSlaughterhouse$3.class
 view\TestingFacilityForm$10.class
 dao\DAOInterface.class
 view\TonKhoForm$9.class
@@ -303,6 +314,7 @@ view\OrganizationForm$8.class
 view\UpdateVeterinaryAgency$6.class
 view\UpdateVeterinaryAgency$9$1.class
 view\ChangePassword.class
+view\AddSlaughterhouse$1.class
 view\QuarantineZoneForm$4.class
 view\Login$9.class
 controller\SearchVeterinaryAgency.class
@@ -360,6 +372,7 @@ view\AccessHistoryForm$3.class
 view\ThongKeForm$1.class
 view\UpdateProductionFacility$1.class
 view\UpdateTestingFacility$4.class
+view\AddSlaughterhouse$9.class
 view\ProductionFacilityForm$6.class
 view\OrganizationForm$6.class
 view\RecoverPassword.class
@@ -418,6 +431,7 @@ dao\FarmDAO.class
 view\SystemActionForm$10.class
 view\QuarantineZoneForm$13.class
 view\Admin$26.class
+view\UpdateSlaughterhouse$2.class
 view\AccessHistoryForm$8.class
 view\UpdatePhieuNhap$6.class
 controller\SearchNhaCungCap.class
@@ -426,6 +440,7 @@ view\ThongKeForm$16.class
 view\AddFarm$2.class
 view\AddAccount$2.class
 view\PhieuNhapForm.class
+view\AddSlaughterhouse$4.class
 view\AnimalQuarantineForm$5.class
 view\UpdateVeterinaryDepartment$1.class
 dao\PhieuXuatDAO.class
@@ -435,6 +450,7 @@ WritePDF.class
 view\Admin$12.class
 view\Admin$25.class
 view\TonKhoForm$1.class
+view\UpdateSlaughterhouse$3.class
 view\CustomerForm$9.class
 view\Admin$18.class
 view\ProductionFacilityForm$13.class
@@ -483,13 +499,14 @@ view\AccountForm$10.class
 view\AccountForm$1.class
 view\OrganizationForm$11.class
 view\UpdateAccount$5.class
-view\SlaughterhouseForm$13.class
+view\AddSlaughterhouse$8.class
 view\UpdatePhieuNhap$2.class
 controller\SearchFarm.class
 view\AddProduct$1.class
 view\TonKhoForm$5.class
 view\ProductForm$9.class
 view\UpdateCertification$5.class
+view\UpdateSlaughterhouse$7.class
 view\Admin$21.class
 view\NhapHangForm.class
 view\CTPhieuXuat$1.class
@@ -501,11 +518,11 @@ view\UpdateAnimalQuarantine$4.class
 view\QuanLiKho$1.class
 view\UpdatePhieuXuat$6.class
 view\UpdateCertification$4.class
+view\UpdateSlaughterhouse$8.class
 view\Admin$20.class
 view\TestingFacilityForm$4.class
 view\AddOrganization$1.class
 view\AddAnimalQuarantine$5.class
-view\SlaughterhouseForm$14.class
 view\Admin$2.class
 view\UpdateAccount$4.class
 view\Admin$13.class
@@ -533,7 +550,6 @@ controller\BCrypt.class
 model\PhieuXuat.class
 view\ThongKeForm$7.class
 view\ThongKeForm$26.class
-view\SlaughterhouseForm$12.class
 controller\ConvertDate.class
 dao\SystemGuideDAO.class
 view\AddVeterinaryAgency$8.class
@@ -593,6 +609,7 @@ dao\SanPhamDAO.class
 view\LivestockHealthForm$9.class
 view\TestingFacilityForm.class
 view\UpdateProduct$3.class
+view\UpdateSlaughterhouse.class
 view\SlaughterhouseForm$5.class
 view\QuanLiKho$6.class
 view\Login.class

@@ -44,11 +44,14 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import controller.SearchProductionFacility;
+import controller.SearchSlaughterhouse;
 import dao.FarmCertificateDAO;
 import dao.LivestockHealthDAO;
 import dao.OrganizationDAO;
 import dao.SlaughterhouseDAO;
 import java.awt.event.KeyEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.Slaughterhouse;
 
 /**
@@ -56,7 +59,8 @@ import model.Slaughterhouse;
  * @author Admin
  */
 public class SlaughterhouseForm extends javax.swing.JInternalFrame {
-   private DefaultTableModel tblModel;
+   // Model table cho Slaughterhouse
+    private DefaultTableModel tblModel;
     private ArrayList<Slaughterhouse> slaughterhouseList;
 
     public SlaughterhouseForm() {
@@ -68,56 +72,54 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
         tblSlaughterhouse.setDefaultEditor(Object.class, null); // Không cho chỉnh sửa trực tiếp trong bảng
         initTable();
 
+        // Thêm các tùy chọn tìm kiếm vào ComboBox
+        searchSlaughterhouseComboBox.addItem("Tất cả");
+        searchSlaughterhouseComboBox.addItem("Tên");
+        searchSlaughterhouseComboBox.addItem("Loại");
+        searchSlaughterhouseComboBox.addItem("Địa chỉ");
+        searchSlaughterhouseComboBox.addItem("Trạng thái");
+
         // Tải dữ liệu từ DAO
         slaughterhouseList = (ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll();
         loadDataToTable(slaughterhouseList);
     }
-
-    // Phương thức khởi tạo bảng
+     // Phương thức khởi tạo bảng
     public final void initTable() {
         tblModel = new DefaultTableModel();
         String[] headerTbl = new String[]{
-            "ID", "Tên lò mổ", "Địa chỉ", "Số điện thoại", "Loại", "Công suất", "Trạng thái"
+            "ID", "Tên lò mổ", "Địa chỉ", "Số điện thoại", "Loại", "Sức chứa", "Trạng thái"
         };
         tblModel.setColumnIdentifiers(headerTbl);
         tblSlaughterhouse.setModel(tblModel);
     }
 
-    // Phương thức load dữ liệu `Slaughterhouse` vào bảng
-    public void loadDataToTable(ArrayList<Slaughterhouse> slaughterhouseList) {
+     public void loadDataToTable(ArrayList<Slaughterhouse> slaughterhouseList) {
         try {
             tblModel.setRowCount(0); // Xóa các dòng cũ trong bảng
-            if (slaughterhouseList != null) {
-                for (Slaughterhouse slaughterhouse : slaughterhouseList) {
-                    tblModel.addRow(new Object[]{
-                        slaughterhouse.getId(),
-                        slaughterhouse.getName(),
-                        slaughterhouse.getAddress(),
-                        slaughterhouse.getPhone(),
-                        slaughterhouse.getType(),
-                        slaughterhouse.getCapacity(),
-                        slaughterhouse.getStatus()
-                    });
-                }
-            } else {
-                System.out.println("Danh sách lò mổ trống.");
+            for (Slaughterhouse slaughterhouse : slaughterhouseList) {
+                tblModel.addRow(new Object[]{
+                    slaughterhouse.getId(),
+                    slaughterhouse.getName(),
+                    slaughterhouse.getAddress(),
+                    slaughterhouse.getPhone(),
+                    slaughterhouse.getType(),
+                    slaughterhouse.getCapacity(),
+                    slaughterhouse.getStatus()
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    // Phương thức lấy Slaughterhouse được chọn từ bảng
+     // Phương thức lấy Slaughterhouse được chọn từ bảng
     public Slaughterhouse getSlaughterhouseSelected() {
         int i_row = tblSlaughterhouse.getSelectedRow();
         if (i_row >= 0) {
             int slaughterhouseId = (int) tblSlaughterhouse.getValueAt(i_row, 0); // Lấy `id` từ cột đầu tiên
             return SlaughterhouseDAO.getInstance().selectById(slaughterhouseId);
         }
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một lò mổ!");
-        return null;
+        return null; // Nếu không chọn dòng nào
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,8 +150,8 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         exportExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxSearchOption = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        searchSlaughterhouseComboBox = new javax.swing.JComboBox<>();
+        searchSlaughterhouseTextField = new javax.swing.JTextField();
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSlaughterhouse = new javax.swing.JTable();
@@ -314,45 +316,8 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbxSearchOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Loại chứng chỉ", "Ngày cấp", "Trạng thái" }));
-        cbxSearchOption.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSearchOptionActionPerformed(evt);
-            }
-        });
-        cbxSearchOption.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cbxSearchOptionPropertyChange(evt);
-            }
-        });
-        jPanel3.add(cbxSearchOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
-
-        txtSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtSearchInputMethodTextChanged(evt);
-            }
-        });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        txtSearch.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtSearchPropertyChange(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
-            }
-        });
-        jPanel3.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
+        jPanel3.add(searchSlaughterhouseComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
+        jPanel3.add(searchSlaughterhouseTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 320, 40));
 
         btnreset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_reset_25px_1.png"))); // NOI18N
         btnreset.setText("Làm mới");
@@ -401,16 +366,22 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        AddLivestockHealth form = new AddLivestockHealth(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
-        form.setVisible(true);
+        AddSlaughterhouse a = new AddSlaughterhouse(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
+        a.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccountActionPerformed
-        if (tblSlaughterhouse.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn bệnh dịch cần chỉnh sửa!");
+         if (tblSlaughterhouse.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn lò mổ cần chỉnh sửa!");
         } else {
-            UpdateLivestockHealth updateHealthForm = new UpdateLivestockHealth(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
-            updateHealthForm.setVisible(true);
+            Slaughterhouse selectedSlaughterhouse = getSlaughterhouseSelected();
+            if (selectedSlaughterhouse != null) {
+                UpdateSlaughterhouse updateForm = new UpdateSlaughterhouse(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled, selectedSlaughterhouse);
+                updateForm.setVisible(true);
+                loadDataToTable((ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Không thể lấy thông tin lò mổ được chọn!");
+            }
         }
     }//GEN-LAST:event_btnEditAccountActionPerformed
 
@@ -443,12 +414,19 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
     private void exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportExcelActionPerformed
         try {
             JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.showSaveDialog(this);
-            File saveFile = jFileChooser.getSelectedFile();
-            if (saveFile != null) {
-                saveFile = new File(saveFile.toString() + ".xlsx");
+            jFileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+            int userSelection = jFileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File saveFile = jFileChooser.getSelectedFile();
+
+                // Đảm bảo file có đuôi .xlsx
+                if (!saveFile.toString().toLowerCase().endsWith(".xlsx")) {
+                    saveFile = new File(saveFile.toString() + ".xlsx");
+                }
+
                 Workbook wb = new XSSFWorkbook();
-                Sheet sheet = wb.createSheet("LivestockHealth");
+                Sheet sheet = wb.createSheet("Slaughterhouse");
 
                 // Tạo hàng tiêu đề
                 Row rowCol = sheet.createRow(0);
@@ -467,14 +445,17 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
                         }
                     }
                 }
+
                 // Ghi dữ liệu ra file Excel
-                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
-                wb.write(out);
-                wb.close();
-                out.close();
+                try (FileOutputStream out = new FileOutputStream(saveFile)) {
+                    wb.write(out);
+                }
+
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công: " + saveFile.getAbsolutePath());
                 openFile(saveFile.toString());
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_exportExcelActionPerformed
@@ -486,45 +467,66 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Không thể mở file: " + e.getMessage());
             }
         }
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void txtSearchPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtSearchPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtSearchPropertyChange
-
-    private void txtSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtSearchInputMethodTextChanged
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_txtSearchInputMethodTextChanged
-
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
          loadDataToTable((ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll());
     }//GEN-LAST:event_btnresetActionPerformed
-
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-       
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        
-    }//GEN-LAST:event_txtSearchKeyReleased
     
 
     private void btnEditAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccount1ActionPerformed
        
     }//GEN-LAST:event_btnEditAccount1ActionPerformed
 
-    private void cbxSearchOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSearchOptionActionPerformed
-     
-    }//GEN-LAST:event_cbxSearchOptionActionPerformed
+    private void triggerSearch() {
+        String searchOption = searchSlaughterhouseComboBox.getSelectedItem().toString();
+        String keyword = searchSlaughterhouseTextField.getText().trim();
+        ArrayList<Slaughterhouse> result = new ArrayList<>();
 
-    private void cbxSearchOptionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbxSearchOptionPropertyChange
-      
-    }//GEN-LAST:event_cbxSearchOptionPropertyChange
+        switch (searchOption) {
+            case "Tất cả":
+                result = (ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll();
+                break;
+            case "Tên":
+                result = (ArrayList<Slaughterhouse>) SearchSlaughterhouse.getInstance().searchByName(keyword);
+                break;
+            case "Loại":
+                result = (ArrayList<Slaughterhouse>) SearchSlaughterhouse.getInstance().searchByType(keyword);
+                break;
+            case "Trạng thái":
+                result = (ArrayList<Slaughterhouse>) SearchSlaughterhouse.getInstance().searchByStatus(keyword);
+                break;
+            case "Địa chỉ":
+                result = (ArrayList<Slaughterhouse>) SearchSlaughterhouse.getInstance().searchByAddress(keyword);
+                break;
+            case "Từ khóa":
+                result = (ArrayList<Slaughterhouse>) SearchSlaughterhouse.getInstance().searchByKeyword(keyword);
+                break;
+        }
 
+        loadDataToTable(result);
+    }
+    // Thêm lắng nghe thay đổi trong ô nhập tìm kiếm
+    private void initSearchEvent() {
+        searchSlaughterhouseTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                triggerSearch();
+            }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (searchSlaughterhouseTextField.getText().trim().isEmpty()) {
+                    loadDataToTable((ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll());
+                } else {
+                    triggerSearch();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                triggerSearch();
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -533,7 +535,6 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditAccount1;
     private javax.swing.JButton btnreset;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbxSearchOption;
     private javax.swing.JButton exportExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -551,8 +552,9 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox<String> searchSlaughterhouseComboBox;
+    private javax.swing.JTextField searchSlaughterhouseTextField;
     public javax.swing.JTable tblSlaughterhouse;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     void loadDataToTable() {
