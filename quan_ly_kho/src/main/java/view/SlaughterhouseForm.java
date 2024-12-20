@@ -371,17 +371,11 @@ public class SlaughterhouseForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccountActionPerformed
-         if (tblSlaughterhouse.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn lò mổ cần chỉnh sửa!");
+        if (tblSlaughterhouse.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn cơ sở cần chỉnh sửa!");
         } else {
-            Slaughterhouse selectedSlaughterhouse = getSlaughterhouseSelected();
-            if (selectedSlaughterhouse != null) {
-                UpdateSlaughterhouse updateForm = new UpdateSlaughterhouse(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled, selectedSlaughterhouse);
-                updateForm.setVisible(true);
-                loadDataToTable((ArrayList<Slaughterhouse>) SlaughterhouseDAO.getInstance().selectAll());
-            } else {
-                JOptionPane.showMessageDialog(this, "Không thể lấy thông tin lò mổ được chọn!");
-            }
+            UpdateSlaughterhouse updateFacilityDialog = new UpdateSlaughterhouse(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
+            updateFacilityDialog.setVisible(true);
         }
     }//GEN-LAST:event_btnEditAccountActionPerformed
 

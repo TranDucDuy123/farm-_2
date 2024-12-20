@@ -62,7 +62,8 @@ public class AddSlaughterhouse extends javax.swing.JDialog {
         String phone = txtPhone.getText().trim();
         String type = cbxType.getSelectedItem().toString();
         String capacityStr = txtCapacity.getText().trim();
-        String status = jRadioButton1.isSelected() ? "Active" : "Inactive";
+       // Sử dụng giá trị phù hợp từ radio button
+        String status = jRadioButton1.isSelected() ? "Operational" : "Under Maintenance";
 
         // Kiểm tra dữ liệu nhập
         if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || capacityStr.isEmpty() || type.equals("Chọn loại")) {

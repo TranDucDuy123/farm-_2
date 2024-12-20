@@ -156,7 +156,6 @@ view\ProductForm$6.class
 view\ThongKeForm$10.class
 view\TonKhoForm$2.class
 model\ProductionFacility.class
-view\UpdateSlaughterhouse$9.class
 dao\VeterinaryAgencyDAO.class
 view\UpdateAnimalQuarantine$5.class
 view\UpdatePhieuXuat$5.class
@@ -243,7 +242,6 @@ view\NhapKho$5.class
 view\SystemActionForm$12.class
 view\UpdateSlaughterhouse$1.class
 view\VeterinaryDepartmentForm.class
-view\UpdateSlaughterhouse$9$1.class
 view\AddProductionFacility$1.class
 view\AddNhaCungCap$2.class
 view\PhieuNhapForm$5.class
